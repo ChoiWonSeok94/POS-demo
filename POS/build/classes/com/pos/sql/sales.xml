@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="Sales">
+	<insert id="salesCalInsert" parameterType="com.pos.Vo.SalesVo" useGeneratedKeys="true" keyColumn="SALES_SER_NO" keyProperty="SALES_SER_NO">
+		INSERT INTO SALES_TBL(
+			SALES_DT
+			,SALES_SER_NO
+			,TER_NO
+			,TRANS_DT
+			,TRANS_TM
+			,MEMB_TY
+			,MEMB_SER_NO
+			,CANC_TY
+			)
+		VALUES(
+			TO_CHAR(SYSDATE, 'YYYYMMDD')
+			,SALES_ID_SEQ.NEXTVAL
+			,#{TER_NO}
+			,TO_CHAR(SYSDATE, 'YYYYMMDD')
+			,TO_CHAR(SYSDATE, 'HH24MISS')
+			,#{MEMB_TY}
+			,#{MEMB_SER_NO}
+			,#{CANC_TY}
+			)
+	</insert>
+	
+	<insert id="salesProdCalInsert" parameterType="com.pos.Vo.SalesProdVo">
+		INSERT INTO SALES_PROD_TBL(
+			SALES_DT
+			,SALES_SER_NO
+			,SER_NO
+			,PROD_CD
+			,QTY
+			,SALES_PR
+			,VAT
+			,SALE_AMT
+			,SALES_AMT
+			,TAX_TY
+			,TRANS_TY
+			)
+		VALUES(
+			TO_CHAR(SYSDATE, 'YYYYMMDD')
+			,#{SALES_SER_NO}
+			,#{SER_NO}
+			,(
+			SELECT
+				PROD_CD
+			FROM
+				PROD_TBL
+			WHERE
+				BAR_CODE = #{PROD_CD}
+			)
+			,#{QTY}
+			,#{SALES_PR}
+			,' '
+			,#{SALE_AMT}
+			,#{SALES_AMT}
+			,'1'
+			,#{TRANS_TY}
+			)
+	</insert>
+	
+	<insert id="salesPayCalInsert" parameterType="com.pos.Vo.SalesPayVo">
+		INSERT INTO SALES_PAY_TBL(
+			SALES_DT
+			,SALES_SER_NO
+			,SER_NO
+			,SALES_TY
+			,SALES_AMT
+			)
+		VALUES(
+			TO_CHAR(SYSDATE, 'YYYYMMDD')
+			,#{SALES_SER_NO}
+			,#{SER_NO}
+			,#{SALES_TY}
+			,#{SALES_AMT}
+			)
+	</insert>
+	
+	<!-- <select id="productDetailSalesAmt" resultType="map">
+		SELECT
+			SALES_DT
+			,SALES_SER_NO
+			,SER_NO
+			,PROD_CD
+			,QTY
+			,SALES_PR
+			,VAT
+			,SALES_AMT
+			,TAX_TY
+			,TRANS_TY
+		FROM
+			SALES_PROD_TBL
+		WHERE
+			SALES_SER_NO = #{SALES_SER_NO}
+			판매결제(SALES_PAY_TBL)랑 조인해서 판매구분(SALES_TY)도 가져와야 함
+	</select> -->
+	
+	<update id="cancelPart" parameterType="com.pos.Vo.SalesProdVo">
+		<selectKey order="BEFORE" resultType="String" keyProperty="TRANS_TY">
+			SELECT
+				TRANS_TY
+			FROM
+				SALES_PROD_TBL
+			WHERE
+				SALES_SER_NO = #{SALES_SER_NO}
+				AND SER_NO = #{SER_NO}
+		</selectKey>
+		UPDATE 
+			SALES_PROD_TBL 
+		SET 
+			TRANS_TY = '3'
+		WHERE
+			SALES_SER_NO = #{SALES_SER_NO}
+			AND SER_NO = #{SER_NO}
+	</update>
+	
+	<!-- 
+		판매구분 SALES_PAY_TBL.SALES_TY
+		전화번호 MEMB_TBL.MOB_PH_NO
+		바코드번호 PROD_TBL.BAR_CODE
+		거래시간 SALES_TBL.TRANS_DT
+		거래일자 SALES_TBL.TRANS_TM
+	 -->
+	<select id="srcBtnSales" resultType="map" parameterType="java.util.Map">
+		SELECT
+		    SALPAY.SALES_TY
+		    ,SAL.SALES_SER_NO
+		    ,SAL.MEMB_SER_NO
+		    ,SAL.MEMB_TY
+		    ,SALPAY.SALES_AMT
+		    ,SAL.TRANS_DT||SAL.TRANS_TM AS TRANS_TM
+		    ,SAL.CANC_TY
+		FROM
+		    SALES_TBL SAL
+		    	<if test="BAR_CODE != ''">
+		    		INNER JOIN SALES_PROD_TBL SALPROD ON(SALPROD.SALES_SER_NO = SAL.SALES_SER_NO)
+		    	</if>
+		    	INNER JOIN SALES_PAY_TBL SALPAY ON(SAL.SALES_SER_NO = SALPAY.SALES_SER_NO)
+		    	<if test="MOB_PH_NO != ''">
+		    		INNER JOIN MEMB_TBL MEM ON(SAL.MEMB_SER_NO = MEM.MEMB_SER_NO)
+		    	</if>
+		WHERE
+			SAL.TRANS_DT||SAL.TRANS_TM BETWEEN #{sDate}||#{sTime} AND #{eDate}||#{eTime}
+		    AND SALPAY.SALES_TY = #{SALES_TY}
+		    <if test="BAR_CODE != ''">
+		    	AND SALPROD.PROD_CD = (SELECT DISTINCT
+		                                	SALPROD.PROD_CD
+		                            	FROM
+		                                	PROD_TBL P
+		                                	INNER JOIN SALES_PROD_TBL SALPROD ON(P.PROD_CD = SALPROD.PROD_CD)
+		                            	WHERE
+		                                	P.BAR_CODE = #{BAR_CODE})
+		    </if>
+		    <if test="MOB_PH_NO != ''">
+		    	AND MEM.MOB_PH_NO LIKE '%'||#{MOB_PH_NO}||'%'
+		    </if>
+		ORDER BY
+			SAL.SALES_SER_NO ASC
+	</select>
+	
+	<select id="srcBtnSalesProduct" resultType="map" parameterType="java.util.Map">
+		SELECT
+			PROD.BAR_CODE
+			,PROD.PROD_NM
+    		,SALPROD.SER_NO
+			,SALPROD.QTY
+			,SALPROD.SALES_PR
+			,(SALPROD.QTY * SALPROD.SALES_PR) AS ASELL_PR
+			,SALPROD.SALE_AMT
+			,SALPROD.SALES_AMT
+			,SALPROD.TRANS_TY
+			,SALPROD.TAX_TY
+			,
+			(SELECT
+				SALES_AMT
+			FROM
+				SALES_PAY_TBL
+			WHERE
+				SALES_SER_NO = #{SALES_SER_NO}
+				) AS PAY_TBL_SALES_AMT
+		FROM
+			SALES_PROD_TBL SALPROD
+			INNER JOIN PROD_TBL PROD ON (SALPROD.PROD_CD = PROD.PROD_CD)
+		WHERE
+			SALPROD.SALES_SER_NO = #{SALES_SER_NO}
+		ORDER BY
+			SALPROD.SER_NO ASC
+	</select>
+	
+	<select id="countPayTbl" resultType="String">
+		SELECT 
+			TO_CHAR(COUNT(*)+1) AS COUNTPAYTBL
+		FROM
+			SALES_PAY_TBL
+	</select>
+	
+	<select id="countTransTy" resultType="int" parameterType="com.pos.Vo.SalesProdVo">
+		SELECT
+		    COUNT(*)
+		FROM
+		    SALES_PROD_TBL
+		WHERE
+		    SALES_SER_NO = #{SALES_SER_NO}
+		    AND TRANS_TY = '3'
+	</select>
+	
+	<select id="countSerNo" resultType="int" parameterType="com.pos.Vo.SalesProdVo">
+		SELECT
+		    COUNT(*)
+		FROM
+		    SALES_PROD_TBL
+		WHERE
+		    SALES_SER_NO = #{SALES_SER_NO}
+	</select>
+	
+	<update id="cancelRecipe" parameterType="com.pos.Vo.SalesProdVo">
+		UPDATE
+			SALES_TBL
+		SET
+			CANC_TY = '1'
+		WHERE
+			SALES_SER_NO = #{SALES_SER_NO}
+	</update>
+	
+	<update id="updateSalesTblSalesAmt" parameterType="com.pos.Vo.SalesProdVo">
+		UPDATE
+			SALES_PAY_TBL
+		SET
+			SALES_AMT = SALES_AMT - #{SALES_AMT}
+		WHERE
+			SALES_SER_NO = #{SALES_SER_NO}
+	</update>
+	
+	<select id="selectUpdateRecipe" resultType="map" parameterType="com.pos.Vo.SalesPayVo">
+		SELECT
+		    SALES_AMT
+		FROM
+		    SALES_PAY_TBL
+		WHERE
+		    SALES_SER_NO = #{SALES_SER_NO}
+	</select>
+</mapper>

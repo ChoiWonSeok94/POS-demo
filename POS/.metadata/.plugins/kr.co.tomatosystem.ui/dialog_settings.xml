@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="kr.co.tomatosystem.ui.swt.ColorPicker">
+		<item key="color-model" value="HEX"/>
+		<item key="DIALOG_X_ORIGIN" value="243"/>
+		<item key="DIALOG_Y_ORIGIN" value="318"/>
+		<item key="DIALOG_WIDTH" value="489"/>
+		<item key="DIALOG_HEIGHT" value="398"/>
+		<item key="DIALOG_FONT_NAME" value="1|맑은 고딕|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|0|0|맑은 고딕"/>
+		<list key="colors">
+			<item value="0.000000, 0.000000, 0.840426"/>
+		</list>
+	</section>
+</section>

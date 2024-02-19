@@ -1,0 +1,15 @@
+/************************************************
+ * POSHeader.js
+ * Created at 2024. 1. 17. 오후 3:58:55.
+ *
+ * @author sunrise
+ ************************************************/
+
+/*
+ * "Output" 아웃풋에서 value-change 이벤트 발생 시 호출.
+ * Output의 value를 변경하여 변경된 값이 저장된 후에 발생하는 이벤트.
+ */
+function onOutputValueChange(e){
+	var output = e.control;
+	
+}

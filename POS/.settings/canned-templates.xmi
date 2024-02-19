@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<settings:CannedTemplate xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:cl="http://tomatosystem.co.kr/cleopatra" xmlns:settings="kr.co.tomatosystem.exbuilder.model.ui.settings" uuid="64e4d06e-b4e3-4e16-83de-151eeed6ed79" name="헤더" preferredWidth="1024" preferredHeight="80" revision="6" description="헤더부분에 항상 탑재하기 위함">
+  <control xsi:type="cl:Group" sid="group-44ff4c35" style="text-align:center;" overscrollBehavior="none">
+    <metaData>
+      <properties key="template-uuid" value="64e4d06e-b4e3-4e16-83de-151eeed6ed79"/>
+      <properties key="template-rev" value="5"/>
+    </metaData>
+    <layoutData xsi:type="cl:XYLayoutData" sid="xyl-data-5672c0f5" top="0px" left="0px" width="1024px" height="80px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+    <controls xsi:type="cl:Output" comment="현재시간" sid="output-6a8d9478" id="sysDateTime" style="text-align:center;" readOnly="true" value="현재 날짜 시간 출력">
+      <layoutData xsi:type="cl:XYLayoutData" sid="xyl-data-313683d1" top="10px" left="20px" width="200px" height="60px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+    </controls>
+    <controls xsi:type="cl:Button" sid="button-2b8afcfd" value="POS">
+      <layoutData xsi:type="cl:XYLayoutData" sid="xyl-data-a6d4344b" top="21px" left="250px" width="100px" height="38px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+    </controls>
+    <controls xsi:type="cl:Button" sid="button-12de60ab" value="판매관리">
+      <layoutData xsi:type="cl:XYLayoutData" sid="xyl-data-e64c7c37" top="21px" left="359px" width="100px" height="38px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+    </controls>
+    <controls xsi:type="cl:Button" sid="button-2fbfe7a6" value="시재금">
+      <layoutData xsi:type="cl:XYLayoutData" sid="xyl-data-e5e525a6" top="21px" left="467px" width="100px" height="38px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+    </controls>
+    <controls xsi:type="cl:Button" sid="button-ab49a750" value="상품관리">
+      <layoutData xsi:type="cl:XYLayoutData" sid="xyl-data-350bd1c6" top="21px" left="575px" width="100px" height="38px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+    </controls>
+    <controls xsi:type="cl:Button" sid="button-ff4d6a80" value="거래처관리">
+      <layoutData xsi:type="cl:XYLayoutData" sid="xyl-data-354cdb01" top="21px" left="683px" width="100px" height="38px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+    </controls>
+    <controls xsi:type="cl:Button" sid="button-0fa87fc4" value="회원관리">
+      <layoutData xsi:type="cl:XYLayoutData" sid="xyl-data-ae405c99" top="21px" left="791px" width="100px" height="38px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+    </controls>
+    <controls xsi:type="cl:Button" sid="button-8dddc87f" value="매장관리">
+      <layoutData xsi:type="cl:XYLayoutData" sid="xyl-data-88ca99ce" top="21px" left="899px" width="100px" height="38px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+    </controls>
+    <layout xsi:type="cl:XYLayout" sid="xylayout-6eff429f" scrollable="false"/>
+  </control>
+</settings:CannedTemplate>

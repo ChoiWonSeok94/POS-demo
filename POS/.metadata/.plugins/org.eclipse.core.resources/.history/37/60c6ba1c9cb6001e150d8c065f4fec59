@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Hello, eXbuilder6</title>
+<link rel="shortcut icon" href="/favicon.ico">
+</head>
+<body>
+	<script type="text/javascript">
+		window.location = "index.do";
+	</script>
+	<h2>고고</h2>
+</body>
+</html>

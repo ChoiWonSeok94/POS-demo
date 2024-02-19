@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<settings:CannedTemplate xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:cl="http://tomatosystem.co.kr/cleopatra" xmlns:settings="kr.co.tomatosystem.exbuilder.model.ui.settings" uuid="64e4d06e-b4e3-4e16-83de-151eeed6ed79" name="헤더" preferredWidth="1022" preferredHeight="100" description="헤더부분에 항상 탑재하기 위함">
+  <control xsi:type="cl:Group" sid="group-44ff4c35">
+    <layoutData xsi:type="cl:XYLayoutData" sid="xyl-data-b622c691" top="0px" left="0px" width="1022px" height="100px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+    <layout xsi:type="cl:XYLayout" sid="xylayout-6eff429f"/>
+  </control>
+</settings:CannedTemplate>

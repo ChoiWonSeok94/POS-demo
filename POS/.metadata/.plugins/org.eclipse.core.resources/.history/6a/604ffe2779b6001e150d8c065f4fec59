@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:cl="http://tomatosystem.co.kr/cleopatra" xmlns:std="http://tomatosystem.co.kr/cleopatra/studio" std:sid="html-43747359" version="1.0.4807">
+  <head std:sid="head-13ded587">
+    <screen std:sid="screen-46c44f8e" id="default" name="default" minwidth="1024px" width="1024px" height="768px" customHeight="600" customWidth="800" active="true"/>
+    <screen std:sid="screen-48f8ab7b" id="tablet" name="tablet" minwidth="500px" maxwidth="1023px" width="500px" height="667px" customHeight="600" customWidth="800" active="false"/>
+    <screen std:sid="screen-228424cc" id="mobile" name="mobile" maxwidth="499px" width="350px" height="525px"/>
+    <cl:model std:sid="model-efe07653"/>
+    <cl:appspec/>
+  </head>
+  <body std:sid="body-afe2a2b6">
+    <cl:embeddedpage std:sid="e-page-a438d591" id="ep1">
+      <cl:xylayoutdata std:sid="xyl-data-091d0fed" top="20px" left="20px" width="984px" height="85px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+    </cl:embeddedpage>
+    <cl:xylayout std:sid="xylayout-004fcdef"/>
+  </body>
+  <std:studiosetting>
+    <std:hruler/>
+    <std:vruler/>
+  </std:studiosetting>
+</html>

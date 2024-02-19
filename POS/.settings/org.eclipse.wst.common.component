@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+            
+    
+    <wb-module deploy-name="POS">
+        <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
+        <wb-resource deploy-path="/resource" source-path="/exbuilder/runtime" tag="exbuilderClientSource"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/exbuilder/config" tag="exbuilderConfig"/>
+        <wb-resource deploy-path="/ui" source-path="/.exbuilder-fragments/POS-UI" tag="exbuilderProjectReference"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/resoruces"/>
+                        
+        
+        <property name="context-root" value="POS"/>
+                        
+        
+        <property name="java-output-path" value="/POS/com/pos/*"/>
+                    
+    
+    </wb-module>
+        
+
+</project-modules>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="Product">
+	
+	<select id="srcProductByBarCode" resultType="map">
+		SELECT *
+		FROM 
+			PROD_TBL
+		WHERE 
+			BAR_CODE = #{BAR_CODE}
+	</select>
+	
+	<insert id="productInsert">
+		INSERT INTO	PROD_TBL(
+			PROD_CD
+			,PROD_CLS_CD
+			,PROD_NM
+			,PROD_ENG_NM
+			,ORIG_NAT
+			,PURC_PR
+			,SELL_PR
+			,BAR_CODE
+			,CLIENT_NO
+			,SALE_OR_NOT
+			,TAXAT_TY
+			,MEM_POINT
+			<if test="COLOR != null || COLOR != ''">
+				,COLOR
+			</if>
+			<if test="PROD_SIZE != null || PROD_SIZE != ''">
+				,PROD_SIZE
+			</if>
+			<if test="SALE_PR != null || SALE_PR != ''">
+				,SALE_PR
+			</if>
+			)
+		VALUES(
+			PROD_ID_SEQ.NEXTVAL
+			,#{PROD_CLS_CD}
+			,#{PROD_NM}
+			,#{PROD_ENG_NM}
+			,#{ORIG_NAT}
+			,#{PURC_PR}
+			,#{SELL_PR}
+			,#{BAR_CODE}
+			,#{CLIENT_NO}
+			,#{SALE_OR_NOT}
+			,#{TAXAT_TY}
+			,#{MEM_POINT}
+			<if test="COLOR != null || COLOR != ''">
+				,#{COLOR}
+			</if>
+			<if test="PROD_SIZE != null || PROD_SIZE != ''">
+				,#{PROD_SIZE}
+			</if>
+			<if test="SALE_PR != null || SALE_PR != ''">
+				,#{SALE_PR}
+			</if>
+			)
+	</insert>
+	
+	<select id="getProdCnt" resultType="String">
+		SELECT 
+			TO_CHAR(COUNT(*)) AS PROD_CD
+		FROM 
+			PROD_TBL
+	</select>
+</mapper>

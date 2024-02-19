@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:cl="http://tomatosystem.co.kr/cleopatra" xmlns:std="http://tomatosystem.co.kr/cleopatra/studio" std:sid="html-c1caa010" version="1.0.4807">
+  <head std:sid="head-b8ea106e">
+    <screen std:sid="screen-7f039715" id="default" name="default" width="1024px" height="768px"/>
+    <screen std:sid="screen-dde685e5" id="tablet" name="tablet" width="500px" height="667px"/>
+    <screen std:sid="screen-9e9df47d" id="mobile" name="mobile" width="350px" height="525px"/>
+    <cl:model std:sid="model-ffe6925c">
+      <cl:dataset std:sid="d-set-663e8600" id="prodClsCd">
+        <cl:datacolumnlist>
+          <cl:datacolumn std:sid="d-column-b5a24e41" name="label"/>
+          <cl:datacolumn std:sid="d-column-7c9a6701" name="value"/>
+        </cl:datacolumnlist>
+        <cl:datarowlist>
+          <cl:datarow>
+            <cl:datavalue columnname="label">육류</cl:datavalue>
+            <cl:datavalue columnname="value"><![CDATA[1]]></cl:datavalue>
+          </cl:datarow>
+          <cl:datarow>
+            <cl:datavalue columnname="label">쌀</cl:datavalue>
+            <cl:datavalue columnname="value"><![CDATA[2]]></cl:datavalue>
+          </cl:datarow>
+          <cl:datarow>
+            <cl:datavalue columnname="label">음료</cl:datavalue>
+            <cl:datavalue columnname="value"><![CDATA[3]]></cl:datavalue>
+          </cl:datarow>
+        </cl:datarowlist>
+      </cl:dataset>
+    </cl:model>
+    <cl:appspec/>
+  </head>
+  <body std:sid="body-57f51fce">
+    <cl:listener std:sid="listener-c7301ba9" name="init" handler="onBodyInit"/>
+    <cl:group std:sid="group-b6d769bd" id="grp1" style="background-color:#E0E0E0;">
+      <cl:xylayoutdata std:sid="xyl-data-ac4a4de2" top="150px" left="0px" width="1024px" height="598px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+      <cl:output std:sid="output-4bfb8c2d" style="text-align:center;" value="상품 코드 :">
+        <cl:xylayoutdata std:sid="xyl-data-ac6bb83d" top="50px" left="80px" width="100px" height="50px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+      </cl:output>
+      <cl:output std:sid="output-b070c95c" style="text-align:center;" value="상품명(한글) :">
+        <cl:xylayoutdata std:sid="xyl-data-da247106" top="120px" left="80px" width="100px" height="50px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+      </cl:output>
+      <cl:output std:sid="output-00eb7be9" style="text-align:center;" value="상품명(영어) :">
+        <cl:xylayoutdata std:sid="xyl-data-ecb8774f" top="190px" left="80px" width="100px" height="50px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+      </cl:output>
+      <cl:output std:sid="output-466c7c7f" style="text-align:center;" value="원산지 :">
+        <cl:xylayoutdata std:sid="xyl-data-b83386ef" top="260px" left="80px" width="100px" height="50px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+      </cl:output>
+      <cl:output std:sid="output-12474087" style="text-align:center;" value="바코드 번호 :">
+        <cl:xylayoutdata std:sid="xyl-data-378946a3" top="330px" left="80px" width="100px" height="50px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+      </cl:output>
+      <cl:output std:sid="output-aea53ad7" id="PROD_CD" style="text-align:center;">
+        <cl:xylayoutdata std:sid="xyl-data-de73d25d" top="50px" left="190px" width="130px" height="50px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+      </cl:output>
+      <cl:inputbox std:sid="i-box-7459ef05" id="PROD_NM" style="text-align:center;" placeholder="상품명(한글)" maxlength="13" inputfilter="[ㄱ-힣0-9]">
+        <cl:xylayoutdata std:sid="xyl-data-7661a8a1" top="120px" left="179px" width="141px" height="50px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+      </cl:inputbox>
+      <cl:inputbox std:sid="i-box-6894434e" id="PROD_ENG_NM" style="text-align:center;" placeholder="상품명(영어)" maxlength="40" inputfilter="[a-zA-Z0-9]">
+        <cl:xylayoutdata std:sid="xyl-data-75f4e2bf" top="190px" left="179px" width="141px" height="50px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+      </cl:inputbox>
+      <cl:inputbox std:sid="i-box-4397e5d6" id="ORIG_NAT" style="text-align:center;" placeholder="원산지" maxlength="7" inputfilter="[ㄱ-힣]">
+        <cl:xylayoutdata std:sid="xyl-data-e70d6fe0" top="260px" left="179px" width="141px" height="50px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+      </cl:inputbox>
+      <cl:inputbox std:sid="i-box-31359451" id="BAR_CODE" style="text-align:center;" placeholder="바코드 번호" maxlength="20" inputfilter="[0-9]">
+        <cl:xylayoutdata std:sid="xyl-data-c0223327" top="330px" left="179px" width="141px" height="50px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+      </cl:inputbox>
+      <cl:output std:sid="output-a076a8b7" style="text-align:center;" value="가격(원가) :">
+        <cl:xylayoutdata std:sid="xyl-data-d17f675f" top="50px" left="355px" width="100px" height="50px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+      </cl:output>
+      <cl:output std:sid="output-fa1494b3" style="text-align:center;" value="가격(판매가) :">
+        <cl:xylayoutdata std:sid="xyl-data-9f2e443c" top="120px" left="355px" width="100px" height="50px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+      </cl:output>
+      <cl:output std:sid="output-d7492792" style="text-align:center;" value="상품 분류 :">
+        <cl:xylayoutdata std:sid="xyl-data-44b85bbb" top="189px" left="355px" width="100px" height="50px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+      </cl:output>
+      <cl:output std:sid="output-b352467c" style="text-align:center;" value="과세 여부 :">
+        <cl:xylayoutdata std:sid="xyl-data-681a9d64" top="260px" left="355px" width="100px" height="50px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+      </cl:output>
+      <cl:output std:sid="output-6867053e" style="text-align:center;" value="회원 포인트 :">
+        <cl:xylayoutdata std:sid="xyl-data-7d9e567f" top="330px" left="355px" width="100px" height="50px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+      </cl:output>
+      <cl:inputbox std:sid="i-box-47913024" id="SELL_PR" style="text-align:center;" placeholder="가격(판매가)" maxlength="13" inputfilter="[0-9]">
+        <cl:xylayoutdata std:sid="xyl-data-3524f401" top="120px" left="454px" width="142px" height="50px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+      </cl:inputbox>
+      <cl:inputbox std:sid="i-box-69428db1" id="MEM_POINT" style="text-align:center;" placeholder="회원 포인트 잔액" inputfilter="[0-9]">
+        <cl:xylayoutdata std:sid="xyl-data-3cf02207" top="330px" left="454px" width="142px" height="50px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+      </cl:inputbox>
+      <cl:output std:sid="output-9f2524bb" style="text-align:center;" value="세일 여부 :">
+        <cl:xylayoutdata std:sid="xyl-data-ed20fe17" top="50px" left="634px" width="100px" height="50px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+      </cl:output>
+      <cl:output std:sid="output-99279c44" style="text-align:center;" value="세일 가격 :">
+        <cl:xylayoutdata std:sid="xyl-data-fde0c548" top="120px" left="634px" width="100px" height="50px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+      </cl:output>
+      <cl:output std:sid="output-2641525e" style="text-align:center;" value="색 상 :">
+        <cl:xylayoutdata std:sid="xyl-data-92dc3f20" top="188px" left="634px" width="100px" height="50px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+      </cl:output>
+      <cl:output std:sid="output-dd5e84bf" style="text-align:center;" value="사이즈 :">
+        <cl:xylayoutdata std:sid="xyl-data-e657b12e" top="260px" left="634px" width="100px" height="50px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+      </cl:output>
+      <cl:output std:sid="output-c7011628" style="text-align:center;" value="거래처 :">
+        <cl:xylayoutdata std:sid="xyl-data-7091ec35" top="330px" left="634px" width="100px" height="50px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+      </cl:output>
+      <cl:inputbox std:sid="i-box-33c4f0bb" id="SALE_PR" style="text-align:center;" readonly="true" placeholder="세일 가격" inputfilter="[0-9]">
+        <cl:xylayoutdata std:sid="xyl-data-baf386b0" top="120px" left="733px" width="142px" height="50px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+      </cl:inputbox>
+      <cl:inputbox std:sid="i-box-a996d259" id="COLOR" style="text-align:center;" placeholder="색상">
+        <cl:xylayoutdata std:sid="xyl-data-0be9e069" top="188px" left="733px" width="142px" height="50px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+      </cl:inputbox>
+      <cl:inputbox std:sid="i-box-46545162" id="PROD_SIZE" style="text-align:center;" placeholder="사이즈">
+        <cl:xylayoutdata std:sid="xyl-data-d06623e7" top="260px" left="733px" width="142px" height="50px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+      </cl:inputbox>
+      <cl:inputbox std:sid="i-box-91e0ae76" id="PURC_PR" style="text-align:center;" placeholder="가격(원가)" maxlength="13" inputfilter="[0-9]">
+        <cl:xylayoutdata std:sid="xyl-data-606da7c0" top="50px" left="453px" width="142px" height="50px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+      </cl:inputbox>
+      <cl:combobox std:sid="c-box-8128656d" id="PROD_CLS_CD" preventinput="true">
+        <cl:xylayoutdata std:sid="xyl-data-d93100c2" top="198px" left="454px" width="141px" height="30px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+        <cl:itemset datasetid="prodClsCd" label="label" value="value"/>
+      </cl:combobox>
+      <cl:checkbox std:sid="c-box-fdf629e5" id="TAXAT_TY" style="text-align:center;" value="">
+        <cl:xylayoutdata std:sid="xyl-data-e8774002" top="270px" left="515px" width="30px" height="30px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+      </cl:checkbox>
+      <cl:button std:sid="button-097b077f" id="accountSrcBtn" value="검색">
+        <cl:listener std:sid="listener-e35d2565" name="click" handler="onButtonClick"/>
+        <cl:xylayoutdata std:sid="xyl-data-bc0140a9" top="330px" left="885px" width="53px" height="50px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+      </cl:button>
+      <cl:checkbox std:sid="c-box-b4f8840b" id="SALE_OR_NOT" style="text-align:center;" value="">
+        <cl:listener std:sid="listener-7e7cd829" name="value-change" handler="onCbx2ValueChange"/>
+        <cl:xylayoutdata std:sid="xyl-data-fbe271c4" top="60px" left="795px" width="30px" height="30px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+      </cl:checkbox>
+      <cl:button std:sid="button-3cf77bba" style="font-size:17px;" value="등 록">
+        <cl:listener std:sid="listener-394c6f4d" name="click" handler="onButtonClick2"/>
+        <cl:xylayoutdata std:sid="xyl-data-6c9415d1" top="504px" left="451px" width="100px" height="40px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+      </cl:button>
+      <cl:output std:sid="output-61a71996" id="CLIENT_NM" style="border-right-style:solid; border-top-width:1px; border-bottom-color:#bbbbbb; border-right-width:1px; padding-left:5px; border-left-color:#bbbbbb; border-right-color:#bbbbbb; border-left-width:1px; border-top-style:solid; background-color:#ffffff; border-left-style:solid; border-bottom-width:1px; border-top-color:#bbbbbb; border-bottom-style:solid;">
+        <cl:xylayoutdata std:sid="xyl-data-751b4331" top="330px" left="733px" width="142px" height="50px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+      </cl:output>
+      <cl:xylayout std:sid="xylayout-b8e2e988"/>
+    </cl:group>
+    <cl:embeddedapp std:sid="e-app-3dec7bd4" id="ea1" src="PosHeader.clx">
+      <cl:xylayoutdata std:sid="xyl-data-ed6da1aa" top="0px" left="0px" width="1024px" height="80px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+    </cl:embeddedapp>
+    <cl:output std:sid="output-b7e08dac" id="title" style="font-weight:bold; font-size:25px; text-align:center;" value="상품 관리">
+      <cl:xylayoutdata std:sid="xyl-data-41129a8a" top="90px" left="353px" width="318px" height="50px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+    </cl:output>
+    <cl:xylayout std:sid="xylayout-ba4743be"/>
+  </body>
+  <std:studiosetting>
+    <std:hruler/>
+    <std:vruler/>
+  </std:studiosetting>
+</html>

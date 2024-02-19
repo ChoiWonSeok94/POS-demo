@@ -1,0 +1,37 @@
+package com.pos.dao;
+
+import java.util.List;
+
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+import com.pos.Vo.ClientVo;
+
+@Repository
+public class ClientDaoImpl implements ClientDao{
+	
+	@Autowired
+	SqlSession sqlsession;
+
+	@Override
+	public List<ClientVo> searchClient(ClientVo cliVo) {
+		
+		return sqlsession.selectList("Client.searchClient", cliVo);
+	}
+
+	@Override
+	public void clientInsert(ClientVo cliVo) {
+		sqlsession.insert("Client.clientInsert", cliVo);
+	}
+
+	@Override
+	public String getClientNoByClientNm(String clientNm) {
+		return sqlsession.selectOne("Client.getClientNoByClientNm", clientNm);
+	}
+
+	@Override
+	public String getClientCnt() {
+		return sqlsession.selectOne("Client.getClientCnt");
+	}
+}

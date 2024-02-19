@@ -1,0 +1,8 @@
+INDEX VERSION 1.4+C:\Users\sunrise\Desktop\POS\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
+4198916308.index
+4186187707.index
+1929690083.index
+972989526.index
+1764216119.index
+105367006.index
+148340191.index

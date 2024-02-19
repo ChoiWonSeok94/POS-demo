@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:cl="http://tomatosystem.co.kr/cleopatra" xmlns:std="http://tomatosystem.co.kr/cleopatra/studio" std:sid="html-f9fbc365" version="1.0.4807">
+  <head std:sid="head-e5217752">
+    <screen std:sid="screen-f3fa5cf1" id="default" name="default" width="1024px" height="768px"/>
+    <cl:model std:sid="model-84fa37d3"/>
+    <cl:appspec/>
+  </head>
+  <body std:sid="body-59118ae0">
+    <cl:listener std:sid="listener-1bc08657" name="load" handler="onBodyLoad"/>
+    <cl:embeddedapp std:sid="e-app-e1f9b0ad" id="ea1" src="PosHeader.clx">
+      <cl:xylayoutdata std:sid="xyl-data-d396bce9" top="0px" left="0px" width="1024px" height="80px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+    </cl:embeddedapp>
+    <cl:group std:sid="group-e8472b10" style="background-color:#E0E0E0;">
+      <cl:xylayoutdata std:sid="xyl-data-914c2488" top="150px" left="0px" width="1024px" height="598px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+      <cl:output std:sid="output-7e250751" style="background-color:#BEBEBE; border-radius:35px 35px 35px 35px; font-weight:bold; font-size:16px; text-align:center;" value="최종 잔액">
+        <cl:xylayoutdata std:sid="xyl-data-db59882a" top="413px" left="334px" width="140px" height="40px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+      </cl:output>
+      <cl:output std:sid="output-4d86b973" id="totalCnt" style="font-weight:bold; font-size:16px; text-align:center;" datatype="number" format="s#,##0" displayexp="text + '원'">
+        <cl:xylayoutdata std:sid="xyl-data-04384aa6" top="413px" left="527px" width="182px" height="40px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+      </cl:output>
+      <cl:group std:sid="group-3af99f49" style="border-bottom-color:#c7c7c7; border-bottom-width:4px; border-bottom-style:solid;">
+        <cl:xylayoutdata std:sid="xyl-data-ac3ae8f2" top="64px" left="195px" width="628px" height="320px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+        <cl:output std:sid="output-89e8511c" style="background-color:#BEBEBE; border-radius:40px 40px 40px 40px; font-weight:bold; font-size:20px; text-align:center;" value="입 금">
+          <cl:xylayoutdata std:sid="xyl-data-b433aebb" top="38px" left="41px" width="140px" height="110px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+        </cl:output>
+        <cl:inputbox std:sid="i-box-1338d9b7" id="content1" style="border-radius:5px 5px 5px 5px; text-align:right;" placeholder="내용을 입력해 주세요.">
+          <cl:xylayoutdata std:sid="xyl-data-5fbfcba5" top="100px" left="191px" width="294px" height="48px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+        </cl:inputbox>
+        <cl:button std:sid="button-b61c892f" style="font-size:17px;" value="입금하기">
+          <cl:listener std:sid="listener-25722e4c" name="click" handler="onButtonClick"/>
+          <cl:xylayoutdata std:sid="xyl-data-f2c93592" top="73px" left="508px" width="100px" height="40px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+        </cl:button>
+        <cl:output std:sid="output-da7c1417" style="background-color:#BEBEBE; border-radius:40px 40px 40px 40px; font-weight:bold; font-size:20px; text-align:center;" value="출 금">
+          <cl:xylayoutdata std:sid="xyl-data-0f85d97a" top="176px" left="41px" width="140px" height="110px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+        </cl:output>
+        <cl:inputbox std:sid="i-box-bba992a2" id="content2" style="border-radius:5px 5px 5px 5px; text-align:right;" placeholder="내용을 입력해 주세요.">
+          <cl:xylayoutdata std:sid="xyl-data-0b64cdef" top="238px" left="191px" width="294px" height="48px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+        </cl:inputbox>
+        <cl:button std:sid="button-0cb107db" style="font-size:17px;" value="출금하기">
+          <cl:listener std:sid="listener-f6e3eb83" name="click" handler="onButtonClick2"/>
+          <cl:xylayoutdata std:sid="xyl-data-2e4d643d" top="211px" left="508px" width="100px" height="40px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+        </cl:button>
+        <cl:numbereditor std:sid="n-editor-31315cc1" id="money1" style="border-radius:5px 5px 5px 5px; text-align:right;" min="100" spinbutton="false" upbuttonimage="" downbuttonimage="" placeholder="금액을 입력해 주세요." displayexp="text + '원'" clearbuttonimage="">
+          <cl:xylayoutdata std:sid="xyl-data-d25637ed" top="38px" left="191px" width="294px" height="48px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+        </cl:numbereditor>
+        <cl:numbereditor std:sid="n-editor-278728bb" id="money2" style="border-radius:5px 5px 5px 5px; text-align:right;" spinbutton="false" downbuttonimage="" placeholder="금액을 입력해 주세요." displayexp="text + '원'" clearbuttonimage="">
+          <cl:xylayoutdata std:sid="xyl-data-5bd1708b" top="176px" left="191px" width="294px" height="48px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+        </cl:numbereditor>
+        <cl:xylayout std:sid="xylayout-985d2d41"/>
+      </cl:group>
+      <cl:xylayout std:sid="xylayout-bfcb5095"/>
+    </cl:group>
+    <cl:output std:sid="output-b7e08dac" id="title" style="font-weight:bold; font-size:25px; text-align:center;" value="시재금">
+      <cl:xylayoutdata std:sid="xyl-data-3a39f232" top="90px" left="353px" width="318px" height="50px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+    </cl:output>
+    <cl:xylayout std:sid="xylayout-912d35f4"/>
+  </body>
+  <std:studiosetting>
+    <std:hruler/>
+    <std:vruler/>
+  </std:studiosetting>
+</html>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:cl="http://tomatosystem.co.kr/cleopatra" version="1.0.4807">
+  <head>
+    <screen name="tablet" minwidth="500px" width="500px" height="667px"/>
+    <screen name="mobile" maxwidth="499px" width="350px" height="525px"/>
+    <cl:model/>
+    <cl:appspec/>
+  </head>
+  <body/>
+</html>

@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">&#x0A;<refactoring comment="Rename resource &apos;POS/clx-src/PointOfSales.clx&apos; to &apos;POSMain.clx&apos;" description="Rename resource &apos;PointOfSales.clx&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="clx-src/PointOfSales.clx" name="POSMain.clx" stamp="1705474762030" updateReferences="true"/>&#x0A;<refactoring comment="Rename resource &apos;POS/clx-src/POSProductRegist.clx&apos; to &apos;POSProductRegist1.clx&apos;" description="Rename resource &apos;POSProductRegist.clx&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="clx-src/POSProductRegist.clx" name="POSProductRegist1.clx" stamp="1705646302466" updateReferences="true"/>
+</session>

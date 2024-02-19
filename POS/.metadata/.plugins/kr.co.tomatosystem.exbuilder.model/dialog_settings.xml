@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="kr.co.tomatosystem.exbuilder.ui.export.EBToolExportWizard">
+	</section>
+	<section name="kr.co.tomatosystem.exbuilder.ui.newWizard.clx.EBNewCLXFileWizard">
+		<list key="template-weights">
+			<item value="500"/>
+			<item value="500"/>
+		</list>
+	</section>
+	<section name="kr.co.tomatosystem.exbuilder.ui.editor.design.action.internal.QuickPaletteDialog">
+		<item key="DIALOG_WIDTH" value="961"/>
+		<item key="DIALOG_HEIGHT" value="395"/>
+		<item key="DIALOG_FONT_NAME" value="1|맑은 고딕|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|0|0|맑은 고딕"/>
+		<item key="recent-of-kr.co.tomatosystem.exbuilder.model.cleopatra.Menu" value="1705474494980"/>
+		<item key="recent-of-kr.co.tomatosystem.exbuilder.model.cleopatra.EmbeddedPage" value="1705474673142"/>
+		<item key="recent-of-kr.co.tomatosystem.exbuilder.model.cleopatra.Output" value="1705563638188"/>
+		<item key="recent-of-kr.co.tomatosystem.exbuilder.model.cleopatra.Group" value="1705475067232"/>
+		<list key="recent">
+			<item value="kr.co.tomatosystem.exbuilder.model.cleopatra.Output"/>
+			<item value="kr.co.tomatosystem.exbuilder.model.cleopatra.Group"/>
+			<item value="kr.co.tomatosystem.exbuilder.model.cleopatra.EmbeddedPage"/>
+			<item value="kr.co.tomatosystem.exbuilder.model.cleopatra.Menu"/>
+		</list>
+	</section>
+	<section name="kr.co.tomatosystem.exbuilder.ui.view.property.layout.EBQuickLayoutDialog">
+		<item key="properties.key-column-width" value="150"/>
+		<item key="DIALOG_X_ORIGIN" value="321"/>
+		<item key="DIALOG_Y_ORIGIN" value="261"/>
+		<item key="DIALOG_WIDTH" value="333"/>
+		<item key="DIALOG_HEIGHT" value="483"/>
+		<item key="DIALOG_FONT_NAME" value="1|맑은 고딕|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|0|0|맑은 고딕"/>
+	</section>
+</section>

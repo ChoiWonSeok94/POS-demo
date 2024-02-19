@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:cl="http://tomatosystem.co.kr/cleopatra" xmlns:std="http://tomatosystem.co.kr/cleopatra/studio" std:sid="html-73e0fb9c" version="1.0.4807">
+  <head std:sid="head-08de2be0">
+    <screen std:sid="screen-ebe95800" id="header1" name="header1" width="1024px" height="80px" customHeight="600" customWidth="800" active="true"/>
+    <cl:model std:sid="model-2ed580bb"/>
+    <cl:appspec/>
+  </head>
+  <body std:sid="body-ea9d8314">
+    <cl:group std:sid="group-861c718a" style="color:#D6D6D6;">
+      <cl:xylayoutdata std:sid="xyl-data-bf42d67e" top="0px" right="0px" bottom="0px" left="0px" horizontalAnchor="BOTH" verticalAnchor="BOTH"/>
+      <cl:group std:sid="group-44ff4c35" style="text-align:center;">
+        <std:metadata>
+          <std:property key="template-uuid" value="64e4d06e-b4e3-4e16-83de-151eeed6ed79"/>
+          <std:property key="template-rev" value="3"/>
+        </std:metadata>
+        <cl:xylayoutdata std:sid="xyl-data-e15b0713" top="0px" right="0px" left="0px" height="80px" horizontalAnchor="BOTH" verticalAnchor="TOP"/>
+        <cl:output comment="현재시간" std:sid="output-6a8d9478" id="sysDateTime" readonly="true" value="현재 날짜 시간 출력">
+          <cl:listener std:sid="listener-e1e45fc6" name="value-change" handler="onOutputValueChange"/>
+          <cl:xylayoutdata std:sid="xyl-data-313683d1" top="10px" left="20px" width="200px" height="60px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+        </cl:output>
+        <cl:button std:sid="button-2b8afcfd" value="POS">
+          <cl:xylayoutdata std:sid="xyl-data-a6d4344b" top="21px" left="250px" width="100px" height="38px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+        </cl:button>
+        <cl:button std:sid="button-12de60ab" value="판매관리">
+          <cl:xylayoutdata std:sid="xyl-data-e64c7c37" top="21px" left="359px" width="100px" height="38px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+        </cl:button>
+        <cl:button std:sid="button-2fbfe7a6" value="시재금">
+          <cl:xylayoutdata std:sid="xyl-data-e5e525a6" top="21px" left="467px" width="100px" height="38px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+        </cl:button>
+        <cl:button std:sid="button-ab49a750" value="상품관리">
+          <cl:xylayoutdata std:sid="xyl-data-350bd1c6" top="21px" left="575px" width="100px" height="38px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+        </cl:button>
+        <cl:button std:sid="button-ff4d6a80" value="거래처관리">
+          <cl:xylayoutdata std:sid="xyl-data-354cdb01" top="21px" left="683px" width="100px" height="38px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+        </cl:button>
+        <cl:button std:sid="button-0fa87fc4" value="회원관리">
+          <cl:xylayoutdata std:sid="xyl-data-ae405c99" top="21px" left="791px" width="100px" height="38px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+        </cl:button>
+        <cl:button std:sid="button-8dddc87f" value="매장관리">
+          <cl:xylayoutdata std:sid="xyl-data-88ca99ce" top="21px" left="899px" width="100px" height="38px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+        </cl:button>
+        <cl:xylayout std:sid="xylayout-6eff429f"/>
+      </cl:group>
+      <cl:xylayout std:sid="xylayout-fd5c9962"/>
+    </cl:group>
+    <cl:xylayout std:sid="xylayout-140012b7"/>
+  </body>
+  <std:studiosetting>
+    <std:hruler/>
+    <std:vruler/>
+  </std:studiosetting>
+</html>
