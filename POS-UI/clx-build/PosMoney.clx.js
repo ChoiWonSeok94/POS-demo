@@ -39,7 +39,7 @@
 					
 					var submission = new cpr.protocols.Submission();
 					submission.action = '/POS/vaultCashInOut.do';
-					submission.responseType = 'text';
+					submission.responseType = 'javascript';
 			//		submission.async = false;
 					submission.setParameters("TER_SER_NO", '1');
 					submission.setParameters("DEP_PAY_TY", '1');
@@ -49,6 +49,7 @@
 					submission.addEventListener("submit-success", function(e){
 						var submi = e.control;
 						console.log(submi.xhr.responseText);
+						onBodyLoad();
 						alert('입금이 완료되었습니다.');
 						debugger;
 					});
@@ -89,7 +90,7 @@
 					
 					var submission = new cpr.protocols.Submission();
 					submission.action = '/POS/vaultCashInOut.do';
-					submission.responseType = 'text';
+					submission.responseType = 'javascript';
 			//		submission.async = false;
 					submission.setParameters("TER_SER_NO", '1');
 					submission.setParameters("DEP_PAY_TY", '2');
@@ -100,7 +101,7 @@
 						var submi = e.control;
 						console.log(submi.xhr.responseText);
 						var jsonObj = JSON.parse(submi.xhr.responseText);
-						
+						onBodyLoad();
 						alert('출금이 완료되었습니다.');
 						debugger;
 					});
