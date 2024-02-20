@@ -101,11 +101,20 @@ public class PosController {
 	//POS 화면에서 약식 회원정보 insert
 	@RequestMapping(value = "/addMember.do", method = RequestMethod.POST)
 	public JSONDataView addMember(HttpServletRequest req, HttpServletResponse res, MemberVo memVo, DataRequest dataReq) {
-		
-		// 약식 신규가입 후 가입한 회원 정보 받아오기
-		List<MemberVo> lastAddMember = memService.addMember(memVo);
-		
-		return new JSONDataView();
+		// 존재하면 1 이상
+		int memberExist = memService.memInfoExistCntByIdNo(memVo);
+		// 존재한다면
+		if(memberExist > 0) {
+			List<MemberVo> doExistMemberList = memService.doExistMemberSrcMemSerNoByIdNo(memVo);
+			dataReq.setResponse("memberInfo", doExistMemberList);
+			return new JSONDataView();
+		}else {
+			// 약식 신규가입 후 가입한 회원 정보 받아오기
+			List<MemberVo> lastAddMember = memService.addMember(memVo);
+			
+			dataReq.setResponse("MEMB_SER_NO", lastAddMember);
+			return new JSONDataView();
+		}
 	}
 	
 	// 판매관리 페이지 호출

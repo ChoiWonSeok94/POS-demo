@@ -23,21 +23,21 @@
 			 * 서치 인풋에서 value-change 이벤트 발생 시 호출.
 			 * SearchInput의 value를 변경하여 변경된 값이 저장된 후에 발생하는 이벤트.
 			 */
-			function onSearchInputValueChange(e){
-				var searchInput = app.lookup("srcAccount").value;
-				var submission = new cpr.protocols.Submission();
-				submission.action = '/POS/clientSearch.do';
-				submission.responseType = 'text';
-				submission.async = false;
-				submission.setParameters("CLIENT_NM", searchInput);
-				submission.send();
-				
-				var grd1 = app.lookup("grd1");
-				grd1.redraw();
-				
-				console.log(searchInput);
-				
-			}
+			//function onSearchInputValueChange(e){
+			//	var searchInput = app.lookup("srcAccount").value;
+			//	var submission = new cpr.protocols.Submission();
+			//	submission.action = '/POS/clientSearch.do';
+			//	submission.responseType = 'text';
+			//	submission.async = false;
+			//	submission.setParameters("CLIENT_NM", searchInput);
+			//	submission.send();
+			//	
+			//	var grd1 = app.lookup("grd1");
+			//	grd1.redraw();
+			//	
+			//	console.log(searchInput);
+			//	
+			//}
 
 
 			/*
@@ -45,8 +45,11 @@
 			 * 사용자가 컨트롤을 클릭할 때 발생하는 이벤트.
 			 */
 			function onButtonClick(e){
-				
-				window.opener.postMessage(app.lookup("grd1").getSelectionData(), "*");
+				var grd1 = app.lookup("grd1");
+				window.opener.postMessage({
+					CLIENT_NM : grd1.getCellValue(grd1.getSelectedRowIndex(), "CLIENT_NM")
+					,CLIENT_NO : app.lookup("clientNo").value
+				}, "*");
 				// 선택된 거래처 명
 			//	var grd1 = app.lookup("grd1").getSelectionData();
 			//	console.log(grd1);
@@ -67,7 +70,7 @@
 			 */
 			function onSrcAccountSearch(e){
 				var srcAccount = app.lookup("srcAccount").value;
-				
+				app.lookup("clientList").clear();
 				var submission = new cpr.protocols.Submission();
 				submission.action = '/POS/srcClientByName.do';
 				submission.responseType = 'javascript';
@@ -80,16 +83,48 @@
 					console.log('가져온 거래처 목록 = ' + submi.xhr.responseText);
 					debugger
 					if(jsonObj['clientList'].length != 0){
+						var idNo = '';
 						for(var i=0 ; i < jsonObj['clientList'].length ; i++){
+							if(jsonObj['clientList'][i]['ID_NO'] !== ''){
+								idNo = jsonObj['clientList'][i]['ID_NO'];
+							}else{
+								idNo = jsonObj['clientList'][i]['BUSI_NO'];
+							}
 							grd1.insertRowData(i, true, {
 								CLIENT_NM : jsonObj['clientList'][i]['CLIENT_NM']
-							}, false)
+								,REPRES_NM : jsonObj['clientList'][i]['REPRES_NM']
+								,ID_NO : idNo
+							}, true);	
 						}
 					}else{
 						alert('조회된 정보가 없습니다');
+						app.lookup("clientList").clear();
+						app.lookup("grd1").redraw();
 					}
 					
 				});
+				submission.send();
+			}
+
+			/*
+			 * 그리드에서 cell-click 이벤트 발생 시 호출.
+			 * Grid의 Cell 클릭시 발생하는 이벤트.
+			 */
+			function onGrd1CellClick(e){
+				var grd1 = app.lookup("grd1");
+				var submission = new cpr.protocols.Submission();
+				submission.action = '/POS/srcClientByName.do';
+				submission.responseType = 'javascript';
+				submission.setParameters("CLIENT_NM", grd1.getCellValue(grd1.getSelectedRowIndex(), "CLIENT_NM"));
+				submission.addEventListener("receive", function(e){
+					var submi = e.control;
+					var grd1 = app.lookup("grd1");
+					var jsonObj = JSON.parse(submi.xhr.responseText);
+					
+					var clientNo = app.lookup("clientNo");
+					clientNo.value = jsonObj['clientList'][0]['CLIENT_NO'];
+					console.log(clientNo.value);
+				})
 				submission.send();
 			};
 			// End - User Script
@@ -97,7 +132,12 @@
 			// Header
 			var dataSet_1 = new cpr.data.DataSet("clientList");
 			dataSet_1.parseData({
-				"columns": [{"name": "CLIENT_NM"}],
+				"columns": [
+					{"name": "CLIENT_NM"},
+					{"name": "CLIENT_NO"},
+					{"name": "REPRES_NM"},
+					{"name": "ID_NO"}
+				],
 				"rows": [
 					{"CLIENT_NM": "거래처 A"},
 					{"CLIENT_NM": "거래처 B"},
@@ -112,7 +152,8 @@
 				"columns" : [{"name": "CLIENT_NM"}]
 			});
 			app.register(dataMap_1);
-			app.supportMedia("all", "new-screen");
+			app.supportMedia("all and (min-width: 650px)", "new-screen2");
+			app.supportMedia("all and (max-width: 649px)", "new-screen");
 			
 			// Configure root container
 			var container = app.getContainer();
@@ -120,6 +161,8 @@
 				"width" : "100%",
 				"height" : "100%"
 			});
+			var dataMapContext_1 = new cpr.bind.DataMapContext(app.lookup("CLIENT"));
+			container.setBindContext(dataMapContext_1);
 			
 			// Layout
 			var xYLayout_1 = new cpr.controls.layouts.XYLayout();
@@ -127,7 +170,7 @@
 			
 			// UI Configuration
 			var searchInput_1 = new cpr.controls.SearchInput("srcAccount");
-			searchInput_1.placeholder = "거래처 명";
+			searchInput_1.placeholder = "거래처 명으로 검색하세요";
 			if(typeof onSearchInputValueChange == "function") {
 				searchInput_1.addEventListener("value-change", onSearchInputValueChange);
 			}
@@ -137,7 +180,7 @@
 			container.addChild(searchInput_1, {
 				"top": "75px",
 				"left": "20px",
-				"width": "360px",
+				"width": "610px",
 				"height": "35px"
 			});
 			
@@ -153,50 +196,115 @@
 			container.addChild(output_1, {
 				"top": "20px",
 				"left": "20px",
-				"width": "360px",
+				"width": "610px",
 				"height": "45px"
 			});
 			
 			var grid_1 = new cpr.controls.Grid("grd1");
 			grid_1.init({
 				"dataSet": app.lookup("clientList"),
-				"columns": [{"width": "100px"}],
+				"showDeletedRow": false,
+				"columns": [
+					{"width": "177px"},
+					{"width": "100px"},
+					{"width": "100px"}
+				],
 				"header": {
-					"rows": [{"height": "24px"}],
-					"cells": [{
-						"constraint": {"rowIndex": 0, "colIndex": 0},
-						"configurator": function(cell){
-							cell.filterable = false;
-							cell.sortable = false;
-							cell.targetColumnName = "CLIENT_NM";
-							cell.text = "거래처명";
-							cell.style.css({
-								"vertical-align" : "middle",
-								"text-align" : "left"
-							});
+					"rows": [{"height": "41px"}],
+					"cells": [
+						{
+							"constraint": {"rowIndex": 0, "colIndex": 0},
+							"configurator": function(cell){
+								cell.filterable = false;
+								cell.sortable = false;
+								cell.targetColumnName = "CLIENT_NM";
+								cell.text = "거래처명";
+								cell.style.css({
+									"vertical-align" : "middle",
+									"font-size" : "16px",
+									"text-align" : "center"
+								});
+							}
+						},
+						{
+							"constraint": {"rowIndex": 0, "colIndex": 1},
+							"configurator": function(cell){
+								cell.text = "대표자 성명";
+								cell.style.css({
+									"text-align" : "center"
+								});
+							}
+						},
+						{
+							"constraint": {"rowIndex": 0, "colIndex": 2},
+							"configurator": function(cell){
+								cell.text = "주민/법인번호";
+								cell.style.css({
+									"text-align" : "center"
+								});
+							}
 						}
-					}]
+					]
 				},
 				"detail": {
 					"rows": [{"height": "24px"}],
-					"cells": [{
-						"constraint": {"rowIndex": 0, "colIndex": 0},
-						"configurator": function(cell){
-							cell.columnName = "CLIENT_NM";
-							cell.style.css({
-								"vertical-align" : "middle",
-								"text-align" : "left"
-							});
+					"cells": [
+						{
+							"constraint": {"rowIndex": 0, "colIndex": 0},
+							"configurator": function(cell){
+								cell.columnName = "CLIENT_NM";
+								cell.style.css({
+									"vertical-align" : "middle",
+									"text-align" : "center"
+								});
+							}
+						},
+						{
+							"constraint": {"rowIndex": 0, "colIndex": 1},
+							"configurator": function(cell){
+								cell.columnName = "REPRES_NM";
+								cell.style.css({
+									"text-align" : "center"
+								});
+								cell.control = (function(){
+									var output_2 = new cpr.controls.Output();
+									output_2.style.css({
+										"text-align" : "center"
+									});
+									output_2.bind("value").toDataColumn("REPRES_NM");
+									return output_2;
+								})();
+							}
+						},
+						{
+							"constraint": {"rowIndex": 0, "colIndex": 2},
+							"configurator": function(cell){
+								cell.columnName = "ID_NO";
+								cell.style.css({
+									"text-align" : "center"
+								});
+								cell.control = (function(){
+									var output_3 = new cpr.controls.Output();
+									output_3.style.css({
+										"text-align" : "center"
+									});
+									output_3.bind("value").toDataColumn("ID_NO");
+									return output_3;
+								})();
+							}
 						}
-					}]
+					]
 				}
 			});
 			grid_1.bind("rowIndexerStartNum").toDataMap(app.lookup("CLIENT"), "CLIENT_NM");
+			if(typeof onGrd1CellClick == "function") {
+				grid_1.addEventListener("cell-click", onGrd1CellClick);
+			}
 			container.addChild(grid_1, {
 				"top": "120px",
 				"left": "20px",
-				"width": "360px",
-				"height": "425px"
+				"width": "610px",
+				"height": "525px"
 			});
 			
 			var button_1 = new cpr.controls.Button();
@@ -205,9 +313,19 @@
 				button_1.addEventListener("click", onButtonClick);
 			}
 			container.addChild(button_1, {
-				"top": "555px",
-				"left": "165px",
+				"top": "655px",
+				"left": "290px",
 				"width": "70px",
+				"height": "25px"
+			});
+			
+			var output_4 = new cpr.controls.Output("clientNo");
+			output_4.visible = false;
+			output_4.readOnly = true;
+			container.addChild(output_4, {
+				"top": "655px",
+				"left": "20px",
+				"width": "149px",
 				"height": "25px"
 			});
 			if(typeof onBodyLoad == "function"){

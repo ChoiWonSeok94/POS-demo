@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:cl="http://tomatosystem.co.kr/cleopatra" xmlns:std="http://tomatosystem.co.kr/cleopatra/studio" std:sid="html-1a25f3e3" version="1.0.4807">
   <head std:sid="head-80e96794">
-    <screen std:sid="screen-e5afa5fc" id="new-screen" name="new-screen" width="400px" height="600px" active="true"/>
+    <screen std:sid="screen-ae047807" id="new-screen2" name="new-screen2" minwidth="650px" width="650px" height="700px" customHeight="600" customWidth="800" active="true"/>
+    <screen std:sid="screen-a568419a" id="new-screen" name="new-screen" maxwidth="649px" width="400px" height="600px" customHeight="600" customWidth="800" active="false"/>
     <cl:model std:sid="model-0f7d9736">
       <cl:dataset std:sid="d-set-eca749d5" id="clientList">
         <cl:datacolumnlist>
           <cl:datacolumn std:sid="d-column-fba50a19" name="CLIENT_NM"/>
+          <cl:datacolumn std:sid="d-column-b2d6489c" name="CLIENT_NO"/>
+          <cl:datacolumn std:sid="d-column-e055960b" name="REPRES_NM"/>
+          <cl:datacolumn std:sid="d-column-17d14012" name="ID_NO"/>
         </cl:datacolumnlist>
         <cl:datarowlist>
           <cl:datarow>
@@ -35,31 +39,50 @@
   </head>
   <body std:sid="body-e21ab096">
     <cl:listener std:sid="listener-e9c8d95c" name="load" handler="onBodyLoad"/>
-    <cl:searchinput std:sid="s-input-b2440d5c" id="srcAccount" placeholder="거래처 명">
+    <cl:datamapcontext datacontrolid="CLIENT"/>
+    <cl:searchinput std:sid="s-input-b2440d5c" id="srcAccount" placeholder="거래처 명으로 검색하세요">
       <cl:listener std:sid="listener-51a9163d" name="value-change" handler="onSearchInputValueChange"/>
       <cl:listener std:sid="listener-b77530f1" name="search" handler="onSrcAccountSearch"/>
-      <cl:xylayoutdata std:sid="xyl-data-bd2376d2" top="75px" left="20px" width="360px" height="35px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+      <cl:xylayoutdata std:sid="xyl-data-bd2376d2" top="75px" left="20px" width="610px" height="35px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
     </cl:searchinput>
     <cl:output std:sid="output-a0dc9f31" style="border-bottom-color:#D0D0D0; font-weight:bold; border-bottom-width:4px; font-size:20px; border-bottom-style:solid;" value="  거래처 검색">
-      <cl:xylayoutdata std:sid="xyl-data-633744e0" top="20px" left="20px" width="360px" height="45px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+      <cl:xylayoutdata std:sid="xyl-data-633744e0" top="20px" left="20px" width="610px" height="45px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
     </cl:output>
-    <cl:grid std:sid="grid-ef76da3d" id="grd1" datasetid="clientList">
+    <cl:grid std:sid="grid-ef76da3d" id="grd1" datasetid="clientList" showdeletedrow="false">
+      <cl:listener std:sid="listener-e4711def" name="cell-click" handler="onGrd1CellClick"/>
       <cl:datamapbind property="rowIndexerStartNum" category="PROPERTY" datacontrolid="CLIENT" columnname="CLIENT_NM"/>
-      <cl:xylayoutdata std:sid="xyl-data-f03b3b63" top="120px" left="20px" width="360px" height="425px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
-      <cl:gridcolumn std:sid="g-column-49e09393"/>
+      <cl:xylayoutdata std:sid="xyl-data-f03b3b63" top="120px" left="20px" width="610px" height="525px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+      <cl:gridcolumn std:sid="g-column-49e09393" width="177px"/>
+      <cl:gridcolumn std:sid="g-column-6a43eb3b"/>
+      <cl:gridcolumn std:sid="g-column-b6eeee99"/>
       <cl:gridheader std:sid="gh-band-0e7a9ea8">
-        <cl:gridrow std:sid="g-row-40f8c9de"/>
-        <cl:gridcell std:sid="gh-cell-563099c7" rowindex="0" colindex="0" style="vertical-align:middle; text-align:left;" targetcolumnname="CLIENT_NM" sortable="false" filterable="false" text="거래처명"/>
+        <cl:gridrow std:sid="g-row-40f8c9de" height="41px"/>
+        <cl:gridcell std:sid="gh-cell-563099c7" rowindex="0" colindex="0" style="vertical-align:middle; font-size:16px; text-align:center;" targetcolumnname="CLIENT_NM" sortable="false" filterable="false" text="거래처명"/>
+        <cl:gridcell std:sid="gh-cell-4b36fe2f" rowindex="0" colindex="1" style="text-align:center;" text="대표자 성명"/>
+        <cl:gridcell std:sid="gh-cell-f008e884" rowindex="0" colindex="2" style="text-align:center;" text="주민/법인번호"/>
       </cl:gridheader>
       <cl:griddetail std:sid="gd-band-6f8551b1">
         <cl:gridrow std:sid="g-row-3a4c5fd4"/>
-        <cl:gridcell std:sid="gd-cell-b5496651" rowindex="0" colindex="0" style="vertical-align:middle; text-align:left;" columnname="CLIENT_NM"/>
+        <cl:gridcell std:sid="gd-cell-b5496651" rowindex="0" colindex="0" style="vertical-align:middle; text-align:center;" columnname="CLIENT_NM"/>
+        <cl:gridcell std:sid="gd-cell-2f074f17" rowindex="0" colindex="1" style="text-align:center;" columnname="REPRES_NM">
+          <cl:output std:sid="output-0f995369" style="text-align:center;">
+            <cl:celldata/>
+          </cl:output>
+        </cl:gridcell>
+        <cl:gridcell std:sid="gd-cell-5fa77573" rowindex="0" colindex="2" style="text-align:center;" columnname="ID_NO">
+          <cl:output std:sid="output-6e52ca4d" style="text-align:center;">
+            <cl:celldata/>
+          </cl:output>
+        </cl:gridcell>
       </cl:griddetail>
     </cl:grid>
     <cl:button std:sid="button-3cf77bba" value="확 인">
       <cl:listener std:sid="listener-9037f56d" name="click" handler="onButtonClick"/>
-      <cl:xylayoutdata std:sid="xyl-data-09da8652" top="555px" left="165px" width="70px" height="25px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+      <cl:xylayoutdata std:sid="xyl-data-09da8652" top="655px" left="290px" width="70px" height="25px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
     </cl:button>
+    <cl:output std:sid="output-b798df26" id="clientNo" visible="false" readonly="true">
+      <cl:xylayoutdata std:sid="xyl-data-6c31d010" top="655px" left="20px" width="149px" height="25px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+    </cl:output>
     <cl:xylayout std:sid="xylayout-23344de6"/>
   </body>
   <std:studiosetting>

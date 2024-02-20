@@ -37,6 +37,16 @@ public class MemberServiceImpl implements MemberService {
 	public int totalMemCnt() {
 		return memDao.totalMemCnt();
 	}
+
+	@Override
+	public int memInfoExistCntByIdNo(MemberVo memVo) {
+		return memDao.memInfoExistCntByIdNo(memVo);
+	}
+
+	@Override
+	public List<MemberVo> doExistMemberSrcMemSerNoByIdNo(MemberVo memVo) {
+		return memDao.doExistMemberSrcMemSerNoByIdNo(memVo);
+	}
 	
 	
 }

@@ -50,13 +50,13 @@
       <cl:output std:sid="output-aea53ad7" id="PROD_CD" style="border-right-style:solid; border-bottom-color:#bbbbbb; border-top-width:1px; border-right-width:1px; font-weight:bolder; border-left-color:#bbbbbb; font-size:16px; border-right-color:#bbbbbb; border-left-width:1px; border-top-style:solid; background-color:white; border-left-style:solid; border-bottom-width:1px; border-top-color:#bbbbbb; border-bottom-style:solid; text-align:center;">
         <cl:xylayoutdata std:sid="xyl-data-de73d25d" top="50px" left="179px" width="141px" height="50px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
       </cl:output>
-      <cl:inputbox std:sid="i-box-7459ef05" id="PROD_NM" style="text-align:center;" placeholder="상품명(한글)" maxlength="13" inputfilter="[ㄱ-힣0-9]">
+      <cl:inputbox std:sid="i-box-7459ef05" id="PROD_NM" style="text-align:center;" placeholder="상품명(한글)" maxlength="13" inputfilter="[ㄱ-힣]">
         <cl:xylayoutdata std:sid="xyl-data-7661a8a1" top="120px" left="179px" width="141px" height="50px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
       </cl:inputbox>
       <cl:inputbox std:sid="i-box-6894434e" id="PROD_ENG_NM" style="text-align:center;" placeholder="상품명(영어)" maxlength="40" inputfilter="[a-zA-Z0-9]">
         <cl:xylayoutdata std:sid="xyl-data-75f4e2bf" top="190px" left="179px" width="141px" height="50px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
       </cl:inputbox>
-      <cl:inputbox std:sid="i-box-4397e5d6" id="ORIG_NAT" style="text-align:center;" placeholder="원산지" maxlength="7" inputfilter="[ㄱ-힣]">
+      <cl:inputbox std:sid="i-box-4397e5d6" id="ORIG_NAT" style="text-align:center;" placeholder="원산지" maxlength="8" inputfilter="[ㄱ-힣A-z]">
         <cl:xylayoutdata std:sid="xyl-data-e70d6fe0" top="260px" left="179px" width="141px" height="50px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
       </cl:inputbox>
       <cl:inputbox std:sid="i-box-31359451" id="BAR_CODE" style="text-align:center;" placeholder="바코드 번호" maxlength="20" inputfilter="[0-9]">
@@ -130,9 +130,45 @@
       <cl:numbereditor std:sid="n-editor-cad6d7a1" id="PURC_PR" style="text-align:center;" max="9999999" spinbutton="false" placeholder="가격(원가)" format="s#,###">
         <cl:xylayoutdata std:sid="xyl-data-4b557bb3" top="50px" left="454px" width="142px" height="50px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
       </cl:numbereditor>
-      <cl:numbereditor std:sid="n-editor-ccd5d102" id="SALE_PR" style="text-align:center;" max="99999" spinbutton="false" placeholder="세일 가격" format="s#,###">
+      <cl:numbereditor std:sid="n-editor-ccd5d102" id="SALE_PR" style="text-align:center;" enabled="false" readonly="true" max="99999" spinbutton="false" format="s#,###">
         <cl:xylayoutdata std:sid="xyl-data-a9bbf79c" top="120px" left="733px" width="142px" height="50px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
       </cl:numbereditor>
+      <cl:output std:sid="output-aa141c9f" id="CLIENT_NO" visible="true" readonly="true">
+        <cl:xylayoutdata std:sid="xyl-data-36c6007a" top="389px" left="735px" width="140px" height="23px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+      </cl:output>
+      <cl:output std:sid="output-17719027" style="color:red; text-align:left;" enabled="false" value="은 필수값입니다.">
+        <cl:xylayoutdata std:sid="xyl-data-869730b2" top="8px" left="837px" width="120px" height="20px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+      </cl:output>
+      <cl:output std:sid="output-adcde411" style="color:red; font-weight:800; font-size:22px; line-height:22px; text-align:right;" value="* ">
+        <cl:xylayoutdata std:sid="xyl-data-2b5e4090" top="8px" left="807px" width="30px" height="20px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+      </cl:output>
+      <cl:output std:sid="output-158c0cf1" style="color:red; font-weight:800; font-size:22px; line-height:22px; text-align:right;" value="* ">
+        <cl:xylayoutdata std:sid="xyl-data-8671a3f5" top="65px" left="54px" width="30px" height="20px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+      </cl:output>
+      <cl:output std:sid="output-2cdb5c49" style="color:red; font-weight:800; font-size:22px; line-height:22px; text-align:right;" value="* ">
+        <cl:xylayoutdata std:sid="xyl-data-66b132e2" top="133px" left="54px" width="30px" height="20px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+      </cl:output>
+      <cl:output std:sid="output-d2ca0254" style="color:red; font-weight:800; font-size:22px; line-height:22px; text-align:right;" value="* ">
+        <cl:xylayoutdata std:sid="xyl-data-8d056bae" top="201px" left="54px" width="30px" height="20px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+      </cl:output>
+      <cl:output std:sid="output-699a3992" style="color:red; font-weight:800; font-size:22px; line-height:22px; text-align:right;" value="* ">
+        <cl:xylayoutdata std:sid="xyl-data-7463fc26" top="273px" left="54px" width="30px" height="20px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+      </cl:output>
+      <cl:output std:sid="output-4bf0c62c" style="color:red; font-weight:800; font-size:22px; line-height:22px; text-align:right;" value="* ">
+        <cl:xylayoutdata std:sid="xyl-data-c8a326f5" top="343px" left="54px" width="30px" height="20px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+      </cl:output>
+      <cl:output std:sid="output-eb4cd660" style="color:red; font-weight:800; font-size:22px; line-height:22px; text-align:right;" value="* ">
+        <cl:xylayoutdata std:sid="xyl-data-94205cfb" top="203px" left="329px" width="30px" height="20px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+      </cl:output>
+      <cl:output std:sid="output-103da2c8" style="color:red; font-weight:800; font-size:22px; line-height:22px; text-align:right;" value="* ">
+        <cl:xylayoutdata std:sid="xyl-data-1fbd5e4e" top="64px" left="329px" width="30px" height="20px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+      </cl:output>
+      <cl:output std:sid="output-a2e68878" style="color:red; font-weight:800; font-size:22px; line-height:22px; text-align:right;" value="* ">
+        <cl:xylayoutdata std:sid="xyl-data-ff491183" top="132px" left="329px" width="30px" height="20px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+      </cl:output>
+      <cl:output std:sid="output-fc659732" style="color:red; font-weight:800; font-size:22px; line-height:22px; text-align:right;" value="* ">
+        <cl:xylayoutdata std:sid="xyl-data-891be000" top="343px" left="616px" width="30px" height="20px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+      </cl:output>
       <cl:xylayout std:sid="xylayout-b8e2e988"/>
     </cl:group>
     <cl:embeddedapp std:sid="e-app-3dec7bd4" id="ea1" src="PosHeader.clx">

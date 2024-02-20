@@ -20,7 +20,39 @@
 			AND BUSI_NO LIKE '%'||#{BUSI_NO}||'%'
 		</if> -->
 	</select>
-
+	
+	<!-- 등록전 주민번호로 중복 회원이 존재하는지 조회 -->
+	<select id="memInfoExistCntByIdNo" resultType="int" parameterType="com.pos.Vo.MemberVo">
+		SELECT
+			COUNT(*)
+		FROM
+			MEMB_TBL
+		WHERE
+			1=1
+			<if test="!ID_NO.equals('')">
+				AND ID_NO = #{ID_NO}
+			</if>
+			<if test="!BUSI_NO.equals('')">
+				AND BUSI_NO = #{BUSI_NO}
+			</if>
+	</select>
+	
+	<!-- 존재한다면 주민번호로 회원번호 select -->
+	<select id="doExistMemberSrcMemSerNoByIdNo" parameterType="com.pos.Vo.MemberVo" resultType="map">
+		SELECT
+			*
+		FROM
+			MEMB_TBL
+		WHERE
+			1=1
+			<if test="!ID_NO.equals('')">
+				AND ID_NO = #{ID_NO}
+			</if>
+			<if test="!BUSI_NO.equals('')">
+				AND BUSI_NO = #{BUSI_NO}
+			</if>
+	</select>
+	
 	<!-- 약식 & 정식 회원가입 -->
 	<insert id="addMember" parameterType="com.pos.Vo.MemberVo">
 	<selectKey order="BEFORE" keyProperty="MEMB_SER_NO" resultType="String">
@@ -129,7 +161,7 @@
 	</choose>
 	</insert>
 	
-	<select id="getMember" resultType="map">
+	<select id="getMember" parameterType="com.pos.Vo.MemberVo" resultType="com.pos.Vo.MemberVo">
 		SELECT *
 		FROM
 			MEMB_TBL

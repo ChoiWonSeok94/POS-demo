@@ -50,5 +50,7 @@
 		    CLIENT_TBL
 		WHERE
 		    CLIENT_NM LIKE '%' ||#{CLIENT_NM}|| '%'
+		ORDER BY
+			CLIENT_NM ASC
 	</select>
 </mapper>

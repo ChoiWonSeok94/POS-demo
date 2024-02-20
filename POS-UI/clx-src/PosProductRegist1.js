@@ -9,8 +9,11 @@ var openWindow = null;
 
 function onBodyInit(e){
 	window.addEventListener("message", function getPostMessage(e) {
-		if (app.lookup("CLIENT_NM") != null) {
-			app.lookup("CLIENT_NM").value = e.data;
+		
+		// e.data가 변수를 담아주고 있는지 컨트롤러 자체를 반환한건지 version으로 확인
+		if (e.data['version'] == null) {
+			app.lookup("CLIENT_NM").value = e.data['CLIENT_NM'];
+			app.lookup("CLIENT_NO").value = e.data['CLIENT_NO']
 		}
 	});
 	
@@ -55,9 +58,13 @@ function onCbx2ValueChange(e){
 	var ipb9 = app.lookup("SALE_PR");
 	if(cbx2 === 'true'){
 		ipb9.readOnly = false;
+		ipb9.placeholder = '세일가격';
+		ipb9.enabled = true;
 	}else{
 		ipb9.readOnly = true;
 		ipb9.value = '';
+		ipb9.placeholder = '';
+		ipb9.enabled = false;
 	}
 }
 
@@ -67,7 +74,7 @@ function onCbx2ValueChange(e){
  */
 function onButtonClick(e){
 	
-	openWindow = window.open("/POS/PosProductRegist2.do", "_popup", "height=600,left=100,top=100,width=400,location=no,menubar=no,resizable=no,scrollbars=yes,status=yes,titlebar=no,toolbar=no");		
+	openWindow = window.open("/POS/PosProductRegist2.do", "_popup", "height=600,left=100,top=100,width=550,location=no,menubar=no,resizable=no,scrollbars=yes,status=yes,titlebar=no,toolbar=no");		
 	
 }
 
@@ -79,7 +86,7 @@ function onButtonClick2(e){
 	
 	if(checkDupl() == true){
 		
-		var prodClsCd = app.lookup("PROD_CLS_NM");
+		var prodClsCd = app.lookup("prodClsNm");
 		var prodNm = app.lookup("PROD_NM");
 		var prodEngNm = app.lookup("PROD_ENG_NM");
 		var origNat = app.lookup("ORIG_NAT");
@@ -88,7 +95,7 @@ function onButtonClick2(e){
 		var barCode = app.lookup("BAR_CODE");
 		
 		// CLIENT_NO 를 가져와야하는데 어떻게 가져올지 생각....
-		var clientNo = app.lookup("CLIENT_NM");
+		var clientNo = app.lookup("CLIENT_NO");
 		var color = app.lookup("COLOR");
 		var prodSize = app.lookup("PROD_SIZE");
 		var saleOrNot = app.lookup("SALE_OR_NOT");

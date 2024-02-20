@@ -68,16 +68,16 @@ function srcMemberDupl(){
 		mobPhNo.focus();
 		return false;
 	}
-	if(idNo.length < 6 && idNo.length > 0){
-		alert('생년월일은 6자리 이상 입력해 주세요.');
-		idNo.focus();
-		return false;
-	}
-	if(busiNo.length < 10 && busiNo.length > 0){
-		alert('사업자번호는 10자리 다 입력해 주세요.');
-		busiNo.focus();
-		return false;
-	}
+//	if(idNo.length < 6 && idNo.length > 0){
+//		alert('생년월일은 6자리 이상 입력해 주세요.');
+//		idNo.focus();
+//		return false;
+//	}
+//	if(busiNo.length < 10 && busiNo.length > 0){
+//		alert('사업자번호는 10자리 다 입력해 주세요.');
+//		busiNo.focus();
+//		return false;
+//	}
 	return true;
 }
 
@@ -118,11 +118,17 @@ function onButtonClick3(e){
 			console.log(submi.xhr.responseText);
 			var jsonObj = JSON.parse(submi.xhr.responseText);
 			
-			// 받아온 회원번호가 이미 존재 할경우
-			
 			// 받아온 회원이 없을 경우
 			if(jsonObj['memberInfo'].length == 0){
 				alert('회원정보가 존재하지 않습니다.');
+				app.lookup("MEMB_SER_NO").value = '';
+				app.lookup("MEMB_NM").value = '';
+				app.lookup("ADDR_1").value = '';
+				app.lookup("BUSI_NO").value = '';
+				app.lookup("ID_NO").value = '';
+				app.lookup("PH_NO").value = '';
+				app.lookup("totalSellAmt").value = '';
+				app.lookup("memPoint").value = '';
 				return;
 			}
 			// 받아온 memberInfo 가 2명 이상일때 if 구분 후 팝업 해줘야함.
@@ -164,95 +170,7 @@ function onButtonClick3(e){
  */
 function onBarcodeChange(e){
 	
-//	var dataview = new cpr.data.DataView
-	// 값이 변경된 해당 바코드의 번호를 들고 조회 ㄱㄱ
-	var barcode =  app.lookup("BAR_CODE").value;
-	console.log(barcode);
-	
-//	if(false){
-	var submission = new cpr.protocols.Submission();
-	submission.action = "/POS/srcProduct.do"
-	submission.setParameters("BAR_CODE", barcode);
-	submission.async = false;
-	
-	// 원래 send() 위치
-	submission.addEventListener("receive", function(e) {
-    	var submission = e.control;
-    	console.log(submission.xhr.responseText);    
-    	var jsonObj = JSON.parse(submission.xhr.responseText);    
-    	console.log(jsonObj);
-    	
-    	var grd1 = app.lookup("grd1"); 
-      	var sellItem = app.lookup("sellItem");
-    
-       	// 데이터셋에 추가하기 전에 기존 데이터를 모두 삭제할지 여부에 따라 결정
-       	// ds1.clear(); // 기존 데이터 모두 삭제
-       
-       	// 바코드를 기준으로 해당 행을 찾습니다.
-       	var rowIndex = findRowIndexByBarcode(sellItem, barcode);
-       	var grd1RowIndex = grd1.getSelectedRowIndex();
-        // 바코드에 해당하는 행이 있을 경우에만 데이터를 업데이트합니다.
-      	// 바코드에 해당하는 행이 있을 경우에만 데이터를 업데이트합니다.
-       	if (rowIndex !== -1) {
-        	console.log("Row index found: " + rowIndex);
-          	// 찾아온 행이 바코드를 입력한 행이 아니면 QTY +1
-          	if(grd1RowIndex !== rowIndex){
-          		var beforeQty = grd1.getCellValue(rowIndex, "QTY");
-          		var sellPr = grd1.getCellValue(rowIndex, "SELL_PR");
-          		var asellPr = grd1.getCellValue(rowIndex, "ASELL_PR");
-          		var salePr = grd1.getCellValue(rowIndex, "SALE_PR");
-          		var salesAmt = grd1.getCellValue(rowIndex, "SALES_AMT");
-          		debugger
-          		// 가져온 rowIndex의 QTY가 1일 경우
-          		if(beforeQty === '1'){
-          			grd1.setCellValue(rowIndex, "QTY", parseInt(beforeQty)+1);
-          			grd1.setCellValue(rowIndex, "ASELL_PR", grd1.getCellValue(rowIndex, "ASELL_PR") * 2);
-          			grd1.setCellValue(rowIndex, "SALE_PR", grd1.getCellValue(rowIndex, "SALE_PR") * 2);
-          			grd1.setCellValue(rowIndex, "SALES_AMT", (grd1.getCellValue(rowIndex, "SELL_PR") * 2) - (grd1.getCellValue(rowIndex, "SALE_PR")));
-          			grd1.deleteRow(grd1RowIndex);
-          		}else{
-	          		var asellPr1 = asellPr / beforeQty;
-	          		var salePr1 = salePr / beforeQty;
-	          		var salesAmt1 = (asellPr / beforeQty) - (salePr / beforeQty)
-          			
-          			grd1.setCellValue(rowIndex, "QTY", parseInt(beforeQty)+1);
-          			grd1.setCellValue(rowIndex, "ASELL_PR", asellPr1 * (parseInt(beforeQty)+1));
-          			grd1.setCellValue(rowIndex, "SALE_PR", salePr1 * (parseInt(beforeQty)+1));
-          			grd1.setCellValue(rowIndex, "SALES_AMT", salesAmt1 * (parseInt(beforeQty)+1));
-          			grd1.deleteRow(grd1RowIndex);
-          			debugger
-          		}
-          		totPr();
-          	}else{
-	          	// SELL_PR 값 업데이트
-	          	console.log("Updating SELL_PR with value: " + jsonObj["sellItem"]["SELL_PR"]);
-	          	var sellPR = jsonObj["sellItem"]["SELL_PR"];
-	          
-	          	sellItem.setValue(rowIndex, "SELL_PR", sellPR);
-	          	// SELL_PR 값 업데이트
-	          	if (jsonObj["sellItem"]["SELL_PR"] === null) {
-	              	console.log("SELL_PR is null, setting SALES_AMT to 0");
-	              	sellItem.setValue(rowIndex, "SALES_AMT", 0);
-	          	} else {
-	              	console.log("Updating SALES_AMT with value: " + jsonObj["sellItem"]["SELL_PR"]);
-	              	sellItem.setValue(rowIndex, "SALES_AMT", jsonObj["sellItem"]["SELL_PR"]);
-	              	sellItem.setValue(rowIndex, "PROD_NM", jsonObj['sellItem']['PROD_NM']);
-	              	sellItem.setValue(rowIndex, "QTY", "1");
-	              	sellItem.setValue(rowIndex, "ASELL_PR", jsonObj["sellItem"]["SELL_PR"]);
-	              	if(jsonObj['sellItem']['SALE_OR_NOT'] == '1'){
-	              		sellItem.setValue(rowIndex, "SALE_PR", jsonObj['sellItem']['SALE_PR']);
-	              	}else{
-	              		sellItem.setValue(rowIndex, "SALE_PR", '0');
-	              	}
-	          	}
-	    	}
-      	} else {
-          	console.log("Row index not found for barcode: " + barcode);
-      	}
-      	totPr();
-   });
-	
-	submission.send();
+
 }
 
 // 바코드에 해당하는 행의 인덱스를 찾는 함수
@@ -283,6 +201,8 @@ function onButtonClick2(e){
 		var idNo = app.lookup("ID_NO").value;
 		var busiNo = app.lookup("BUSI_NO").value;
 		
+		debugger
+		// 받아온 회원번호가 존재하는지에 대한 submission
 		var submission = new cpr.protocols.Submission();
 		
 		submission.action = '/POS/addMember.do';
@@ -300,8 +220,13 @@ function onButtonClick2(e){
 		}
 		
 //		submission.async = false;
-		submission.addEventListener("submit-success", function(e){
-			alert('회원등록이 완료되었습니다.');
+		submission.addEventListener("receive", function(e){
+			var jsonObj = JSON.parse(e.control.xhr.responseText);
+			if(jsonObj['memberInfo'].length == 0){
+				alert('회원등록이 완료되었습니다.');
+			}else{
+				alert('이미 등록된 회원입니다.');
+			}
 		});
 		submission.send();
 		
@@ -361,14 +286,6 @@ function checkValidation(){
 }
 
 /*
- * 그리드에서 insert 이벤트 발생 시 호출.
- * Grid의 행이 추가되었을 때 이벤트.
- */
-function onGrd1Insert(e){
-	totPr();
-}
-
-/*
  * 그리드에서 selection-dispose 이벤트 발생 시 호출.
  * Grid의 선택행이 사라지는 경우 발생하는 이벤트. (ex. deleteRow, filter, revertData, revertRowData, commitData, showDeleteRow=false)
  */
@@ -391,7 +308,23 @@ function onGrd1Update(e){
  */
 function onButtonClick5(e){
 	var grd1 = app.lookup("grd1");
-    grd1.insertRow(grd1.rowCount, true);
+	var rowCount = grd1.getRowCount();
+	if(rowCount == 0){
+		grd1.insertRow(grd1.rowCount, true);
+	}else{
+		var isExistRow = grd1.getCellValue(rowCount-1, "PROD_NM");
+		if(isExistRow !== ''){
+			grd1.insertRow(grd1.rowCount, true);
+		}else{
+			grd1.selectRows(rowCount-1);
+//			grd1.selectCells({
+//				rowIndex : rowCount-1
+//				,cellIndex : "BAR_CODE"
+//			}, false);
+		}
+	}
+	
+    
 }
 
 /*
@@ -399,8 +332,100 @@ function onButtonClick5(e){
  * 변경된 value가 저장된 후에 발생하는 이벤트.
  */
 function onBarcodeValueChange2(e){
-	onBarcodeChange(e);
+//	onBarcodeChange(e);
+	//	var dataview = new cpr.data.DataView
+	var grd1 = app.lookup("grd1")
+	// 값이 변경된 해당 바코드의 번호를 들고 조회 ㄱㄱ
+	var barcode = grd1.getCellValue(grd1.getSelectedRowIndex(), "BAR_CODE");
+	console.log(barcode);
 	
+//	if(false){
+	var submission = new cpr.protocols.Submission();
+	submission.action = "/POS/srcProduct.do"
+	submission.setParameters("BAR_CODE", barcode.toString());
+	submission.async = false;
+	
+	// 원래 send() 위치
+	submission.addEventListener("receive", function(e) {
+    	var submission = e.control;
+    	console.log(submission.xhr.responseText);    
+    	var jsonObj = JSON.parse(submission.xhr.responseText);    
+    	console.log(jsonObj);
+    	
+    	var grd1 = app.lookup("grd1"); 
+      	var sellItem = app.lookup("sellItem");
+    
+       	// 데이터셋에 추가하기 전에 기존 데이터를 모두 삭제할지 여부에 따라 결정
+       	// ds1.clear(); // 기존 데이터 모두 삭제
+       
+       	// 바코드를 기준으로 해당 행을 찾습니다.
+       	var rowIndex = findRowIndexByBarcode(sellItem, barcode);
+       	var grd1RowIndex = grd1.getSelectedRowIndex();
+        // 바코드에 해당하는 행이 있을 경우에만 데이터를 업데이트합니다.
+      	// 바코드에 해당하는 행이 있을 경우에만 데이터를 업데이트합니다.
+       	if (rowIndex !== -1) {
+        	console.log("Row index found: " + rowIndex);
+          	// 찾아온 행이 바코드를 입력한 행이 아니면 QTY +1
+          	if(grd1RowIndex !== rowIndex){
+          		var beforeQty = grd1.getCellValue(rowIndex, "QTY");
+          		var sellPr = grd1.getCellValue(rowIndex, "SELL_PR");
+          		var asellPr = grd1.getCellValue(rowIndex, "ASELL_PR");
+          		var salePr = grd1.getCellValue(rowIndex, "SALE_PR");
+          		var salesAmt = grd1.getCellValue(rowIndex, "SALES_AMT");
+          		// 가져온 rowIndex의 QTY가 1일 경우
+          		if(beforeQty === '1'){
+          			grd1.setCellValue(rowIndex, "QTY", parseInt(beforeQty)+1);
+          			grd1.setCellValue(rowIndex, "ASELL_PR", grd1.getCellValue(rowIndex, "ASELL_PR") * 2);
+          			grd1.setCellValue(rowIndex, "SALE_PR", grd1.getCellValue(rowIndex, "SALE_PR") * 2);
+          			grd1.setCellValue(rowIndex, "SALES_AMT", (grd1.getCellValue(rowIndex, "SELL_PR") * 2) - (grd1.getCellValue(rowIndex, "SALE_PR")));
+          			grd1.deleteRow(grd1RowIndex);
+          		}else{
+	          		var asellPr1 = asellPr / beforeQty;
+	          		var salePr1 = salePr / beforeQty;
+	          		var salesAmt1 = (asellPr / beforeQty) - (salePr / beforeQty)
+          			
+          			grd1.setCellValue(rowIndex, "QTY", parseInt(beforeQty)+1);
+          			grd1.setCellValue(rowIndex, "ASELL_PR", asellPr1 * (parseInt(beforeQty)+1));
+          			grd1.setCellValue(rowIndex, "SALE_PR", salePr1 * (parseInt(beforeQty)+1));
+          			grd1.setCellValue(rowIndex, "SALES_AMT", salesAmt1 * (parseInt(beforeQty)+1));
+          			grd1.deleteRow(grd1RowIndex);
+          		}
+          		totPr();
+          	}else{
+//          		if(jsonObj["sellItem"] !== null){
+
+		          	if (jsonObj["sellItem"] === null) {
+		              	console.log("SELL_PR is null, setting SALES_AMT to 0");
+		              	sellItem.setValue(rowIndex, "SALES_AMT", 0);
+		              	alert('해당 상품이 없습니다.');
+		          	} else {
+		          		// SELL_PR 값 업데이트
+		          		var sellPR = jsonObj["sellItem"]["SELL_PR"];
+		          		sellItem.setValue(rowIndex, "SELL_PR", sellPR);
+		              	console.log("Updating SALES_AMT with value: " + jsonObj["sellItem"]["SELL_PR"]);
+		              	sellItem.setValue(rowIndex, "SALES_AMT", parseInt(jsonObj["sellItem"]["SELL_PR"] - jsonObj['sellItem']['SALE_PR']));
+		              	sellItem.setValue(rowIndex, "PROD_NM", jsonObj['sellItem']['PROD_NM']);
+		              	sellItem.setValue(rowIndex, "QTY", "1");
+		              	sellItem.setValue(rowIndex, "ASELL_PR", jsonObj["sellItem"]["SELL_PR"]);
+		              	if(jsonObj['sellItem']['SALE_OR_NOT'] == '1'){
+		              		sellItem.setValue(rowIndex, "SALE_PR", jsonObj['sellItem']['SALE_PR']);
+		              	}else{
+		              		sellItem.setValue(rowIndex, "SALE_PR", '0');
+		              	}
+		          	}
+//          		}else{
+//          			alert('해당 바코드로 조회된 값이 없습니다.');
+//          		}
+	          	
+	    	}
+      	} else {
+          	console.log("Row index not found for barcode: " + barcode);
+          	alert('해당 상품이 없습니다.');
+      	}
+      	totPr();
+   });
+	
+	submission.send();
 }
 
 /*
@@ -410,6 +435,10 @@ function onBarcodeValueChange2(e){
 function onButtonClick6(e){
 	
 	var ipb12 = app.lookup("ipb12").value;
+	debugger
+	var grd1 = app.lookup("grd1");
+	if(grd1.getCellValue(0, "PROD_NM") !== ''){
+		
 	if(ipb12 < 0 || ipb12.length == 0){
 		alert('계산이 맞지 않습니다.');
 		return false;
@@ -458,9 +487,26 @@ function onButtonClick6(e){
 		submission.setRequestObject(sellItemLists);
 		submission.addEventListener("submit-success", function(e){
 			alert('계산이 정상적으로 처리되었습니다.');
+			app.lookup("sellItem").clear();
+			app.lookup("product").clear();
+			app.lookup("grd1").redraw();
+			app.lookup("MEMB_SER_NO").value = '';
+			app.lookup("MEMB_NM").value = '';
+			app.lookup("ADDR_1").value = '';
+			app.lookup("BUSI_NO").value = '';
+			app.lookup("ID_NO").value = '';
+			app.lookup("PH_NO").value = '';
+			app.lookup("totalSellAmt").value = '';
+			app.lookup("memPoint").value = '';
+			app.lookup("total").value = '';
+			app.lookup("ipb11").value = '';
+			app.lookup("ipb12").value = '';
 		});
 		submission.send();
 		
+	}
+	}else{
+		alert('한개이상의 상품을 등록하세요');
 	}
 	
 	
@@ -548,7 +594,6 @@ function onQTYValueChange(e){
       }else{
          var saleAmt = Number(salePr/qty);
       }
-      debugger
       grd1.updateRow(rowIndex, {
          "QTY" : qtyValue
          ,"ASELL_PR" : String(Number(qtyValue * grd1.getCellValue(rowIndex, "SELL_PR")))
@@ -569,4 +614,16 @@ function onQTYBeforeValueChange(e){
 	var qtyValue = app.lookup("QTY").value;
    	qty = qtyValue;
 
+}
+
+/*
+ * 루트 컨테이너에서 init 이벤트 발생 시 호출.
+ * 앱이 최초 구성될 때 발생하는 이벤트 입니다.
+ */
+function onBodyInit(e){
+	window.addEventListener("message", function getPostMessage(e) {
+		if (app.lookup("PH_NO") != null) {
+			app.lookup("PH_NO").value = e.data;
+		}
+	});
 }

@@ -46,6 +46,7 @@ function onButtonClick(e){
 					,SER_NO : rowIndices[i] +1
 				}
 				sellItemList.push(sellObject);
+				grd2.setEnabledTypedCell('checkbox', rowIndices[i], false);
 			}
 			
 			var sellItemLists = {
@@ -254,6 +255,7 @@ function onGrd1CellClick(e){
 			// 취소구분이 3이면 delete row
 			if(jsonObj['sellItem'][i]['TRANS_TY'] === '3'){
 				grd2.deleteRow(i);
+				grd2.setEnabledTypedCell('checkbox', i, false);
 			}
 		} // for문 종료
 		

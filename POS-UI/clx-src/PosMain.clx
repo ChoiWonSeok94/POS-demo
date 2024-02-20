@@ -60,6 +60,7 @@
   </head>
   <body std:sid="body-afe2a2b6" style="border-right-style:solid; border-top-width:1px; border-bottom-color:black; border-right-width:1px; border-left-color:black; border-right-color:black; border-left-width:1px; border-top-style:solid; border-left-style:solid; border-bottom-width:1px; border-top-color:black; border-bottom-style:solid;" overscrollbehavior="none">
     <cl:listener std:sid="listener-785fa238" name="load" handler="onBodyLoad"/>
+    <cl:listener std:sid="listener-c95d0153" name="init" handler="onBodyInit"/>
     <cl:grid std:sid="grid-b5e52ec0" id="grd1" datasetid="sellItem" showdeletedrow="false">
       <cl:listener std:sid="listener-b929b38f" name="insert" handler="onGrd1Insert"/>
       <cl:listener std:sid="listener-a9418c57" name="selection-dispose" handler="onGrd1SelectionDispose"/>
@@ -104,22 +105,22 @@
           </cl:inputbox>
         </cl:gridcell>
         <cl:gridcell std:sid="gd-cell-95a7c34c" rowindex="0" colindex="4" columnname="SELL_PR">
-          <cl:numbereditor std:sid="n-editor-0737e41d" id="SELL_PR" style="text-align:center;" spinbutton="false" format="s#,###">
+          <cl:numbereditor std:sid="n-editor-0737e41d" id="SELL_PR" style="cursor:default; text-align:center;" readonly="true" spinbutton="false" format="s#,###">
             <cl:celldata std:sid="c-data-9b6c69c9"/>
           </cl:numbereditor>
         </cl:gridcell>
         <cl:gridcell std:sid="gd-cell-9d837282" rowindex="0" colindex="5" columnname="ASELL_PR">
-          <cl:numbereditor std:sid="n-editor-ba4849cd" id="ASELL_PR" style="text-align:center;" spinbutton="false" format="s#,###">
+          <cl:numbereditor std:sid="n-editor-ba4849cd" id="ASELL_PR" style="cursor:default; text-align:center;" readonly="true" spinbutton="false" format="s#,###">
             <cl:celldata std:sid="c-data-f2cec389"/>
           </cl:numbereditor>
         </cl:gridcell>
         <cl:gridcell std:sid="gd-cell-b82533b1" rowindex="0" colindex="6" columnname="SALE_PR">
-          <cl:numbereditor std:sid="n-editor-e8eddf83" id="SALE_PR" style="text-align:center;" spinbutton="false" format="s#,###">
+          <cl:numbereditor std:sid="n-editor-e8eddf83" id="SALE_PR" style="cursor:default; text-align:center;" readonly="true" spinbutton="false" format="s#,###">
             <cl:celldata std:sid="c-data-eafe0828"/>
           </cl:numbereditor>
         </cl:gridcell>
         <cl:gridcell std:sid="gd-cell-9b02e64d" rowindex="0" colindex="7" columnname="SALES_AMT">
-          <cl:numbereditor std:sid="n-editor-c44f5b79" id="SALES_AMT" style="text-align:center;" spinbutton="false" format="s#,###">
+          <cl:numbereditor std:sid="n-editor-c44f5b79" id="SALES_AMT" style="cursor:default; text-align:center;" readonly="true" spinbutton="false" format="s#,###">
             <cl:celldata std:sid="c-data-f1687cd1"/>
           </cl:numbereditor>
         </cl:gridcell>
@@ -151,7 +152,7 @@
       <cl:listener std:sid="listener-fd9c36c4" name="click" handler="onButtonClick6"/>
       <cl:xylayoutdata std:sid="xyl-data-f487c524" top="591px" left="903px" width="93px" height="83px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
     </cl:button>
-    <cl:group std:sid="group-8ab009ab">
+    <cl:group std:sid="group-8ab009ab" id="memInfo">
       <cl:xylayoutdata std:sid="xyl-data-25cf25ba" top="516px" left="19px" width="590px" height="191px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
       <cl:inputbox std:sid="i-box-a8f84348" id="MEMB_SER_NO" style="border-radius:0px 3px 3px 0px;" readonly="true" inputfilter="[0-9]">
         <cl:xylayoutdata std:sid="xyl-data-6d996223" top="41px" left="100px" width="150px" height="25px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
@@ -162,7 +163,7 @@
       <cl:inputbox std:sid="i-box-c5284c44" id="ADDR_1" style="border-radius:0px 3px 3px 0px;" maxlength="33" inputfilter="[0-9가-힣ㄱ-ㅎ]">
         <cl:xylayoutdata std:sid="xyl-data-4bc63dc1" top="99px" left="100px" width="430px" height="25px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
       </cl:inputbox>
-      <cl:inputbox std:sid="i-box-447ad32c" id="ipb4" style="border-radius:0px 3px 3px 0px;" readonly="true">
+      <cl:inputbox std:sid="i-box-447ad32c" id="totalSellAmt" style="border-radius:0px 3px 3px 0px;" readonly="true">
         <cl:xylayoutdata std:sid="xyl-data-01268fb1" top="126px" left="100px" width="150px" height="25px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
       </cl:inputbox>
       <cl:inputbox std:sid="i-box-112405a3" id="ID_NO" style="border-radius:0px 3px 3px 0px;" maxlength="13" inputfilter="[0-9]">
@@ -171,7 +172,7 @@
       <cl:inputbox std:sid="i-box-153bc903" id="BUSI_NO" style="border-radius:0px 3px 3px 0px;" maxlength="10" inputfilter="[0-9]">
         <cl:xylayoutdata std:sid="xyl-data-16a9ced0" top="126px" left="380px" width="150px" height="25px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
       </cl:inputbox>
-      <cl:inputbox std:sid="i-box-c8f430d1" id="ipb7" style="border-radius:0px 3px 3px 0px;" readonly="true">
+      <cl:inputbox std:sid="i-box-c8f430d1" id="memPoint" style="border-radius:0px 3px 3px 0px;" readonly="true">
         <cl:xylayoutdata std:sid="xyl-data-2039afa8" top="70px" left="380px" width="150px" height="25px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
       </cl:inputbox>
       <cl:inputbox std:sid="i-box-ab749e8c" id="PH_NO" style="border-radius:0px 3px 3px 0px;" maxlength="11" inputmode="tel" inputfilter="[0-9]">

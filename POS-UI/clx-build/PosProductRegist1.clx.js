@@ -22,8 +22,11 @@
 
 			function onBodyInit(e){
 				window.addEventListener("message", function getPostMessage(e) {
-					if (app.lookup("CLIENT_NM") != null) {
-						app.lookup("CLIENT_NM").value = e.data;
+					
+					// e.data가 변수를 담아주고 있는지 컨트롤러 자체를 반환한건지 version으로 확인
+					if (e.data['version'] == null) {
+						app.lookup("CLIENT_NM").value = e.data['CLIENT_NM'];
+						app.lookup("CLIENT_NO").value = e.data['CLIENT_NO']
 					}
 				});
 				
@@ -68,9 +71,13 @@
 				var ipb9 = app.lookup("SALE_PR");
 				if(cbx2 === 'true'){
 					ipb9.readOnly = false;
+					ipb9.placeholder = '세일가격';
+					ipb9.enabled = true;
 				}else{
 					ipb9.readOnly = true;
 					ipb9.value = '';
+					ipb9.placeholder = '';
+					ipb9.enabled = false;
 				}
 			}
 
@@ -80,7 +87,7 @@
 			 */
 			function onButtonClick(e){
 				
-				openWindow = window.open("/POS/PosProductRegist2.do", "_popup", "height=600,left=100,top=100,width=400,location=no,menubar=no,resizable=no,scrollbars=yes,status=yes,titlebar=no,toolbar=no");		
+				openWindow = window.open("/POS/PosProductRegist2.do", "_popup", "height=600,left=100,top=100,width=550,location=no,menubar=no,resizable=no,scrollbars=yes,status=yes,titlebar=no,toolbar=no");		
 				
 			}
 
@@ -92,7 +99,7 @@
 				
 				if(checkDupl() == true){
 					
-					var prodClsCd = app.lookup("PROD_CLS_NM");
+					var prodClsCd = app.lookup("prodClsNm");
 					var prodNm = app.lookup("PROD_NM");
 					var prodEngNm = app.lookup("PROD_ENG_NM");
 					var origNat = app.lookup("ORIG_NAT");
@@ -101,7 +108,7 @@
 					var barCode = app.lookup("BAR_CODE");
 					
 					// CLIENT_NO 를 가져와야하는데 어떻게 가져올지 생각....
-					var clientNo = app.lookup("CLIENT_NM");
+					var clientNo = app.lookup("CLIENT_NO");
 					var color = app.lookup("COLOR");
 					var prodSize = app.lookup("PROD_SIZE");
 					var saleOrNot = app.lookup("SALE_OR_NOT");
@@ -359,7 +366,7 @@
 				var inputBox_1 = new cpr.controls.InputBox("PROD_NM");
 				inputBox_1.placeholder = "상품명(한글)";
 				inputBox_1.maxLength = 13;
-				inputBox_1.inputFilter = "[ㄱ-힣0-9]";
+				inputBox_1.inputFilter = "[ㄱ-힣]";
 				inputBox_1.style.css({
 					"text-align" : "center"
 				});
@@ -384,8 +391,8 @@
 				});
 				var inputBox_3 = new cpr.controls.InputBox("ORIG_NAT");
 				inputBox_3.placeholder = "원산지";
-				inputBox_3.maxLength = 7;
-				inputBox_3.inputFilter = "[ㄱ-힣]";
+				inputBox_3.maxLength = 8;
+				inputBox_3.inputFilter = "[ㄱ-힣A-z]";
 				inputBox_3.style.css({
 					"text-align" : "center"
 				});
@@ -675,9 +682,10 @@
 					"height": "50px"
 				});
 				var numberEditor_3 = new cpr.controls.NumberEditor("SALE_PR");
+				numberEditor_3.enabled = false;
+				numberEditor_3.readOnly = true;
 				numberEditor_3.max = new cpr.foundation.DecimalType("99999");
 				numberEditor_3.spinButton = false;
-				numberEditor_3.placeholder = "세일 가격";
 				numberEditor_3.format = "s#,###";
 				numberEditor_3.style.css({
 					"text-align" : "center"
@@ -687,6 +695,178 @@
 					"left": "733px",
 					"width": "142px",
 					"height": "50px"
+				});
+				var output_18 = new cpr.controls.Output("CLIENT_NO");
+				output_18.visible = true;
+				output_18.readOnly = true;
+				container.addChild(output_18, {
+					"top": "389px",
+					"left": "735px",
+					"width": "140px",
+					"height": "23px"
+				});
+				var output_19 = new cpr.controls.Output();
+				output_19.enabled = false;
+				output_19.value = "은 필수값입니다.";
+				output_19.style.css({
+					"color" : "red",
+					"text-align" : "left"
+				});
+				container.addChild(output_19, {
+					"top": "8px",
+					"left": "837px",
+					"width": "120px",
+					"height": "20px"
+				});
+				var output_20 = new cpr.controls.Output();
+				output_20.value = "* ";
+				output_20.style.css({
+					"color" : "red",
+					"font-weight" : "800",
+					"font-size" : "22px",
+					"line-height" : "22px",
+					"text-align" : "right"
+				});
+				container.addChild(output_20, {
+					"top": "8px",
+					"left": "807px",
+					"width": "30px",
+					"height": "20px"
+				});
+				var output_21 = new cpr.controls.Output();
+				output_21.value = "* ";
+				output_21.style.css({
+					"color" : "red",
+					"font-weight" : "800",
+					"font-size" : "22px",
+					"line-height" : "22px",
+					"text-align" : "right"
+				});
+				container.addChild(output_21, {
+					"top": "65px",
+					"left": "54px",
+					"width": "30px",
+					"height": "20px"
+				});
+				var output_22 = new cpr.controls.Output();
+				output_22.value = "* ";
+				output_22.style.css({
+					"color" : "red",
+					"font-weight" : "800",
+					"font-size" : "22px",
+					"line-height" : "22px",
+					"text-align" : "right"
+				});
+				container.addChild(output_22, {
+					"top": "133px",
+					"left": "54px",
+					"width": "30px",
+					"height": "20px"
+				});
+				var output_23 = new cpr.controls.Output();
+				output_23.value = "* ";
+				output_23.style.css({
+					"color" : "red",
+					"font-weight" : "800",
+					"font-size" : "22px",
+					"line-height" : "22px",
+					"text-align" : "right"
+				});
+				container.addChild(output_23, {
+					"top": "201px",
+					"left": "54px",
+					"width": "30px",
+					"height": "20px"
+				});
+				var output_24 = new cpr.controls.Output();
+				output_24.value = "* ";
+				output_24.style.css({
+					"color" : "red",
+					"font-weight" : "800",
+					"font-size" : "22px",
+					"line-height" : "22px",
+					"text-align" : "right"
+				});
+				container.addChild(output_24, {
+					"top": "273px",
+					"left": "54px",
+					"width": "30px",
+					"height": "20px"
+				});
+				var output_25 = new cpr.controls.Output();
+				output_25.value = "* ";
+				output_25.style.css({
+					"color" : "red",
+					"font-weight" : "800",
+					"font-size" : "22px",
+					"line-height" : "22px",
+					"text-align" : "right"
+				});
+				container.addChild(output_25, {
+					"top": "343px",
+					"left": "54px",
+					"width": "30px",
+					"height": "20px"
+				});
+				var output_26 = new cpr.controls.Output();
+				output_26.value = "* ";
+				output_26.style.css({
+					"color" : "red",
+					"font-weight" : "800",
+					"font-size" : "22px",
+					"line-height" : "22px",
+					"text-align" : "right"
+				});
+				container.addChild(output_26, {
+					"top": "203px",
+					"left": "329px",
+					"width": "30px",
+					"height": "20px"
+				});
+				var output_27 = new cpr.controls.Output();
+				output_27.value = "* ";
+				output_27.style.css({
+					"color" : "red",
+					"font-weight" : "800",
+					"font-size" : "22px",
+					"line-height" : "22px",
+					"text-align" : "right"
+				});
+				container.addChild(output_27, {
+					"top": "64px",
+					"left": "329px",
+					"width": "30px",
+					"height": "20px"
+				});
+				var output_28 = new cpr.controls.Output();
+				output_28.value = "* ";
+				output_28.style.css({
+					"color" : "red",
+					"font-weight" : "800",
+					"font-size" : "22px",
+					"line-height" : "22px",
+					"text-align" : "right"
+				});
+				container.addChild(output_28, {
+					"top": "132px",
+					"left": "329px",
+					"width": "30px",
+					"height": "20px"
+				});
+				var output_29 = new cpr.controls.Output();
+				output_29.value = "* ";
+				output_29.style.css({
+					"color" : "red",
+					"font-weight" : "800",
+					"font-size" : "22px",
+					"line-height" : "22px",
+					"text-align" : "right"
+				});
+				container.addChild(output_29, {
+					"top": "343px",
+					"left": "616px",
+					"width": "30px",
+					"height": "20px"
 				});
 			})(group_1);
 			container.addChild(group_1, {
@@ -709,14 +889,14 @@
 				"height": "80px"
 			});
 			
-			var output_18 = new cpr.controls.Output("title");
-			output_18.value = "상품 관리";
-			output_18.style.css({
+			var output_30 = new cpr.controls.Output("title");
+			output_30.value = "상품 관리";
+			output_30.style.css({
 				"font-weight" : "bold",
 				"font-size" : "25px",
 				"text-align" : "center"
 			});
-			container.addChild(output_18, {
+			container.addChild(output_30, {
 				"top": "90px",
 				"left": "353px",
 				"width": "318px",

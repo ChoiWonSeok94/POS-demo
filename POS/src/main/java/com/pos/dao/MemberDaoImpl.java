@@ -1,7 +1,6 @@
 package com.pos.dao;
 
 import java.util.List;
-import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,5 +32,15 @@ public class MemberDaoImpl implements MemberDao{
 	@Override
 	public int totalMemCnt() {
 		return sqlsession.selectOne("Member.totalMemCnt");
+	}
+
+	@Override
+	public int memInfoExistCntByIdNo(MemberVo memVo) {
+		return sqlsession.selectOne("Member.memInfoExistCntByIdNo", memVo);
+	}
+
+	@Override
+	public List<MemberVo> doExistMemberSrcMemSerNoByIdNo(MemberVo memVo) {
+		return sqlsession.selectList("Member.doExistMemberSrcMemSerNoByIdNo", memVo);
 	}
 }
