@@ -118,6 +118,8 @@ function onButtonClick3(e){
 			console.log(submi.xhr.responseText);
 			var jsonObj = JSON.parse(submi.xhr.responseText);
 			
+			// 받아온 회원번호가 이미 존재 할경우
+			
 			// 받아온 회원이 없을 경우
 			if(jsonObj['memberInfo'].length == 0){
 				alert('회원정보가 존재하지 않습니다.');
