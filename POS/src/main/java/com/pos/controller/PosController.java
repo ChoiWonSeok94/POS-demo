@@ -1,7 +1,6 @@
 package com.pos.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,7 +13,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.cleopatra.json.JSONArray;
 import com.cleopatra.json.JSONObject;
 import com.cleopatra.protocol.data.DataRequest;
 import com.cleopatra.protocol.data.DataResponse;
@@ -23,6 +21,7 @@ import com.cleopatra.spring.UIView;
 import com.pos.Vo.CashVo;
 import com.pos.Vo.ClientVo;
 import com.pos.Vo.MemberVo;
+import com.pos.Vo.ProductClsVo;
 import com.pos.Vo.ProductVo;
 import com.pos.Vo.SalesPayVo;
 import com.pos.Vo.SalesProdVo;
@@ -182,7 +181,8 @@ public class PosController {
 		
 		// select to_char(count(*))
 		String prodCd = prodService.getProdCnt();
-		dataReq.setParameter("PROD_CD", prodCd);
+//		dataReq.setParameter("PROD_CD", prodCd);
+		dataReq.setResponse("PROD_CD", prodCd);
 		
 		return new JSONDataView();
 	}
@@ -190,23 +190,6 @@ public class PosController {
 	// 등록버튼 클릭시 입력된 값 상품 TB insert
 	@RequestMapping(value = "/productInsert.do", method = RequestMethod.POST)
 	public JSONDataView productInsert(DataRequest dataReq, ProductVo prodVo) {
-		
-		
-//		prodVo.setPROD_CD(dataReq.getRequestObject().getString("PROD_CD"));
-//		prodVo.setPROD_CLS_CD(dataReq.getRequestObject().getString("PROD_CLS_CD"));
-//		prodVo.setPROD_NM(dataReq.getRequestObject().getString("PROD_NM"));
-//		prodVo.setPROD_ENG_NM(dataReq.getRequestObject().getString("PROD_ENG_NM"));
-//		prodVo.setORIG_NAT(dataReq.getRequestObject().getString("ORIG_NAT"));
-//		prodVo.setPURC_PR(dataReq.getRequestObject().getString("PURC_PR"));
-//		prodVo.setSELL_PR(dataReq.getRequestObject().getString("SELL_PR"));
-//		prodVo.setBAR_CODE(dataReq.getRequestObject().getString("BAR_CODE"));
-//		prodVo.setCLIENT_NO(dataReq.getRequestObject().getString("CLIENT_NO"));
-//		prodVo.setCOLOR(dataReq.getRequestObject().getString("COLOR"));
-//		prodVo.setSIZE(dataReq.getRequestObject().getString("SIZE"));
-//		prodVo.setSALE_OR_NOT(dataReq.getRequestObject().getString("SALE_OR_NOT"));
-//		prodVo.setSALE_PR(dataReq.getRequestObject().getString("SALE_PR"));
-//		prodVo.setTAXAT_TY(dataReq.getRequestObject().getString("TAXAT_TY"));
-//		prodVo.setMEM_POINT(dataReq.getRequestObject().getString("MEM_POINT"));
 		
 		// 거래처명으로 거래처 번호 가져오기
 //		String clientNm = prodVo.getCLIENT_NO();
@@ -224,13 +207,21 @@ public class PosController {
 		return new UIView("/ui/PosProductRegist2.clx");
 	}
 	
-	// 상품관리2 거래처 검색시 like 거래처로 값 반환
-	@RequestMapping(value = "/clientSearch.do", method = RequestMethod.POST)
-	public JSONDataView clientSearch(DataRequest dataReq, ClientVo cliVo) {
+	// 상품관리1 진입시 상품분류코드 가져오기
+	@RequestMapping(value = "/getProdClsName.do", method = RequestMethod.POST)
+	public JSONDataView getProdClsName(DataRequest dataReq, ProductClsVo prodClsVo) {
 		
-		cliVo.setCLIENT_NM(dataReq.getParameter("CLIENT_NM"));
-		List<ClientVo> clientNmList =  cliService.searchClient(cliVo);
+		List prodClsNmList = prodService.getProdClsName(prodClsVo);
+		dataReq.setResponse("prodClsCd", prodClsNmList);
+		return new JSONDataView();
+	}
+	
+	// 상품관리2 -> 거래처명 검색 like문
+	@RequestMapping(value = "/srcClientByName.do", method = RequestMethod.POST)
+	public JSONDataView srcClientByName(DataRequest dataReq, ClientVo cliVo) {
 		
+		List clientList = cliService.srcClientByName(cliVo);
+		dataReq.setResponse("clientList", clientList);
 		return new JSONDataView();
 	}
 	
@@ -271,7 +262,6 @@ public class PosController {
 	public JSONDataView valutInit(DataRequest dataReq, CashVo cashVo) {
 		
 		// 시재금 최종잔액 반환
-		// 현재 에러는 나지 않으나 변수에 null 값이 들어옴
 		int amt = cashService.getAmtInit();
 		dataReq.setResponse("totCash", amt);
 		return new JSONDataView();
@@ -296,6 +286,14 @@ public class PosController {
 	@RequestMapping(value="/PosCust.do", method = RequestMethod.GET)
 	public UIView posCust(HttpServletRequest req, HttpServletResponse res, DataRequest dataReq) throws Exception {
 		return new UIView("/ui/PosCust.clx");
+	}
+	
+	@RequestMapping(value = "/memberPageInit.do", method = RequestMethod.POST)
+	public JSONDataView memberPageInit(DataRequest dataReq, MemberVo memVo) {
+		
+		int totalMemCnt = memService.totalMemCnt()+1;
+		dataReq.setResponse("memCnt", totalMemCnt);
+		return new JSONDataView();
 	}
 }
 	

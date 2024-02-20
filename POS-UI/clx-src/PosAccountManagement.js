@@ -12,7 +12,16 @@ function onBodyInit(e) {
         //후처리
 
     });
-    
+//  var utilProperty = cpr.core.Module.require("ui/js/daumApi.module.js");
+//	var utilProperty = cpr.core.Module.require("module/js/daumApi.module.js");
+//	console.log(utilProperty.property1);
+//	var svg = app.lookup("accountForm");
+//  	var xmlns = "http://dmaps.daum.net/map_js_init/postcode.v2.js";
+//  	var svgElem = document.createElementNS(xmlns, "svg");
+//  	
+//  	svgElem.setAttributeNS(null, "width", "400px");
+//  	svgElem.setAttributeNS(null, "hight", "600px");
+//  	svgElem.setAttributeNS(null, "popup", "popup");
 }
 
 //function postCode() {
@@ -69,9 +78,9 @@ function onBodyInit(e) {
  * "우편 검색" 버튼(btnClick)에서 click 이벤트 발생 시 호출.
  * 사용자가 컨트롤을 클릭할 때 발생하는 이벤트.
  */
-//function onBtnClickClick(e){
+function onBtnClickClick(e){
 //	postCode();
-//}
+}
 
 /*
  * 루트 컨테이너에서 unload 이벤트 발생 시 호출.
@@ -88,20 +97,18 @@ function onBodyUnload(e){
  * 앱이 최초 구성된후 최초 랜더링 직후에 발생하는 이벤트 입니다.
  */
 function onBodyLoad(e){
+	
     app.lookup("PERS_COP_TY").selectItem(0);
     
     var clientNo = app.lookup("CLIENT_NO");
 	var submission = new cpr.protocols.Submission();
 	submission.action = '/POS/clientPageInit.do';
-	submission.responseType = 'text';
+	submission.responseType = 'javascript';
 	submission.async = false;
 	submission.addEventListener("receive", function(e){
-		var submission = e.control;
-		
-		var clientNo = app.lookup("clientNo");
-		
+		var submi = e.control.xhr.responseText;
 		//총 거래처정보 반환된 값 세팅
-		
+		app.lookup("CLIENT_NO").value = JSON.parse(submission.xhr.responseText)['clientNo']['CLIENT_NO'];
 	});
 	submission.send();
 	
@@ -113,7 +120,7 @@ function chkDupl(){
 	var clientNm = app.lookup("CLIENT_NM");
 	var busiNo = app.lookup("BUSI_NO");
 	var idNo = app.lookup("ID_NO");
-	var represNm1 = app.lookup("REPRES_NM");
+	var represNm = app.lookup("REPRES_NM");
 	var phNo = app.lookup("PH_NO");
 	var postNo = app.lookup("POST_NO");
 	var addr1 = app.lookup("ADDR1");
@@ -136,9 +143,14 @@ function chkDupl(){
 		busiNo.focus();
 		return false;
 	}
-	if(represNm1.value == '' || represNm1.length == 0){
+	var represNmTest = /^[가-힣A-z]+$/;
+	if(represNm.value == '' || represNm.length == 0){
 		alert('대표자성명을 입력해 주세요.');
-		represNm1.focus();
+		represNm.focus();
+		return false;
+	}else if(represNmTest.test(represNm.value)){
+		alert('유효하지 않은 형식입니다.');
+		represNm.focus();
 		return false;
 	}
 	if(idBusiOutput.value == '주민번호'){
@@ -178,13 +190,14 @@ function chkDupl(){
 //			return false;
 //		}
 	}
+	var phNoTest = /^0\d{1,2}\d{3,4}\d{4}$/;
 	if(phNo.value == '' || phNo.length == 0){
 		alert('전화번호를 입력해 주세요.');
 		phNo.focus();
 		return false;
 	
-	}else if(phNo.length < 10 && phNo.length > 0){
-		alert('전화번호의 길이가 올바르지 않습니다.');
+	}else if(phNoTest.test(phNo.value)){
+		alert('유효하지 않은 전화번호 형식입니다.');
 		phNo.focus();
 		return false;
 	}
@@ -197,7 +210,6 @@ function chkDupl(){
 		addr2.focus();
 		return false;
 	}
-	
 	return true;
 }
 
@@ -212,7 +224,7 @@ function onButtonClick(e){
 		var busiNo = app.lookup("BUSI_NO");
 		var persCopTy = app.lookup("PERS_COP_TY");
 		var idNo = app.lookup("ID_NO");
-		var represNm1 = app.lookup("REPRES_NM");
+		var represNm = app.lookup("REPRES_NM");
 		var phNo = app.lookup("PH_NO");
 		var postNo = app.lookup("POST_NO");
 		var addr1 = app.lookup("ADDR1");

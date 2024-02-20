@@ -29,4 +29,9 @@ public class MemberDaoImpl implements MemberDao{
 	public List<MemberVo> getMember(MemberVo memVo) {
 		return sqlsession.selectList("Member.getMember", memVo);
 	}
+
+	@Override
+	public int totalMemCnt() {
+		return sqlsession.selectOne("Member.totalMemCnt");
+	}
 }

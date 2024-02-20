@@ -26,8 +26,9 @@
 			function onBodyLoad(/* cpr.events.CUIEvent */e){
 				
 				
-				var utilProperty = cpr.core.Module.require("ui/js/daumApi.module.js");
-			//	console.log(utilProperty.property1);
+			//	var utilProperty = cpr.core.Module.require("ui/js/daumApi.module.js");
+			//	var utilProperty = cpr.core.Module.require("module/js/daumApi.module.js");
+			//	console.log(utilProperty);
 			//	var svg = app.lookup("custForm");
 			//  	var xmlns = "http://dmaps.daum.net/map_js_init/postcode.v2.js";
 			//  	var svgElem = document.createElementNS(xmlns, "svg");
@@ -35,7 +36,16 @@
 			//  	svgElem.setAttributeNS(null, "width", "400px");
 			//  	svgElem.setAttributeNS(null, "hight", "600px");
 			//  	svgElem.setAttributeNS(null, "popup", "popup");
-			  	
+				
+				var submission = new cpr.protocols.Submission();
+				submission.action = '/POS/memberPageInit.do';
+				submission.responseType = 'javascript';
+				submission.addEventListener("receive", function(e){
+					var jsonObj = JSON.parse(e.control.xhr.responseText);
+					app.lookup("MEMB_SER_NO").value = jsonObj['memCnt'];
+				});
+				submission.send();
+				
 			  	app.lookup("PERS_COP_TY").selectItem(0);
 			  	
 			}
@@ -48,7 +58,7 @@
 				var button = e.control;
 				
 				
-				if(true){
+				if(chkDupl()){
 					debugger;
 					var idNo = app.lookup("ID_NO");
 					var busiNo = app.lookup("BUSI_NO");
@@ -139,18 +149,35 @@
 						alert('사업자 번호가 올바르지 않습니다.');
 						busiNo.focus();
 						return false;
+					}else if(busiNo.value.substr(0, 3) === '325' && busiNo.length > 0){
+						alert('유효하지 않은 사업자 번호입니다.');
+						busiNo.focus();
+						return false;
 					}
 				}
+				var hgMemTest = /^[가-힣]+$/;
 				if(membNm.value == ''){
 					alert('회원명을 입력해 주세요.');
 					membNm.focus();
 					return false;
 				}
+				if(!hgMemTest.test(membNm.value) && membNm.length > 0){
+					alert('유효하지 않은 이름입니다.');
+					membNm.focus();
+					return false;
+				}
+				var engMemTest = /(\s)\1/;
 				if(membEngNm.value == ''){
 					alert('영문명을 입력해 주세요.');
 					membEngNm.focus();
 					return false;
 				}
+				if(engMemTest.test(membEngNm.value)){
+					alert('연속된 공백은 불가합니다.');
+					membEngNm.focus();
+					return false;
+				}
+				var inputYear = birDay.value.substr(0, 4);
 				if(birDay.value == ''){
 					alert('생년월일을 입력해 주세요.');
 					birDay.focus();
@@ -162,23 +189,42 @@
 					birDay.focus();
 					return false;
 				}
+				// 12살 미만일 때
+				if(inputYear % parseInt(inputYear) < 12){
+					alert('만 13세 이상 가입이 가능합니다.');
+					birDay.focus();
+					return false;
+				}
+				var mobPhTest = /^01([0|1|6|7|8|9]{1})([0-9]{3,4})([0-9]{4})$/;
 				if(mobPhNo.value == ''){
 					alert('휴대폰번호를 입력해 주세요.');
 					mobPhNo.focus();
 					return false;
 				}
-				if(mobPhNo.length < 10 && mobPhNo.length > 0){
+				if(!mobPhTest.test(mobPhNo.value) && mobPhNo.length > 0){
 					alert('휴대폰번호가 올바르지 않습니다.');
 					mobPhNo.focus();
 					return false;
 				}
+				var phNoTest = /^0\d{1,2}\d{3,4}\d{4}$/;
 				if(phNo.length < 9){
 					alert('전화번호가 올바르지 않습니다.');
 					phNo.focus();
 					return false;
 				}
+				if(phNoTest.test(phNo.value)){
+					alert('전화번호가 올바르지 않습니다.');
+					phNo.focus();
+					return false;
+				}
+				var emailTest = /^([A-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,3})$/;
 				if(email.value == ''){
 					alert('이메일을 작성해 주세요');
+					email.focus();
+					return false;
+				}
+				if(emailTest.test(email.value)){
+					alert('이메일을 형식이 올바르지 않습니다.');
 					email.focus();
 					return false;
 				}
@@ -307,8 +353,15 @@
 					"height": "35px"
 				});
 				var inputBox_1 = new cpr.controls.InputBox("MEMB_SER_NO");
+				inputBox_1.enabled = false;
+				inputBox_1.readOnly = true;
 				inputBox_1.style.css({
-					"border-radius" : "0px 5px 5px 0px"
+					"border-radius" : "0px 5px 5px 0px",
+					"background-color" : "white",
+					"color" : "black",
+					"font-weight" : "bolder",
+					"font-size" : "16px",
+					"text-align" : "center"
 				});
 				container.addChild(inputBox_1, {
 					"top": "110px",
@@ -346,7 +399,8 @@
 				inputBox_2.maxLength = 13;
 				inputBox_2.inputFilter = "[0-9]";
 				inputBox_2.style.css({
-					"border-radius" : "0px 5px 5px 0px"
+					"border-radius" : "0px 5px 5px 0px",
+					"text-align" : "center"
 				});
 				container.addChild(inputBox_2, {
 					"top": "210px",
@@ -384,7 +438,8 @@
 				inputBox_3.maxLength = 10;
 				inputBox_3.inputFilter = "[0-9]";
 				inputBox_3.style.css({
-					"border-radius" : "0px 5px 5px 0px"
+					"border-radius" : "0px 5px 5px 0px",
+					"text-align" : "center"
 				});
 				container.addChild(inputBox_3, {
 					"top": "270px",
@@ -421,7 +476,8 @@
 				inputBox_4.maxLength = 13;
 				inputBox_4.inputFilter = "[ㄱ-힣]";
 				inputBox_4.style.css({
-					"border-radius" : "0px 5px 5px 0px"
+					"border-radius" : "0px 5px 5px 0px",
+					"text-align" : "center"
 				});
 				container.addChild(inputBox_4, {
 					"top": "330px",
@@ -456,9 +512,10 @@
 				});
 				var inputBox_5 = new cpr.controls.InputBox("MEMB_ENG_NM");
 				inputBox_5.maxLength = 30;
-				inputBox_5.inputFilter = "[A-z\\s]";
+				inputBox_5.inputFilter = "[A-z\\s-,]";
 				inputBox_5.style.css({
-					"border-radius" : "0px 5px 5px 0px"
+					"border-radius" : "0px 5px 5px 0px",
+					"text-align" : "center"
 				});
 				container.addChild(inputBox_5, {
 					"top": "390px",
@@ -519,8 +576,10 @@
 				var inputBox_6 = new cpr.controls.InputBox("MOB_PH_NO");
 				inputBox_6.placeholder = "숫자만 입력해 주세요";
 				inputBox_6.maxLength = 12;
+				inputBox_6.inputFilter = "[0-9]";
 				inputBox_6.style.css({
-					"border-radius" : "0px 5px 5px 0px"
+					"border-radius" : "0px 5px 5px 0px",
+					"text-align" : "center"
 				});
 				container.addChild(inputBox_6, {
 					"top": "270px",
@@ -556,8 +615,10 @@
 				var inputBox_7 = new cpr.controls.InputBox("PH_NO");
 				inputBox_7.placeholder = "숫자만 입력해 주세요";
 				inputBox_7.maxLength = 12;
+				inputBox_7.inputFilter = "[0-9]";
 				inputBox_7.style.css({
-					"border-radius" : "0px 5px 5px 0px"
+					"border-radius" : "0px 5px 5px 0px",
+					"text-align" : "center"
 				});
 				container.addChild(inputBox_7, {
 					"top": "330px",
@@ -592,8 +653,10 @@
 				});
 				var inputBox_8 = new cpr.controls.InputBox("EMAIL");
 				inputBox_8.maxLength = 30;
+				inputBox_8.inputFilter = "[0-9A-z\\@.]";
 				inputBox_8.style.css({
-					"border-radius" : "0px 5px 5px 0px"
+					"border-radius" : "0px 5px 5px 0px",
+					"text-align" : "center"
 				});
 				container.addChild(inputBox_8, {
 					"top": "390px",
@@ -653,7 +716,8 @@
 				});
 				var inputBox_9 = new cpr.controls.InputBox("POST_NO");
 				inputBox_9.style.css({
-					"border-radius" : "0px 5px 5px 0px"
+					"border-radius" : "0px 5px 5px 0px",
+					"text-align" : "center"
 				});
 				container.addChild(inputBox_9, {
 					"top": "270px",
@@ -688,7 +752,8 @@
 				});
 				var inputBox_10 = new cpr.controls.InputBox("ADDR_1");
 				inputBox_10.style.css({
-					"border-radius" : "0px 5px 5px 0px"
+					"border-radius" : "0px 5px 5px 0px",
+					"text-align" : "center"
 				});
 				container.addChild(inputBox_10, {
 					"top": "330px",
@@ -724,7 +789,8 @@
 				var inputBox_11 = new cpr.controls.InputBox("ADDR_2");
 				inputBox_11.maxLength = 33;
 				inputBox_11.style.css({
-					"border-radius" : "0px 5px 5px 0px"
+					"border-radius" : "0px 5px 5px 0px",
+					"text-align" : "center"
 				});
 				container.addChild(inputBox_11, {
 					"top": "390px",
@@ -734,6 +800,9 @@
 				});
 				var dateInput_1 = new cpr.controls.DateInput("BIR_DAY");
 				dateInput_1.placeholder = "YYYY-MM-DD";
+				dateInput_1.style.css({
+					"text-align" : "center"
+				});
 				container.addChild(dateInput_1, {
 					"top": "210px",
 					"left": "438px",

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.pos.Vo.ClientVo;
+import com.pos.Vo.ProductClsVo;
 
 @Repository
 public class ClientDaoImpl implements ClientDao{
@@ -33,5 +34,10 @@ public class ClientDaoImpl implements ClientDao{
 	@Override
 	public String getClientCnt() {
 		return sqlsession.selectOne("Client.getClientCnt");
+	}
+
+	@Override
+	public List srcClientByName(ClientVo cliVo) {
+		return sqlsession.selectList("Client.srcClientByName", cliVo);
 	}
 }

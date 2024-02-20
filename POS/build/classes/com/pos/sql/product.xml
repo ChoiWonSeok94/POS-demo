@@ -65,4 +65,13 @@
 		FROM 
 			PROD_TBL
 	</select>
+	
+	<select id="getProdClsName" parameterType="com.pos.Vo.ProductClsVo" resultType="map">
+		SELECT
+			PROD_CLS_NM
+			,PROD_CLS_CD
+		FROM
+			PROD_CLS_TBL
+	</select>
+	
 </mapper>

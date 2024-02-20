@@ -34,13 +34,13 @@
     <cl:embeddedapp std:sid="e-app-3ec6db7b" id="ea1" src="PosHeader.clx">
       <cl:xylayoutdata std:sid="xyl-data-dc6c1bd6" top="0px" left="0px" width="1024px" height="80px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
     </cl:embeddedapp>
-    <cl:group std:sid="group-b50d2d75">
+    <cl:group std:sid="group-b50d2d75" id="accountForm">
       <cl:xylayoutdata std:sid="xyl-data-10dff757" top="150px" left="0px" width="1024px" height="598px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
-      <cl:output std:sid="output-6bd14a88" style="text-align:center;" value="거래처 번호 :">
-        <cl:xylayoutdata std:sid="xyl-data-9f359167" top="70px" left="353px" width="120px" height="40px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+      <cl:output std:sid="output-6bd14a88" style="font-weight:bold; font-size:18px; text-align:center;" value="거래처 번호 :">
+        <cl:xylayoutdata std:sid="xyl-data-9f359167" top="70px" left="379px" width="141px" height="40px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
       </cl:output>
-      <cl:output std:sid="output-33ce9d45" id="CLIENT_NO">
-        <cl:xylayoutdata std:sid="xyl-data-0fec3c87" top="70px" left="483px" width="170px" height="40px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+      <cl:output std:sid="output-33ce9d45" id="CLIENT_NO" style="color:black; font-weight:bolder; font-size:18px; text-align:left;">
+        <cl:xylayoutdata std:sid="xyl-data-0fec3c87" top="70px" left="530px" width="130px" height="40px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
       </cl:output>
       <cl:radiobutton std:sid="r-button-200fc85b" id="PERS_COP_TY">
         <cl:listener std:sid="listener-8ecb526a" name="selection-change" handler="onPERS_COP_TYSelectionChange"/>

@@ -21,28 +21,43 @@
 			var openWindow = null;
 
 			function onBodyInit(e){
-				var cmb1 = app.lookup("PROD_CLS_CD");
-				cmb1.selectItem(0);
-				
 				window.addEventListener("message", function getPostMessage(e) {
 					if (app.lookup("CLIENT_NM") != null) {
 						app.lookup("CLIENT_NM").value = e.data;
 					}
 				});
 				
+				var prodClsNm = app.lookup("prodClsNm");
+				app.lookup("prodClsList").clear();
+				
 				var submission = new cpr.protocols.Submission();
 				submission.action = '/POS/productPageInit.do';
-				submission.responseType = 'text';
+				submission.responseType = 'javascript';
 				submission.async = false;
+				submission.addEventListener("receive", function(e){
+					var submi = e.control;
+					var jsonObj = JSON.parse(submi.xhr.responseText);
+					app.lookup("PROD_CD").value = jsonObj['PROD_CD'];
+				});
 				submission.send();
-				var prodCd = submission.getParameters("PROD_CD");
-				var prod = submission.getRequestData("PROD_CD");
-				var pro = submission.getResponseData("PROD_CD");
-				var pr = submission.getParameterNames("PROD_CD");
-				var p = submission.getUserAttrNames();
-				debugger
-				app.lookup("PROD_CD").value = prodCd;
 				
+				var submission2 = new cpr.protocols.Submission();
+				submission2.action = '/POS/getProdClsName.do';
+				submission2.responseType = 'javascript';
+				submission2.async = false;
+				submission2.addEventListener("receive", function(e){
+					var submi = e.control;
+					var jsonObj = JSON.parse(submi.xhr.responseText);
+					var prodClsList = app.lookup("prodClsList");
+					for(var i=0 ; i < jsonObj['prodClsCd'].length ; i++){
+						prodClsList.insertRowData(i, true, jsonObj['prodClsCd'][i]);
+						prodClsList.putValue(i, "PROD_CLS_NM", jsonObj['prodClsCd'][i]['PROD_CLS_NM']);
+						prodClsList.putValue(i, "PROD_CLS_CD", jsonObj['prodClsCd'][i]['PROD_CLS_CD']);
+						console.log(prodClsList.getRowData(i));
+					}
+					prodClsNm.selectItem(0);
+				});
+				submission2.send();
 			}
 
 			/*
@@ -77,7 +92,7 @@
 				
 				if(checkDupl() == true){
 					
-					var prodClsCd = app.lookup("PROD_CLS_CD");
+					var prodClsCd = app.lookup("PROD_CLS_NM");
 					var prodNm = app.lookup("PROD_NM");
 					var prodEngNm = app.lookup("PROD_ENG_NM");
 					var origNat = app.lookup("ORIG_NAT");
@@ -113,7 +128,7 @@
 					submission.action = '/POS/productInsert.do';
 					submission.responseType = 'text';
 					submission.async = false;
-					submission.setParameters("PROD_CLS_CD", prodClsCd.value);
+					submission.setParameters("PROD_CLS_NM", prodClsCd.value);
 					submission.setParameters("PROD_NM", prodNm.value);
 					submission.setParameters("PROD_ENG_NM", prodEngNm.value);
 					submission.setParameters("ORIG_NAT", origNat.value);
@@ -208,20 +223,33 @@
 					}
 				}
 				return true;
+			}
+
+			/*
+			 * 콤보 박스에서 selection-change 이벤트 발생 시 호출.
+			 * ComboBox Item을 선택하여 선택된 값이 저장된 후에 발생하는 이벤트.
+			 */
+			function onProdClsNmSelectionChange(e){
+				var prodClsNm = app.lookup("prodClsNm");
+				// 
+				console.log(prodClsNm.value);
 			};
 			// End - User Script
 			
 			// Header
-			var dataSet_1 = new cpr.data.DataSet("prodClsCd");
+			var dataSet_1 = new cpr.data.DataSet("prodClsList");
 			dataSet_1.parseData({
 				"columns": [
-					{"name": "label"},
-					{"name": "value"}
+					{
+						"name": "PROD_CLS_NM",
+						"dataType": "string"
+					},
+					{"name": "PROD_CLS_CD"}
 				],
 				"rows": [
-					{"label": "육류", "value": "1"},
-					{"label": "쌀", "value": "2"},
-					{"label": "음료", "value": "3"}
+					{"PROD_CLS_NM": "육류", "PROD_CLS_CD": "1"},
+					{"PROD_CLS_NM": "쌀", "PROD_CLS_CD": "2"},
+					{"PROD_CLS_NM": "음료", "PROD_CLS_CD": "3"}
 				]
 			});
 			app.register(dataSet_1);
@@ -305,12 +333,27 @@
 				});
 				var output_6 = new cpr.controls.Output("PROD_CD");
 				output_6.style.css({
+					"border-right-style" : "solid",
+					"border-bottom-color" : "#bbbbbb",
+					"border-top-width" : "1px",
+					"border-right-width" : "1px",
+					"font-weight" : "bolder",
+					"border-left-color" : "#bbbbbb",
+					"font-size" : "16px",
+					"border-right-color" : "#bbbbbb",
+					"border-left-width" : "1px",
+					"border-top-style" : "solid",
+					"background-color" : "white",
+					"border-left-style" : "solid",
+					"border-bottom-width" : "1px",
+					"border-top-color" : "#bbbbbb",
+					"border-bottom-style" : "solid",
 					"text-align" : "center"
 				});
 				container.addChild(output_6, {
 					"top": "50px",
-					"left": "190px",
-					"width": "130px",
+					"left": "179px",
+					"width": "141px",
 					"height": "50px"
 				});
 				var inputBox_1 = new cpr.controls.InputBox("PROD_NM");
@@ -420,26 +463,13 @@
 					"width": "100px",
 					"height": "50px"
 				});
-				var inputBox_5 = new cpr.controls.InputBox("SELL_PR");
-				inputBox_5.placeholder = "가격(판매가)";
-				inputBox_5.maxLength = 13;
+				var inputBox_5 = new cpr.controls.InputBox("MEM_POINT");
+				inputBox_5.placeholder = "포인트 적립금";
 				inputBox_5.inputFilter = "[0-9]";
 				inputBox_5.style.css({
 					"text-align" : "center"
 				});
 				container.addChild(inputBox_5, {
-					"top": "120px",
-					"left": "454px",
-					"width": "142px",
-					"height": "50px"
-				});
-				var inputBox_6 = new cpr.controls.InputBox("MEM_POINT");
-				inputBox_6.placeholder = "회원 포인트 잔액";
-				inputBox_6.inputFilter = "[0-9]";
-				inputBox_6.style.css({
-					"text-align" : "center"
-				});
-				container.addChild(inputBox_6, {
 					"top": "330px",
 					"left": "454px",
 					"width": "142px",
@@ -500,67 +530,47 @@
 					"width": "100px",
 					"height": "50px"
 				});
-				var inputBox_7 = new cpr.controls.InputBox("SALE_PR");
-				inputBox_7.readOnly = true;
-				inputBox_7.placeholder = "세일 가격";
-				inputBox_7.inputFilter = "[0-9]";
-				inputBox_7.style.css({
+				var inputBox_6 = new cpr.controls.InputBox("COLOR");
+				inputBox_6.placeholder = "색상";
+				inputBox_6.style.css({
 					"text-align" : "center"
 				});
-				container.addChild(inputBox_7, {
-					"top": "120px",
-					"left": "733px",
-					"width": "142px",
-					"height": "50px"
-				});
-				var inputBox_8 = new cpr.controls.InputBox("COLOR");
-				inputBox_8.placeholder = "색상";
-				inputBox_8.style.css({
-					"text-align" : "center"
-				});
-				container.addChild(inputBox_8, {
+				container.addChild(inputBox_6, {
 					"top": "188px",
 					"left": "733px",
 					"width": "142px",
 					"height": "50px"
 				});
-				var inputBox_9 = new cpr.controls.InputBox("PROD_SIZE");
-				inputBox_9.placeholder = "사이즈";
-				inputBox_9.style.css({
+				var inputBox_7 = new cpr.controls.InputBox("PROD_SIZE");
+				inputBox_7.placeholder = "사이즈";
+				inputBox_7.style.css({
 					"text-align" : "center"
 				});
-				container.addChild(inputBox_9, {
+				container.addChild(inputBox_7, {
 					"top": "260px",
 					"left": "733px",
 					"width": "142px",
 					"height": "50px"
 				});
-				var inputBox_10 = new cpr.controls.InputBox("PURC_PR");
-				inputBox_10.placeholder = "가격(원가)";
-				inputBox_10.maxLength = 13;
-				inputBox_10.inputFilter = "[0-9]";
-				inputBox_10.style.css({
+				var comboBox_1 = new cpr.controls.ComboBox("prodClsNm");
+				comboBox_1.preventInput = true;
+				comboBox_1.style.css({
 					"text-align" : "center"
 				});
-				container.addChild(inputBox_10, {
-					"top": "50px",
-					"left": "453px",
-					"width": "142px",
-					"height": "50px"
-				});
-				var comboBox_1 = new cpr.controls.ComboBox("PROD_CLS_CD");
-				comboBox_1.preventInput = true;
 				(function(comboBox_1){
-					comboBox_1.setItemSet(app.lookup("prodClsCd"), {
-						"label": "label",
-						"value": "value"
+					comboBox_1.setItemSet(app.lookup("prodClsList"), {
+						"label": "PROD_CLS_NM",
+						"value": "PROD_CLS_CD"
 					});
 				})(comboBox_1);
+				if(typeof onProdClsNmSelectionChange == "function") {
+					comboBox_1.addEventListener("selection-change", onProdClsNmSelectionChange);
+				}
 				container.addChild(comboBox_1, {
-					"top": "198px",
+					"top": "188px",
 					"left": "454px",
 					"width": "141px",
-					"height": "30px"
+					"height": "52px"
 				});
 				var checkBox_1 = new cpr.controls.CheckBox("TAXAT_TY");
 				checkBox_1.value = "";
@@ -627,10 +637,53 @@
 					"border-left-style" : "solid",
 					"border-bottom-width" : "1px",
 					"border-top-color" : "#bbbbbb",
-					"border-bottom-style" : "solid"
+					"border-bottom-style" : "solid",
+					"text-align" : "center"
 				});
 				container.addChild(output_17, {
 					"top": "330px",
+					"left": "733px",
+					"width": "142px",
+					"height": "50px"
+				});
+				var numberEditor_1 = new cpr.controls.NumberEditor("SELL_PR");
+				numberEditor_1.max = new cpr.foundation.DecimalType("9999999");
+				numberEditor_1.spinButton = false;
+				numberEditor_1.placeholder = "가격(판매가)";
+				numberEditor_1.format = "s#,###";
+				numberEditor_1.style.css({
+					"text-align" : "center"
+				});
+				container.addChild(numberEditor_1, {
+					"top": "120px",
+					"left": "454px",
+					"width": "142px",
+					"height": "50px"
+				});
+				var numberEditor_2 = new cpr.controls.NumberEditor("PURC_PR");
+				numberEditor_2.max = new cpr.foundation.DecimalType("9999999");
+				numberEditor_2.spinButton = false;
+				numberEditor_2.placeholder = "가격(원가)";
+				numberEditor_2.format = "s#,###";
+				numberEditor_2.style.css({
+					"text-align" : "center"
+				});
+				container.addChild(numberEditor_2, {
+					"top": "50px",
+					"left": "454px",
+					"width": "142px",
+					"height": "50px"
+				});
+				var numberEditor_3 = new cpr.controls.NumberEditor("SALE_PR");
+				numberEditor_3.max = new cpr.foundation.DecimalType("99999");
+				numberEditor_3.spinButton = false;
+				numberEditor_3.placeholder = "세일 가격";
+				numberEditor_3.format = "s#,###";
+				numberEditor_3.style.css({
+					"text-align" : "center"
+				});
+				container.addChild(numberEditor_3, {
+					"top": "120px",
 					"left": "733px",
 					"width": "142px",
 					"height": "50px"

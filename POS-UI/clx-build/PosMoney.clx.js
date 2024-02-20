@@ -193,7 +193,7 @@
 				output_2.displayExp = "text + '원'";
 				output_2.style.css({
 					"font-weight" : "bold",
-					"font-size" : "16px",
+					"font-size" : "18px",
 					"text-align" : "center"
 				});
 				container.addChild(output_2, {

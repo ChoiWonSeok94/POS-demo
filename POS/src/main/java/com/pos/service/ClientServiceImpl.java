@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.cleopatra.protocol.data.DataRequest;
 import com.pos.Vo.ClientVo;
+import com.pos.Vo.ProductClsVo;
 import com.pos.dao.ClientDao;
 
 @Service
@@ -35,5 +36,11 @@ public class ClientServiceImpl implements ClientService{
 	public String getClientCnt() {
 		return cliDao.getClientCnt();
 	}
+
+	@Override
+	public List srcClientByName(ClientVo cliVo) {
+		return cliDao.srcClientByName(cliVo);
+	}
+
 	
 }

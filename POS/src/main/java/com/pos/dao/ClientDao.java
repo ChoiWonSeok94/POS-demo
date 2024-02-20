@@ -9,4 +9,5 @@ public interface ClientDao {
 	void clientInsert(ClientVo cliVo);
 	String getClientNoByClientNm(String clientNm);
 	String getClientCnt();
+	List srcClientByName(ClientVo cliVo);
 }

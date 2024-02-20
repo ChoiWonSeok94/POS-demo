@@ -9,4 +9,5 @@ public interface MemberService {
 
 	List<MemberVo> srcMemInfo(MemberVo memVo);
 	List<MemberVo> addMember(MemberVo memVo);
+	int totalMemCnt();
 }

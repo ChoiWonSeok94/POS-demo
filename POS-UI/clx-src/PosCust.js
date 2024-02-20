@@ -12,8 +12,9 @@
 function onBodyLoad(/* cpr.events.CUIEvent */e){
 	
 	
-	var utilProperty = cpr.core.Module.require("ui/js/daumApi.module.js");
-//	console.log(utilProperty.property1);
+//	var utilProperty = cpr.core.Module.require("ui/js/daumApi.module.js");
+//	var utilProperty = cpr.core.Module.require("module/js/daumApi.module.js");
+//	console.log(utilProperty);
 //	var svg = app.lookup("custForm");
 //  	var xmlns = "http://dmaps.daum.net/map_js_init/postcode.v2.js";
 //  	var svgElem = document.createElementNS(xmlns, "svg");
@@ -21,7 +22,16 @@ function onBodyLoad(/* cpr.events.CUIEvent */e){
 //  	svgElem.setAttributeNS(null, "width", "400px");
 //  	svgElem.setAttributeNS(null, "hight", "600px");
 //  	svgElem.setAttributeNS(null, "popup", "popup");
-  	
+	
+	var submission = new cpr.protocols.Submission();
+	submission.action = '/POS/memberPageInit.do';
+	submission.responseType = 'javascript';
+	submission.addEventListener("receive", function(e){
+		var jsonObj = JSON.parse(e.control.xhr.responseText);
+		app.lookup("MEMB_SER_NO").value = jsonObj['memCnt'];
+	});
+	submission.send();
+	
   	app.lookup("PERS_COP_TY").selectItem(0);
   	
 }
@@ -34,7 +44,7 @@ function onButtonClick(e){
 	var button = e.control;
 	
 	
-	if(true){
+	if(chkDupl()){
 		debugger;
 		var idNo = app.lookup("ID_NO");
 		var busiNo = app.lookup("BUSI_NO");
@@ -125,18 +135,35 @@ function chkDupl(){
 			alert('사업자 번호가 올바르지 않습니다.');
 			busiNo.focus();
 			return false;
+		}else if(busiNo.value.substr(0, 3) === '325' && busiNo.length > 0){
+			alert('유효하지 않은 사업자 번호입니다.');
+			busiNo.focus();
+			return false;
 		}
 	}
+	var hgMemTest = /^[가-힣]+$/;
 	if(membNm.value == ''){
 		alert('회원명을 입력해 주세요.');
 		membNm.focus();
 		return false;
 	}
+	if(!hgMemTest.test(membNm.value) && membNm.length > 0){
+		alert('유효하지 않은 이름입니다.');
+		membNm.focus();
+		return false;
+	}
+	var engMemTest = /(\s)\1/;
 	if(membEngNm.value == ''){
 		alert('영문명을 입력해 주세요.');
 		membEngNm.focus();
 		return false;
 	}
+	if(engMemTest.test(membEngNm.value)){
+		alert('연속된 공백은 불가합니다.');
+		membEngNm.focus();
+		return false;
+	}
+	var inputYear = birDay.value.substr(0, 4);
 	if(birDay.value == ''){
 		alert('생년월일을 입력해 주세요.');
 		birDay.focus();
@@ -148,23 +175,42 @@ function chkDupl(){
 		birDay.focus();
 		return false;
 	}
+	// 12살 미만일 때
+	if(inputYear % parseInt(inputYear) < 12){
+		alert('만 13세 이상 가입이 가능합니다.');
+		birDay.focus();
+		return false;
+	}
+	var mobPhTest = /^01([0|1|6|7|8|9]{1})([0-9]{3,4})([0-9]{4})$/;
 	if(mobPhNo.value == ''){
 		alert('휴대폰번호를 입력해 주세요.');
 		mobPhNo.focus();
 		return false;
 	}
-	if(mobPhNo.length < 10 && mobPhNo.length > 0){
+	if(!mobPhTest.test(mobPhNo.value) && mobPhNo.length > 0){
 		alert('휴대폰번호가 올바르지 않습니다.');
 		mobPhNo.focus();
 		return false;
 	}
+	var phNoTest = /^0\d{1,2}\d{3,4}\d{4}$/;
 	if(phNo.length < 9){
 		alert('전화번호가 올바르지 않습니다.');
 		phNo.focus();
 		return false;
 	}
+	if(phNoTest.test(phNo.value)){
+		alert('전화번호가 올바르지 않습니다.');
+		phNo.focus();
+		return false;
+	}
+	var emailTest = /^([A-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,3})$/;
 	if(email.value == ''){
 		alert('이메일을 작성해 주세요');
+		email.focus();
+		return false;
+	}
+	if(emailTest.test(email.value)){
+		alert('이메일을 형식이 올바르지 않습니다.');
 		email.focus();
 		return false;
 	}

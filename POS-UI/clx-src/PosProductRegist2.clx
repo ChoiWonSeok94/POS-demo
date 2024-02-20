@@ -5,23 +5,23 @@
     <cl:model std:sid="model-0f7d9736">
       <cl:dataset std:sid="d-set-eca749d5" id="clientList">
         <cl:datacolumnlist>
-          <cl:datacolumn std:sid="d-column-fba50a19" name="거래처명"/>
+          <cl:datacolumn std:sid="d-column-fba50a19" name="CLIENT_NM"/>
         </cl:datacolumnlist>
         <cl:datarowlist>
           <cl:datarow>
-            <cl:datavalue columnname="거래처명"><![CDATA[거래처 A]]></cl:datavalue>
+            <cl:datavalue columnname="CLIENT_NM"><![CDATA[거래처 A]]></cl:datavalue>
           </cl:datarow>
           <cl:datarow>
-            <cl:datavalue columnname="거래처명"><![CDATA[거래처 B]]></cl:datavalue>
+            <cl:datavalue columnname="CLIENT_NM"><![CDATA[거래처 B]]></cl:datavalue>
           </cl:datarow>
           <cl:datarow>
-            <cl:datavalue columnname="거래처명"><![CDATA[거래처 C]]></cl:datavalue>
+            <cl:datavalue columnname="CLIENT_NM"><![CDATA[거래처 C]]></cl:datavalue>
           </cl:datarow>
           <cl:datarow>
-            <cl:datavalue columnname="거래처명"><![CDATA[거래처 D]]></cl:datavalue>
+            <cl:datavalue columnname="CLIENT_NM"><![CDATA[거래처 D]]></cl:datavalue>
           </cl:datarow>
           <cl:datarow>
-            <cl:datavalue columnname="거래처명"><![CDATA[거래처 E]]></cl:datavalue>
+            <cl:datavalue columnname="CLIENT_NM"><![CDATA[거래처 E]]></cl:datavalue>
           </cl:datarow>
         </cl:datarowlist>
       </cl:dataset>
@@ -34,8 +34,10 @@
     <cl:appspec/>
   </head>
   <body std:sid="body-e21ab096">
+    <cl:listener std:sid="listener-e9c8d95c" name="load" handler="onBodyLoad"/>
     <cl:searchinput std:sid="s-input-b2440d5c" id="srcAccount" placeholder="거래처 명">
       <cl:listener std:sid="listener-51a9163d" name="value-change" handler="onSearchInputValueChange"/>
+      <cl:listener std:sid="listener-b77530f1" name="search" handler="onSrcAccountSearch"/>
       <cl:xylayoutdata std:sid="xyl-data-bd2376d2" top="75px" left="20px" width="360px" height="35px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
     </cl:searchinput>
     <cl:output std:sid="output-a0dc9f31" style="border-bottom-color:#D0D0D0; font-weight:bold; border-bottom-width:4px; font-size:20px; border-bottom-style:solid;" value="  거래처 검색">
@@ -47,11 +49,11 @@
       <cl:gridcolumn std:sid="g-column-49e09393"/>
       <cl:gridheader std:sid="gh-band-0e7a9ea8">
         <cl:gridrow std:sid="g-row-40f8c9de"/>
-        <cl:gridcell std:sid="gh-cell-563099c7" rowindex="0" colindex="0" style="vertical-align:middle; text-align:left;" targetcolumnname="거래처명" sortable="false" filterable="false" text="거래처명"/>
+        <cl:gridcell std:sid="gh-cell-563099c7" rowindex="0" colindex="0" style="vertical-align:middle; text-align:left;" targetcolumnname="CLIENT_NM" sortable="false" filterable="false" text="거래처명"/>
       </cl:gridheader>
       <cl:griddetail std:sid="gd-band-6f8551b1">
         <cl:gridrow std:sid="g-row-3a4c5fd4"/>
-        <cl:gridcell std:sid="gd-cell-b5496651" rowindex="0" colindex="0" style="vertical-align:middle; text-align:left;" columnname="거래처명"/>
+        <cl:gridcell std:sid="gd-cell-b5496651" rowindex="0" colindex="0" style="vertical-align:middle; text-align:left;" columnname="CLIENT_NM"/>
       </cl:griddetail>
     </cl:grid>
     <cl:button std:sid="button-3cf77bba" value="확 인">

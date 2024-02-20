@@ -39,3 +39,43 @@ function onButtonClick(e){
 //	console.log(grd1);
 	window.close();
 }
+
+/*
+ * 루트 컨테이너에서 load 이벤트 발생 시 호출.
+ * 앱이 최초 구성된후 최초 랜더링 직후에 발생하는 이벤트 입니다.
+ */
+function onBodyLoad(e){
+	app.lookup("clientList").clear();
+}
+
+/*
+ * 서치 인풋에서 search 이벤트 발생 시 호출.
+ * Searchinput의 enter키 또는 검색버튼을 클릭하여 인풋의 값이 Search될때 발생하는 이벤트
+ */
+function onSrcAccountSearch(e){
+	var srcAccount = app.lookup("srcAccount").value;
+	
+	var submission = new cpr.protocols.Submission();
+	submission.action = '/POS/srcClientByName.do';
+	submission.responseType = 'javascript';
+	submission.async = false;
+	submission.setParameters("CLIENT_NM", srcAccount);
+	submission.addEventListener("receive", function(e){
+		var submi = e.control;
+		var grd1 = app.lookup("grd1");
+		var jsonObj = JSON.parse(submi.xhr.responseText);
+		console.log('가져온 거래처 목록 = ' + submi.xhr.responseText);
+		debugger
+		if(jsonObj['clientList'].length != 0){
+			for(var i=0 ; i < jsonObj['clientList'].length ; i++){
+				grd1.insertRowData(i, true, {
+					CLIENT_NM : jsonObj['clientList'][i]['CLIENT_NM']
+				}, false)
+			}
+		}else{
+			alert('조회된 정보가 없습니다');
+		}
+		
+	});
+	submission.send();
+}

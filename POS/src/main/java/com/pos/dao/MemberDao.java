@@ -9,4 +9,5 @@ public interface MemberDao {
 	List<MemberVo> srcMemInfo(MemberVo memVo);
 	int addMember(MemberVo memVo);
 	List<MemberVo> getMember(MemberVo memVo);
+	int totalMemCnt();
 }

@@ -8,28 +8,43 @@
 var openWindow = null;
 
 function onBodyInit(e){
-	var cmb1 = app.lookup("PROD_CLS_CD");
-	cmb1.selectItem(0);
-	
 	window.addEventListener("message", function getPostMessage(e) {
 		if (app.lookup("CLIENT_NM") != null) {
 			app.lookup("CLIENT_NM").value = e.data;
 		}
 	});
 	
+	var prodClsNm = app.lookup("prodClsNm");
+	app.lookup("prodClsList").clear();
+	
 	var submission = new cpr.protocols.Submission();
 	submission.action = '/POS/productPageInit.do';
-	submission.responseType = 'text';
+	submission.responseType = 'javascript';
 	submission.async = false;
+	submission.addEventListener("receive", function(e){
+		var submi = e.control;
+		var jsonObj = JSON.parse(submi.xhr.responseText);
+		app.lookup("PROD_CD").value = jsonObj['PROD_CD'];
+	});
 	submission.send();
-	var prodCd = submission.getParameters("PROD_CD");
-	var prod = submission.getRequestData("PROD_CD");
-	var pro = submission.getResponseData("PROD_CD");
-	var pr = submission.getParameterNames("PROD_CD");
-	var p = submission.getUserAttrNames();
-	debugger
-	app.lookup("PROD_CD").value = prodCd;
 	
+	var submission2 = new cpr.protocols.Submission();
+	submission2.action = '/POS/getProdClsName.do';
+	submission2.responseType = 'javascript';
+	submission2.async = false;
+	submission2.addEventListener("receive", function(e){
+		var submi = e.control;
+		var jsonObj = JSON.parse(submi.xhr.responseText);
+		var prodClsList = app.lookup("prodClsList");
+		for(var i=0 ; i < jsonObj['prodClsCd'].length ; i++){
+			prodClsList.insertRowData(i, true, jsonObj['prodClsCd'][i]);
+			prodClsList.putValue(i, "PROD_CLS_NM", jsonObj['prodClsCd'][i]['PROD_CLS_NM']);
+			prodClsList.putValue(i, "PROD_CLS_CD", jsonObj['prodClsCd'][i]['PROD_CLS_CD']);
+			console.log(prodClsList.getRowData(i));
+		}
+		prodClsNm.selectItem(0);
+	});
+	submission2.send();
 }
 
 /*
@@ -64,7 +79,7 @@ function onButtonClick2(e){
 	
 	if(checkDupl() == true){
 		
-		var prodClsCd = app.lookup("PROD_CLS_CD");
+		var prodClsCd = app.lookup("PROD_CLS_NM");
 		var prodNm = app.lookup("PROD_NM");
 		var prodEngNm = app.lookup("PROD_ENG_NM");
 		var origNat = app.lookup("ORIG_NAT");
@@ -100,7 +115,7 @@ function onButtonClick2(e){
 		submission.action = '/POS/productInsert.do';
 		submission.responseType = 'text';
 		submission.async = false;
-		submission.setParameters("PROD_CLS_CD", prodClsCd.value);
+		submission.setParameters("PROD_CLS_NM", prodClsCd.value);
 		submission.setParameters("PROD_NM", prodNm.value);
 		submission.setParameters("PROD_ENG_NM", prodEngNm.value);
 		submission.setParameters("ORIG_NAT", origNat.value);
@@ -195,4 +210,14 @@ function checkDupl(){
 		}
 	}
 	return true;
+}
+
+/*
+ * 콤보 박스에서 selection-change 이벤트 발생 시 호출.
+ * ComboBox Item을 선택하여 선택된 값이 저장된 후에 발생하는 이벤트.
+ */
+function onProdClsNmSelectionChange(e){
+	var prodClsNm = app.lookup("prodClsNm");
+	// 
+	console.log(prodClsNm.value);
 }

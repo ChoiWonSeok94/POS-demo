@@ -32,6 +32,11 @@ public class MemberServiceImpl implements MemberService {
 //		memVo.setMEMB_SER_NO();
 		return memDao.getMember(memVo);
 	}
+
+	@Override
+	public int totalMemCnt() {
+		return memDao.totalMemCnt();
+	}
 	
 	
 }

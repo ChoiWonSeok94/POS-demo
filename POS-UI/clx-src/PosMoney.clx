@@ -15,7 +15,7 @@
       <cl:output std:sid="output-7e250751" style="background-color:#BEBEBE; border-radius:35px 35px 35px 35px; font-weight:bold; font-size:16px; text-align:center;" value="최종 잔액">
         <cl:xylayoutdata std:sid="xyl-data-db59882a" top="413px" left="334px" width="140px" height="40px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
       </cl:output>
-      <cl:output std:sid="output-4d86b973" id="totalCnt" style="font-weight:bold; font-size:16px; text-align:center;" datatype="number" format="s#,##0" displayexp="text + '원'">
+      <cl:output std:sid="output-4d86b973" id="totalCnt" style="font-weight:bold; font-size:18px; text-align:center;" datatype="number" format="s#,##0" displayexp="text + '원'">
         <cl:xylayoutdata std:sid="xyl-data-04384aa6" top="413px" left="527px" width="182px" height="40px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
       </cl:output>
       <cl:group std:sid="group-3af99f49" style="border-bottom-color:#c7c7c7; border-bottom-width:4px; border-bottom-style:solid;">

@@ -1,14 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="Client">
-	<select id="searchClient" parameterType="com.pos.Vo.ClientVo" resultType="map">
-		SELECT 
-			CLIENT_NM
-		FROM
-			CLIENT_TBL
-		WHERE
-			CLIENT_NM LIKE '%' || #{CLIENT_NM} || '%'
-	</select>
 	
 	<insert id="clientInsert">
 		INSERT INTO CLIENT_TBL(
@@ -49,5 +41,14 @@
 			TO_CHAR(COUNT(*))
 		FROM
 			CLIENT_TBL
+	</select>
+	
+	<select id="srcClientByName" parameterType="com.pos.Vo.ClientVo" resultType="map">
+		SELECT
+		    *
+		FROM
+		    CLIENT_TBL
+		WHERE
+		    CLIENT_NM LIKE '%' ||#{CLIENT_NM}|| '%'
 	</select>
 </mapper>

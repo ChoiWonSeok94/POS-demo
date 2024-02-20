@@ -1,10 +1,12 @@
 package com.pos.service;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.pos.Vo.ProductClsVo;
 import com.pos.Vo.ProductVo;
 import com.pos.dao.ProductDao;
 
@@ -29,5 +31,10 @@ public class ProductServiceImpl implements ProductService{
 	@Override
 	public String getProdCnt() {
 		return prodDao.getProdCnt();
+	}
+	
+	@Override
+	public List getProdClsName(ProductClsVo prodClsVo) {
+		return prodDao.getProdClsName(prodClsVo);
 	}
 }

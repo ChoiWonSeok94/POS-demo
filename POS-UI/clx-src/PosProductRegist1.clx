@@ -5,23 +5,23 @@
     <screen std:sid="screen-dde685e5" id="tablet" name="tablet" width="500px" height="667px"/>
     <screen std:sid="screen-9e9df47d" id="mobile" name="mobile" width="350px" height="525px"/>
     <cl:model std:sid="model-ffe6925c">
-      <cl:dataset std:sid="d-set-663e8600" id="prodClsCd">
+      <cl:dataset std:sid="d-set-663e8600" id="prodClsList">
         <cl:datacolumnlist>
-          <cl:datacolumn std:sid="d-column-b5a24e41" name="label"/>
-          <cl:datacolumn std:sid="d-column-7c9a6701" name="value"/>
+          <cl:datacolumn std:sid="d-column-b5a24e41" name="PROD_CLS_NM" datatype="string"/>
+          <cl:datacolumn std:sid="d-column-7c9a6701" name="PROD_CLS_CD"/>
         </cl:datacolumnlist>
         <cl:datarowlist>
           <cl:datarow>
-            <cl:datavalue columnname="label">육류</cl:datavalue>
-            <cl:datavalue columnname="value"><![CDATA[1]]></cl:datavalue>
+            <cl:datavalue columnname="PROD_CLS_NM">육류</cl:datavalue>
+            <cl:datavalue columnname="PROD_CLS_CD"><![CDATA[1]]></cl:datavalue>
           </cl:datarow>
           <cl:datarow>
-            <cl:datavalue columnname="label">쌀</cl:datavalue>
-            <cl:datavalue columnname="value"><![CDATA[2]]></cl:datavalue>
+            <cl:datavalue columnname="PROD_CLS_NM">쌀</cl:datavalue>
+            <cl:datavalue columnname="PROD_CLS_CD"><![CDATA[2]]></cl:datavalue>
           </cl:datarow>
           <cl:datarow>
-            <cl:datavalue columnname="label">음료</cl:datavalue>
-            <cl:datavalue columnname="value"><![CDATA[3]]></cl:datavalue>
+            <cl:datavalue columnname="PROD_CLS_NM">음료</cl:datavalue>
+            <cl:datavalue columnname="PROD_CLS_CD"><![CDATA[3]]></cl:datavalue>
           </cl:datarow>
         </cl:datarowlist>
       </cl:dataset>
@@ -47,8 +47,8 @@
       <cl:output std:sid="output-12474087" style="text-align:center;" value="바코드 번호 :">
         <cl:xylayoutdata std:sid="xyl-data-378946a3" top="330px" left="80px" width="100px" height="50px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
       </cl:output>
-      <cl:output std:sid="output-aea53ad7" id="PROD_CD" style="text-align:center;">
-        <cl:xylayoutdata std:sid="xyl-data-de73d25d" top="50px" left="190px" width="130px" height="50px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+      <cl:output std:sid="output-aea53ad7" id="PROD_CD" style="border-right-style:solid; border-bottom-color:#bbbbbb; border-top-width:1px; border-right-width:1px; font-weight:bolder; border-left-color:#bbbbbb; font-size:16px; border-right-color:#bbbbbb; border-left-width:1px; border-top-style:solid; background-color:white; border-left-style:solid; border-bottom-width:1px; border-top-color:#bbbbbb; border-bottom-style:solid; text-align:center;">
+        <cl:xylayoutdata std:sid="xyl-data-de73d25d" top="50px" left="179px" width="141px" height="50px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
       </cl:output>
       <cl:inputbox std:sid="i-box-7459ef05" id="PROD_NM" style="text-align:center;" placeholder="상품명(한글)" maxlength="13" inputfilter="[ㄱ-힣0-9]">
         <cl:xylayoutdata std:sid="xyl-data-7661a8a1" top="120px" left="179px" width="141px" height="50px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
@@ -77,10 +77,7 @@
       <cl:output std:sid="output-6867053e" style="text-align:center;" value="회원 포인트 :">
         <cl:xylayoutdata std:sid="xyl-data-7d9e567f" top="330px" left="355px" width="100px" height="50px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
       </cl:output>
-      <cl:inputbox std:sid="i-box-47913024" id="SELL_PR" style="text-align:center;" placeholder="가격(판매가)" maxlength="13" inputfilter="[0-9]">
-        <cl:xylayoutdata std:sid="xyl-data-3524f401" top="120px" left="454px" width="142px" height="50px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
-      </cl:inputbox>
-      <cl:inputbox std:sid="i-box-69428db1" id="MEM_POINT" style="text-align:center;" placeholder="회원 포인트 잔액" inputfilter="[0-9]">
+      <cl:inputbox std:sid="i-box-69428db1" id="MEM_POINT" style="text-align:center;" placeholder="포인트 적립금" inputfilter="[0-9]">
         <cl:xylayoutdata std:sid="xyl-data-3cf02207" top="330px" left="454px" width="142px" height="50px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
       </cl:inputbox>
       <cl:output std:sid="output-9f2524bb" style="text-align:center;" value="세일 여부 :">
@@ -98,21 +95,16 @@
       <cl:output std:sid="output-c7011628" style="text-align:center;" value="거래처 :">
         <cl:xylayoutdata std:sid="xyl-data-7091ec35" top="330px" left="634px" width="100px" height="50px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
       </cl:output>
-      <cl:inputbox std:sid="i-box-33c4f0bb" id="SALE_PR" style="text-align:center;" readonly="true" placeholder="세일 가격" inputfilter="[0-9]">
-        <cl:xylayoutdata std:sid="xyl-data-baf386b0" top="120px" left="733px" width="142px" height="50px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
-      </cl:inputbox>
       <cl:inputbox std:sid="i-box-a996d259" id="COLOR" style="text-align:center;" placeholder="색상">
         <cl:xylayoutdata std:sid="xyl-data-0be9e069" top="188px" left="733px" width="142px" height="50px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
       </cl:inputbox>
       <cl:inputbox std:sid="i-box-46545162" id="PROD_SIZE" style="text-align:center;" placeholder="사이즈">
         <cl:xylayoutdata std:sid="xyl-data-d06623e7" top="260px" left="733px" width="142px" height="50px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
       </cl:inputbox>
-      <cl:inputbox std:sid="i-box-91e0ae76" id="PURC_PR" style="text-align:center;" placeholder="가격(원가)" maxlength="13" inputfilter="[0-9]">
-        <cl:xylayoutdata std:sid="xyl-data-606da7c0" top="50px" left="453px" width="142px" height="50px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
-      </cl:inputbox>
-      <cl:combobox std:sid="c-box-8128656d" id="PROD_CLS_CD" preventinput="true">
-        <cl:xylayoutdata std:sid="xyl-data-d93100c2" top="198px" left="454px" width="141px" height="30px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
-        <cl:itemset datasetid="prodClsCd" label="label" value="value"/>
+      <cl:combobox std:sid="c-box-8128656d" id="prodClsNm" style="text-align:center;" preventinput="true">
+        <cl:listener std:sid="listener-ca3a400a" name="selection-change" handler="onProdClsNmSelectionChange"/>
+        <cl:xylayoutdata std:sid="xyl-data-d93100c2" top="188px" left="454px" width="141px" height="52px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+        <cl:itemset datasetid="prodClsList" label="PROD_CLS_NM" value="PROD_CLS_CD"/>
       </cl:combobox>
       <cl:checkbox std:sid="c-box-fdf629e5" id="TAXAT_TY" style="text-align:center;" value="">
         <cl:xylayoutdata std:sid="xyl-data-e8774002" top="270px" left="515px" width="30px" height="30px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
@@ -129,9 +121,18 @@
         <cl:listener std:sid="listener-394c6f4d" name="click" handler="onButtonClick2"/>
         <cl:xylayoutdata std:sid="xyl-data-6c9415d1" top="504px" left="451px" width="100px" height="40px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
       </cl:button>
-      <cl:output std:sid="output-61a71996" id="CLIENT_NM" style="border-right-style:solid; border-top-width:1px; border-bottom-color:#bbbbbb; border-right-width:1px; padding-left:5px; border-left-color:#bbbbbb; border-right-color:#bbbbbb; border-left-width:1px; border-top-style:solid; background-color:#ffffff; border-left-style:solid; border-bottom-width:1px; border-top-color:#bbbbbb; border-bottom-style:solid;">
+      <cl:output std:sid="output-61a71996" id="CLIENT_NM" style="border-right-style:solid; border-top-width:1px; border-bottom-color:#bbbbbb; border-right-width:1px; padding-left:5px; border-left-color:#bbbbbb; border-right-color:#bbbbbb; border-left-width:1px; border-top-style:solid; background-color:#ffffff; border-left-style:solid; border-bottom-width:1px; border-top-color:#bbbbbb; border-bottom-style:solid; text-align:center;">
         <cl:xylayoutdata std:sid="xyl-data-751b4331" top="330px" left="733px" width="142px" height="50px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
       </cl:output>
+      <cl:numbereditor std:sid="n-editor-6a0bdf64" id="SELL_PR" style="text-align:center;" max="9999999" spinbutton="false" placeholder="가격(판매가)" format="s#,###">
+        <cl:xylayoutdata std:sid="xyl-data-12f9d2b6" top="120px" left="454px" width="142px" height="50px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+      </cl:numbereditor>
+      <cl:numbereditor std:sid="n-editor-cad6d7a1" id="PURC_PR" style="text-align:center;" max="9999999" spinbutton="false" placeholder="가격(원가)" format="s#,###">
+        <cl:xylayoutdata std:sid="xyl-data-4b557bb3" top="50px" left="454px" width="142px" height="50px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+      </cl:numbereditor>
+      <cl:numbereditor std:sid="n-editor-ccd5d102" id="SALE_PR" style="text-align:center;" max="99999" spinbutton="false" placeholder="세일 가격" format="s#,###">
+        <cl:xylayoutdata std:sid="xyl-data-a9bbf79c" top="120px" left="733px" width="142px" height="50px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+      </cl:numbereditor>
       <cl:xylayout std:sid="xylayout-b8e2e988"/>
     </cl:group>
     <cl:embeddedapp std:sid="e-app-3dec7bd4" id="ea1" src="PosHeader.clx">

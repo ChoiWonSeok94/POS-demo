@@ -51,19 +51,59 @@
 			//	var grd1 = app.lookup("grd1").getSelectionData();
 			//	console.log(grd1);
 				window.close();
+			}
+
+			/*
+			 * 루트 컨테이너에서 load 이벤트 발생 시 호출.
+			 * 앱이 최초 구성된후 최초 랜더링 직후에 발생하는 이벤트 입니다.
+			 */
+			function onBodyLoad(e){
+				app.lookup("clientList").clear();
+			}
+
+			/*
+			 * 서치 인풋에서 search 이벤트 발생 시 호출.
+			 * Searchinput의 enter키 또는 검색버튼을 클릭하여 인풋의 값이 Search될때 발생하는 이벤트
+			 */
+			function onSrcAccountSearch(e){
+				var srcAccount = app.lookup("srcAccount").value;
+				
+				var submission = new cpr.protocols.Submission();
+				submission.action = '/POS/srcClientByName.do';
+				submission.responseType = 'javascript';
+				submission.async = false;
+				submission.setParameters("CLIENT_NM", srcAccount);
+				submission.addEventListener("receive", function(e){
+					var submi = e.control;
+					var grd1 = app.lookup("grd1");
+					var jsonObj = JSON.parse(submi.xhr.responseText);
+					console.log('가져온 거래처 목록 = ' + submi.xhr.responseText);
+					debugger
+					if(jsonObj['clientList'].length != 0){
+						for(var i=0 ; i < jsonObj['clientList'].length ; i++){
+							grd1.insertRowData(i, true, {
+								CLIENT_NM : jsonObj['clientList'][i]['CLIENT_NM']
+							}, false)
+						}
+					}else{
+						alert('조회된 정보가 없습니다');
+					}
+					
+				});
+				submission.send();
 			};
 			// End - User Script
 			
 			// Header
 			var dataSet_1 = new cpr.data.DataSet("clientList");
 			dataSet_1.parseData({
-				"columns": [{"name": "거래처명"}],
+				"columns": [{"name": "CLIENT_NM"}],
 				"rows": [
-					{"거래처명": "거래처 A"},
-					{"거래처명": "거래처 B"},
-					{"거래처명": "거래처 C"},
-					{"거래처명": "거래처 D"},
-					{"거래처명": "거래처 E"}
+					{"CLIENT_NM": "거래처 A"},
+					{"CLIENT_NM": "거래처 B"},
+					{"CLIENT_NM": "거래처 C"},
+					{"CLIENT_NM": "거래처 D"},
+					{"CLIENT_NM": "거래처 E"}
 				]
 			});
 			app.register(dataSet_1);
@@ -90,6 +130,9 @@
 			searchInput_1.placeholder = "거래처 명";
 			if(typeof onSearchInputValueChange == "function") {
 				searchInput_1.addEventListener("value-change", onSearchInputValueChange);
+			}
+			if(typeof onSrcAccountSearch == "function") {
+				searchInput_1.addEventListener("search", onSrcAccountSearch);
 			}
 			container.addChild(searchInput_1, {
 				"top": "75px",
@@ -125,7 +168,7 @@
 						"configurator": function(cell){
 							cell.filterable = false;
 							cell.sortable = false;
-							cell.targetColumnName = "거래처명";
+							cell.targetColumnName = "CLIENT_NM";
 							cell.text = "거래처명";
 							cell.style.css({
 								"vertical-align" : "middle",
@@ -139,7 +182,7 @@
 					"cells": [{
 						"constraint": {"rowIndex": 0, "colIndex": 0},
 						"configurator": function(cell){
-							cell.columnName = "거래처명";
+							cell.columnName = "CLIENT_NM";
 							cell.style.css({
 								"vertical-align" : "middle",
 								"text-align" : "left"
@@ -167,6 +210,9 @@
 				"width": "70px",
 				"height": "25px"
 			});
+			if(typeof onBodyLoad == "function"){
+				app.addEventListener("load", onBodyLoad);
+			}
 		}
 	});
 	app.title = "PosProductRegist2";

@@ -136,4 +136,11 @@
 		WHERE
 			MEMB_SER_NO = #{MEMB_SER_NO}
 	</select>
+	
+	<select id="totalMemCnt" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			MEMB_TBL
+	</select>
 </mapper>
