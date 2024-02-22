@@ -10,8 +10,8 @@
 		<if test="!MOB_PH_NO.equals('')">
 			AND MOB_PH_NO LIKE '%'||#{MOB_PH_NO}||'%'
 		</if>
-		<!-- <if test="!MEMB_NM.equals('')">
-			AND MEMB_NM LIKE '%'||#{MEMB_NM}||'%'
+		<!--<if test="MEMB_SER_NO != ''">
+			AND MEMB_SER_NO = #{MEMB_SER_NO}
 		</if>
 		<if test="!ID_NO.equals('')">
 			AND ID_NO LIKE '%'||#{ID_NO}||'%'

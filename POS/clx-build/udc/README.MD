@@ -1,1 +1,1 @@
-Place UDC Controls for $project$ here.
+Place UDC Controls for POS here.

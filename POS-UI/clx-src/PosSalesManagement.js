@@ -203,14 +203,15 @@ function onButtonClick3(e){
 						,"SALES_TY" : salesTy
 						,"TRANS_TM" : transTm
 					}, false);
-					
-					// CANC_TY === '3' 이라면 구분 해줘야함
+					// CANC_TY === '1'(취소) 일 경우 해당 행 삭제
+					if(jsonObj['recipe'][i]['CANC_TY'] === '1'){
+						grd1.deleteRow(i);
+					}
 					
 				}
 				grd1.selectRadio(0);
 				grd1.selectRows(0);
 				onGrd1CellClick();
-				
 			}
 		});
 		

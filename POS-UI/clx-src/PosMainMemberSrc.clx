@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:cl="http://tomatosystem.co.kr/cleopatra" xmlns:std="http://tomatosystem.co.kr/cleopatra/studio" std:sid="html-52a9e4b4" version="1.0.4878">
+  <head std:sid="head-b73a2ba8">
+    <screen std:sid="screen-b9a91d71" id="default" name="default" minwidth="1024px" width="1024px" height="768px" customHeight="600" customWidth="800" active="false"/>
+    <screen std:sid="screen-dc8663d6" id="new-screen" name="new-screen" minwidth="800px" maxwidth="1023px" width="800px" height="600px" customHeight="600" customWidth="800"/>
+    <screen std:sid="screen-d1a27781" id="new-screen2" name="new-screen2" minwidth="650px" maxwidth="799px" width="650px" height="700px" customHeight="600" customWidth="800" active="true"/>
+    <screen std:sid="screen-941fc5cd" id="tablet" name="tablet" minwidth="500px" maxwidth="649px" width="500px" height="667px" customHeight="600" customWidth="800" active="false"/>
+    <screen std:sid="screen-ff410d9f" id="mobile" name="mobile" maxwidth="499px" width="350px" height="525px"/>
+    <cl:model std:sid="model-20521702">
+      <cl:dataset std:sid="d-set-cd605c9d" id="memInfoList">
+        <cl:datacolumnlist>
+          <cl:datacolumn std:sid="d-column-f5c1903c" name="MEMB_NM"/>
+          <cl:datacolumn std:sid="d-column-3ffc58c6" name="MOB_PH_NO"/>
+          <cl:datacolumn std:sid="d-column-f3078897" name="ID_NO"/>
+          <cl:datacolumn std:sid="d-column-d37fde35" name="PERS_COP_TY"/>
+        </cl:datacolumnlist>
+      </cl:dataset>
+    </cl:model>
+    <cl:appspec/>
+  </head>
+  <body std:sid="body-01257b1b">
+    <cl:listener std:sid="listener-8c49bf14" name="init" handler="onBodyInit"/>
+    <cl:group std:sid="group-46f0b092">
+      <cl:xylayoutdata std:sid="xyl-data-c8487187" top="30px" left="10px" width="620px" height="650px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+      <cl:grid std:sid="grid-7fbf000d" id="selectMemInfo" datasetid="memInfoList">
+        <cl:xylayoutdata std:sid="xyl-data-ac4faee9" top="20px" left="20px" width="580px" height="528px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+        <cl:gridcolumn std:sid="g-column-5f26e37d" width="135px"/>
+        <cl:gridcolumn std:sid="g-column-d3ad8e6a" width="101px"/>
+        <cl:gridcolumn std:sid="g-column-b9d77400" width="114px"/>
+        <cl:gridcolumn std:sid="g-column-4ca35590" width="110px"/>
+        <cl:gridheader std:sid="gh-band-bc5bbeb2">
+          <cl:gridrow std:sid="g-row-a49df29e"/>
+          <cl:gridcell std:sid="gh-cell-11601c56" rowindex="0" colindex="0" text="회원이름"/>
+          <cl:gridcell std:sid="gh-cell-dd92c6ee" rowindex="0" colindex="1" text="전화번호"/>
+          <cl:gridcell std:sid="gh-cell-8ab5b457" rowindex="0" colindex="2" text="주민 / 법인번호"/>
+          <cl:gridcell std:sid="gh-cell-d990c214" rowindex="0" colindex="3" text="구분"/>
+        </cl:gridheader>
+        <cl:griddetail std:sid="gd-band-d939dddf">
+          <cl:gridrow std:sid="g-row-8bbfcb36"/>
+          <cl:gridcell std:sid="gd-cell-92b0d2f2" rowindex="0" colindex="0" columnname="MEMB_NM"/>
+          <cl:gridcell std:sid="gd-cell-fc5b3a52" rowindex="0" colindex="1" columnname="MOB_PH_NO">
+            <cl:output std:sid="output-7b6fa7c2" style="text-align:center;">
+              <cl:celldata std:sid="c-data-0d3ac59a"/>
+            </cl:output>
+          </cl:gridcell>
+          <cl:gridcell std:sid="gd-cell-41ca3b60" rowindex="0" colindex="2" columnname="ID_NO">
+            <cl:output std:sid="output-562a3b76" style="text-align:center;">
+              <cl:celldata std:sid="c-data-47e36bf4"/>
+            </cl:output>
+          </cl:gridcell>
+          <cl:gridcell std:sid="gd-cell-d456a062" rowindex="0" colindex="3" columnname="PERS_COP_TY">
+            <cl:output std:sid="output-81f84128" style="text-align:center;">
+              <cl:celldata/>
+            </cl:output>
+          </cl:gridcell>
+        </cl:griddetail>
+      </cl:grid>
+      <cl:button std:sid="button-3cf77bba" value="확 인">
+        <cl:listener std:sid="listener-4f9a438b" name="click" handler="onButtonClick"/>
+        <cl:xylayoutdata std:sid="xyl-data-d3ac9faa" top="571px" left="275px" width="70px" height="25px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+      </cl:button>
+      <cl:inputbox std:sid="i-box-2ba395f4" id="windowIpb" visible="false" placeholder="전송할 값을 입력해주세요.">
+        <cl:xylayoutdata std:sid="xyl-data-7fa25e81" top="595px" left="296px" width="1px" height="1px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+      </cl:inputbox>
+      <cl:button std:sid="button-96b0fb77" id="btn1" visible="false" value="보내기 버튼">
+        <cl:listener std:sid="listener-f1c72ecb" name="click" handler="onBtn1Click"/>
+        <cl:xylayoutdata std:sid="xyl-data-17c1969b" top="595px" left="296px" width="1px" height="1px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+      </cl:button>
+      <cl:output std:sid="output-650de24f" id="windowOpt" style="border-right-style:solid; border-top-width:1px; border-bottom-color:black; border-right-width:1px; padding-left:5px; border-left-color:black; border-right-color:black; border-left-width:1px; border-top-style:solid; border-left-style:solid; border-bottom-width:1px; border-top-color:black; border-bottom-style:solid;" visible="false" value="메인 앱에서 값 받아오기">
+        <cl:xylayoutdata std:sid="xyl-data-87f676b3" top="595px" left="296px" width="1px" height="1px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+      </cl:output>
+      <cl:xylayout std:sid="xylayout-d1ff5e13"/>
+    </cl:group>
+    <cl:output std:sid="output-ac5fb373" id="PH_NO" value="">
+      <cl:xylayoutdata std:sid="xyl-data-08d272fa" top="10px" left="24px" width="100px" height="20px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+    </cl:output>
+    <cl:xylayout std:sid="xylayout-ca347895"/>
+  </body>
+  <std:studiosetting>
+    <std:hruler/>
+    <std:vruler/>
+  </std:studiosetting>
+</html>

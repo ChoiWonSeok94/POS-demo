@@ -102,7 +102,7 @@
       <cl:inputbox std:sid="i-box-a68f0efb" id="ADDR_2" style="border-radius:0px 5px 5px 0px; text-align:center;" maxlength="33">
         <cl:xylayoutdata std:sid="xyl-data-f7af3c5a" top="390px" left="735px" width="250px" height="35px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
       </cl:inputbox>
-      <cl:dateinput std:sid="d-input-b2449a01" id="BIR_DAY" style="text-align:center;" placeholder="YYYY-MM-DD">
+      <cl:dateinput std:sid="d-input-b2449a01" id="BIR_DAY" style="text-align:center;" placeholder="2001-01-01">
         <cl:xylayoutdata std:sid="xyl-data-d0ca9ec3" top="210px" left="438px" width="160px" height="35px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
       </cl:dateinput>
       <cl:button std:sid="button-3cf77bba" value="주소 찾기">
@@ -118,6 +118,30 @@
         <cl:listener std:sid="listener-30ae6ef9" name="click" handler="onButtonClick"/>
         <cl:xylayoutdata std:sid="xyl-data-5a37bfc7" top="495px" left="462px" width="100px" height="40px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
       </cl:button>
+      <cl:output std:sid="output-17719027" style="color:red; text-align:left;" enabled="false" value="은 필수값입니다.">
+        <cl:xylayoutdata std:sid="xyl-data-20589ef5" top="9px" left="839px" width="120px" height="20px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+      </cl:output>
+      <cl:output std:sid="output-adcde411" style="color:red; font-weight:800; font-size:22px; line-height:22px; text-align:right;" value="* ">
+        <cl:xylayoutdata std:sid="xyl-data-a63e2b88" top="9px" left="809px" width="30px" height="20px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+      </cl:output>
+      <cl:output std:sid="output-97c24171" id="idNoBox" style="color:red; font-weight:800; font-size:22px; line-height:22px; text-align:right;" value="* ">
+        <cl:xylayoutdata std:sid="xyl-data-37382cf9" top="210px" left="37px" width="30px" height="20px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+      </cl:output>
+      <cl:output std:sid="output-9eaa4328" id="busiNoBox" style="color:red; font-weight:800; font-size:22px; line-height:22px; text-align:right;" value="* ">
+        <cl:xylayoutdata std:sid="xyl-data-4e53a37d" top="270px" left="37px" width="30px" height="20px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+      </cl:output>
+      <cl:output std:sid="output-e387762e" style="color:red; font-weight:800; font-size:22px; line-height:22px; text-align:right;" value="* ">
+        <cl:xylayoutdata std:sid="xyl-data-6d34f6a9" top="330px" left="37px" width="30px" height="20px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+      </cl:output>
+      <cl:output std:sid="output-4ce9c40e" style="color:red; font-weight:800; font-size:22px; line-height:22px; text-align:right;" value="* ">
+        <cl:xylayoutdata std:sid="xyl-data-3d979614" top="210px" left="331px" width="30px" height="20px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+      </cl:output>
+      <cl:output std:sid="output-d8964c09" style="color:red; font-weight:800; font-size:22px; line-height:22px; text-align:right;" value="* ">
+        <cl:xylayoutdata std:sid="xyl-data-121f21e0" top="270px" left="331px" width="30px" height="20px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+      </cl:output>
+      <cl:output std:sid="output-19c7f3a8" style="color:red; font-weight:800; font-size:22px; line-height:22px; text-align:right;" value="* ">
+        <cl:xylayoutdata std:sid="xyl-data-903c4902" top="210px" left="628px" width="30px" height="20px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+      </cl:output>
       <cl:xylayout std:sid="xylayout-4adcde2c"/>
     </cl:group>
     <cl:output std:sid="output-b7e08dac" id="title" style="font-weight:bold; font-size:25px; text-align:center;" value="회원 등록">

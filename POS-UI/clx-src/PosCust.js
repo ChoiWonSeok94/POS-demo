@@ -240,18 +240,24 @@ function onPERS_COP_TYSelectionChange(e){
 	var idNo = app.lookup("ID_NO");
 	var busiNo = app.lookup("BUSI_NO");
 	var pers = app.lookup("PERS_COP_TY");
+	var idNoBox = app.lookup("idNoBox");
+	var busiNoBox = app.lookup("busiNoBox");
 	if(pers.value == 1){
 		busiNo.value = '';
 		busiNo.readOnly = true;
 		busiNo.placeholder = ''
 		idNo.placeholder = '숫자만 입력해 주세요.';
 		idNo.readOnly = false;
+		idNoBox.visible = true;
+		busiNoBox.visible = false;
 	}else{
 		idNo.value = '';
 		idNo.readOnly = true;
 		idNo.placeholder = ''
 		busiNo.placeholder = '숫자만 입력해 주세요.';
 		busiNo.readOnly = false;
+		busiNoBox.visible = true;
+		idNoBox.visible = false;
 	}
 }
 

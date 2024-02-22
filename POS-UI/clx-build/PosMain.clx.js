@@ -18,6 +18,93 @@
 			 * @author sunrise
 			 ************************************************/
 
+			var openWindow = null;
+
+			/*
+			 * 루트 컨테이너에서 init 이벤트 발생 시 호출.
+			 * 앱이 최초 구성될 때 발생하는 이벤트 입니다.
+			 */
+			function onBodyInit(e){
+				window.addEventListener("message", function getPostMessage(e) {
+					debugger
+					if (e.data['version'] === undefined) {
+						app.lookup("MEMB_SER_NO").value = e.data['MEMB_SER_NO'];
+						app.lookup("PH_NO").value = e.data['MOB_PH_NO'];
+						app.lookup("MEMB_NM").value = e.data['MEMB_NM'];
+						if(e.data['PERS_COP_TY'] == '개인'){
+							app.lookup("ID_NO").value = e.data['ID_NO'];
+						}else{
+							app.lookup("BUSI_NO").value = e.data['ID_NO'];
+						}
+						
+			//			var submission = new cpr.protocols.Submission();
+			//			submission.action = "/POS/srcMemInfo.do";
+			//			submission.responseType = "javascript";
+			//			submission.setParameters("MEMB_SER_NO", e.data);
+			//			submission.addEventListener("receive", function(e){
+			//				var submi = e.control;
+			//				var jsonObj = JSON.parse(submi.xhr.responseText);
+			//				
+			//				if(jsonObj['memberInfo'][0]['PERS_COP_TY'] == '1'){
+			//					idNo.value = jsonObj['memberInfo'][0]['ID_NO'];
+			//					console.log('ID_NO = ' + jsonObj['memberInfo'][0]['ID_NO']);
+			//				}else{
+			//					busiNo.value = jsonObj['memberInfo'][0]['BUSI_NO'];
+			//					console.log('BUSI_NO = ' + jsonObj['memberInfo'][0]['BUSI_NO']);
+			//				}
+			//				memSerNo.readOnly = false;
+			//				memSerNo.value = jsonObj['memberInfo'][0]['MEMB_SER_NO'];
+			//				memSerNo.readOnly = true;
+			//				console.log('MEM_SER_NO = ' + jsonObj['memberInfo'][0]['MEMB_SER_NO']);
+			//				mobPhNo.value = jsonObj['memberInfo'][0]['MOB_PH_NO'];
+			//				console.log('MOB_PH_NO = ' + jsonObj['memberInfo'][0]['MOB_PH_NO']);
+			//				membNm.value = jsonObj['memberInfo'][0]['MEMB_NM'];
+			//				console.log('MEMB_NM = ' + jsonObj['memberInfo'][0]['MEMB_NM']);
+			//				
+			//				if(jsonObj['memberInfo'][0]['EMAIL'] != null){
+			//					app.lookup("ADDR_1").value = jsonObj['memberInfo'][0]['ADDR_1'] + ' ' + jsonObj['memberInfo'][0]['ADDR_2'];
+			//					app.lookup("MEMB_SER_NO").value = jsonObj['memberInfo'][0]['MEMB_SER_NO'];
+			//				}
+			//			});
+			//			submission.send();
+					}else{
+						onBtnMsgWindowClick(e);
+					}
+				});
+			}
+
+
+			/*
+			 * "보내기 버튼" 버튼(btnMsgWindow)에서 click 이벤트 발생 시 호출.
+			 * 사용자가 컨트롤을 클릭할 때 발생하는 이벤트.
+			 */
+			function onBtnMsgWindowClick(e){
+				var btnMsgWindow = e.control;
+				//"보내기 버튼" 클릭 시 발생하는 이벤트
+				//window 창으로 메세지 전달
+				openWindow.postMessage(app.lookup("PH_NO").value, "*");
+				
+			}
+
+			/*
+			 * "새 창 열기" 버튼(btnPopUp)에서 click 이벤트 발생 시 호출.
+			 * 사용자가 컨트롤을 클릭할 때 발생하는 이벤트.
+			 */
+			function onBtnPopUpClick(e){
+			//	var btnPopUp = e.control;
+				if (typeof eb6Preview != "undefined") {
+					//"새 창 열기" 버튼 클릭 시 발생하는 이벤트
+					openWindow = window.open("https://edu.tomatosystem.co.kr/sample/main.html?goToAppPage=app/sample/smp/embeddedpage/smpEmbeddedPage_03_W", "_popup", "height=300,left=100,top=100,width=350,location=no,menubar=no,resizable=no,scrollbars=yes,status=yes,titlebar=no,toolbar=no");
+			//		openWindow = window.open("/POS/PosMainMemSrc.do", "_popup", "height=300,left=100,top=100,width=350,location=no,menubar=no,resizable=no,scrollbars=yes,status=yes,titlebar=no,toolbar=no");
+				}else{
+					openWindow = window.open("/POS/PosMainMemSrc.do", "_popup", "height=680,left=100,top=100,width=650,location=no,menubar=no,resizable=no,scrollbars=yes,status=yes,titlebar=no,toolbar=no");
+			//		openWindow = window.open("https://edu.tomatosystem.co.kr/sample/main.html?goToAppPage=app/sample/smp/embeddedpage/smpEmbeddedPage_03_W", "_popup", "height=300,left=100,top=100,width=350,location=no,menubar=no,resizable=no,scrollbars=yes,status=yes,titlebar=no,toolbar=no");
+					
+				
+				}
+				onBtnMsgWindowClick(e);
+			}
+
 			/*
 			 * "선택취소" 버튼에서 click 이벤트 발생 시 호출.
 			 * 사용자가 컨트롤을 클릭할 때 발생하는 이벤트.
@@ -76,7 +163,11 @@
 				var membNm = app.lookup("MEMB_NM");
 				var idNo = app.lookup("ID_NO");
 				var busiNo = app.lookup("BUSI_NO");
-				if(mobPhNo.length < 4 && mobPhNo.length > 0){
+				if(mobPhNo.value == '' || mobPhNo.value == null){
+					alert('전화번호를 입력해 주세요.');
+					mobPhNo.focus();
+					return false;
+				}else if(mobPhNo.length < 4 && mobPhNo.length > 0){
 					alert('전화번호는 4자리 이상 입력해 주세요.');
 					mobPhNo.focus();
 					return false;
@@ -112,7 +203,7 @@
 					
 					// response data의 type 설정
 					submission.responseType = "javascript";
-				//	subMainList.async = false;
+			//		submission.async = false;
 					
 					var memSerNo = app.lookup("MEMB_SER_NO");
 					var mobPhNo = app.lookup("PH_NO");
@@ -147,10 +238,14 @@
 						// 받아온 memberInfo 가 2명 이상일때 if 구분 후 팝업 해줘야함.
 						if(jsonObj['memberInfo'].length > 1){
 							console.log('검색한 멤버가 2명이상 jsonObj[memberInfo].length = ' + jsonObj['memberInfo'].length);
-							alert('받아온 회원정보가' + jsonObj['memberInfo'].length +'명 입니다. 첫번째 정보로 업데이트')
-				//			이후에 팝업창 띄우고 선택할 수 있게 뿌려주기
-						}
-						if(jsonObj['memberInfo'][0]['PERS_COP_TY'] == '1'){
+							
+							//	이후에 팝업창 띄우고 선택할 수 있게 뿌려주기
+							onBtnPopUpClick(e);
+			//				sessionStorage.clear();
+							sessionStorage.setItem("MOB_PH_NO", app.lookup("PH_NO").value);
+							
+							return;
+						}else if(jsonObj['memberInfo'][0]['PERS_COP_TY'] == '1'){
 							idNo.value = jsonObj['memberInfo'][0]['ID_NO'];
 							console.log('ID_NO = ' + jsonObj['memberInfo'][0]['ID_NO']);
 						}else{
@@ -175,6 +270,7 @@
 					// 조회 Submission send
 					submission.send();	
 				}
+				app.lookup("btnMsgWindow").click();
 			}
 
 			/*
@@ -214,7 +310,6 @@
 					var idNo = app.lookup("ID_NO").value;
 					var busiNo = app.lookup("BUSI_NO").value;
 					
-					debugger
 					// 받아온 회원번호가 존재하는지에 대한 submission
 					var submission = new cpr.protocols.Submission();
 					
@@ -627,18 +722,6 @@
 				var qtyValue = app.lookup("QTY").value;
 			   	qty = qtyValue;
 
-			}
-
-			/*
-			 * 루트 컨테이너에서 init 이벤트 발생 시 호출.
-			 * 앱이 최초 구성될 때 발생하는 이벤트 입니다.
-			 */
-			function onBodyInit(e){
-				window.addEventListener("message", function getPostMessage(e) {
-					if (app.lookup("PH_NO") != null) {
-						app.lookup("PH_NO").value = e.data;
-					}
-				});
 			};
 			// End - User Script
 			
@@ -1212,7 +1295,7 @@
 					"height": "25px"
 				});
 				var hTMLSnippet_5 = new cpr.controls.HTMLSnippet();
-				hTMLSnippet_5.value = "회원 이름";
+				hTMLSnippet_5.value = "* 회원 이름";
 				hTMLSnippet_5.style.css({
 					"background-color" : "#ededed",
 					"border-radius" : "5px 0px 0px 5px",
@@ -1254,7 +1337,7 @@
 					"height": "25px"
 				});
 				var hTMLSnippet_8 = new cpr.controls.HTMLSnippet();
-				hTMLSnippet_8.value = "주민번호";
+				hTMLSnippet_8.value = "* 주민번호";
 				hTMLSnippet_8.style.css({
 					"background-color" : "#ededed",
 					"border-radius" : "5px 0px 0px 5px",
@@ -1268,7 +1351,7 @@
 					"height": "25px"
 				});
 				var hTMLSnippet_9 = new cpr.controls.HTMLSnippet();
-				hTMLSnippet_9.value = "사업자 번호";
+				hTMLSnippet_9.value = "* 사업자 번호";
 				hTMLSnippet_9.style.css({
 					"background-color" : "#ededed",
 					"border-radius" : "5px 0px 0px 5px",
@@ -1296,7 +1379,7 @@
 					"height": "25px"
 				});
 				var hTMLSnippet_11 = new cpr.controls.HTMLSnippet();
-				hTMLSnippet_11.value = "전화번호";
+				hTMLSnippet_11.value = "* 전화번호";
 				hTMLSnippet_11.style.css({
 					"background-color" : "#ededed",
 					"border-radius" : "5px 0px 0px 5px",
@@ -1420,6 +1503,68 @@
 				"left": "735px",
 				"width": "150px",
 				"height": "40px"
+			});
+			
+			var button_7 = new cpr.controls.Button("btnPopUp");
+			button_7.value = "새 창 열기";
+			button_7.style.setClasses(["btn-gray"]);
+			if(typeof onBtnPopUpClick == "function") {
+				button_7.addEventListener("click", onBtnPopUpClick);
+			}
+			container.addChild(button_7, {
+				"top": "673px",
+				"left": "904px",
+				"width": "1px",
+				"height": "1px"
+			});
+			
+			var output_1 = new cpr.controls.Output("mainWindowOpt");
+			output_1.visible = false;
+			output_1.value = "window 창에서 값 받아오기";
+			output_1.style.css({
+				"border-right-style" : "solid",
+				"border-top-width" : "1px",
+				"border-bottom-color" : "black",
+				"border-right-width" : "1px",
+				"padding-left" : "5px",
+				"border-left-color" : "black",
+				"border-right-color" : "black",
+				"border-left-width" : "1px",
+				"border-top-style" : "solid",
+				"border-left-style" : "solid",
+				"border-bottom-width" : "1px",
+				"border-top-color" : "black",
+				"border-bottom-style" : "solid"
+			});
+			container.addChild(output_1, {
+				"top": "673px",
+				"left": "915px",
+				"width": "1px",
+				"height": "1px"
+			});
+			
+			var inputBox_11 = new cpr.controls.InputBox("mainWindowIpb");
+			inputBox_11.visible = false;
+			inputBox_11.placeholder = "전송할 값을 입력해주세요.";
+			container.addChild(inputBox_11, {
+				"top": "673px",
+				"left": "915px",
+				"width": "1px",
+				"height": "1px"
+			});
+			
+			var button_8 = new cpr.controls.Button("btnMsgWindow");
+			button_8.visible = false;
+			button_8.value = "보내기 버튼";
+			button_8.style.setClasses(["btn-secondary"]);
+			if(typeof onBtnMsgWindowClick == "function") {
+				button_8.addEventListener("click", onBtnMsgWindowClick);
+			}
+			container.addChild(button_8, {
+				"top": "673px",
+				"left": "915px",
+				"width": "1px",
+				"height": "1px"
 			});
 			if(typeof onBodyLoad == "function"){
 				app.addEventListener("load", onBodyLoad);

@@ -190,7 +190,7 @@
       <cl:htmlsnippet std:sid="htmlsnippet-61607d6e" style="background-color:#ededed; border-radius:5px 0px 0px 5px; background-image:none; text-align:center;" value="회원 번호">
         <cl:xylayoutdata std:sid="xyl-data-45917e0a" top="41px" left="10px" width="90px" height="25px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
       </cl:htmlsnippet>
-      <cl:htmlsnippet std:sid="htmlsnippet-0194fd81" style="background-color:#ededed; border-radius:5px 0px 0px 5px; background-image:none; text-align:center;" value="회원 이름">
+      <cl:htmlsnippet std:sid="htmlsnippet-0194fd81" style="background-color:#ededed; border-radius:5px 0px 0px 5px; background-image:none; text-align:center;" value="* 회원 이름">
         <cl:xylayoutdata std:sid="xyl-data-71123ca2" top="70px" left="10px" width="90px" height="25px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
       </cl:htmlsnippet>
       <cl:htmlsnippet std:sid="htmlsnippet-8c149a69" style="background-color:#ededed; border-radius:5px 0px 0px 5px; background-image:none; text-align:center;" value="주소">
@@ -199,16 +199,16 @@
       <cl:htmlsnippet std:sid="htmlsnippet-21efac12" style="background-color:#ededed; border-radius:5px 0px 0px 5px; background-image:none; text-align:center;" value="총 판매액">
         <cl:xylayoutdata std:sid="xyl-data-05c3c77c" top="126px" left="10px" width="90px" height="25px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
       </cl:htmlsnippet>
-      <cl:htmlsnippet std:sid="htmlsnippet-d5a87b4e" style="background-color:#ededed; border-radius:5px 0px 0px 5px; background-image:none; text-align:center;" value="주민번호">
+      <cl:htmlsnippet std:sid="htmlsnippet-d5a87b4e" style="background-color:#ededed; border-radius:5px 0px 0px 5px; background-image:none; text-align:center;" value="* 주민번호">
         <cl:xylayoutdata std:sid="xyl-data-f4ae5181" top="155px" left="10px" width="90px" height="25px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
       </cl:htmlsnippet>
-      <cl:htmlsnippet std:sid="htmlsnippet-a8d77c32" style="background-color:#ededed; border-radius:5px 0px 0px 5px; background-image:none; text-align:center;" value="사업자 번호">
+      <cl:htmlsnippet std:sid="htmlsnippet-a8d77c32" style="background-color:#ededed; border-radius:5px 0px 0px 5px; background-image:none; text-align:center;" value="* 사업자 번호">
         <cl:xylayoutdata std:sid="xyl-data-f7a4566b" top="126px" left="290px" width="90px" height="25px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
       </cl:htmlsnippet>
       <cl:htmlsnippet std:sid="htmlsnippet-87eb1063" style="background-color:#ededed; border-radius:5px 0px 0px 5px; background-image:none; text-align:center;" value="회원 포인트">
         <cl:xylayoutdata std:sid="xyl-data-5b934bcf" top="70px" left="290px" width="90px" height="25px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
       </cl:htmlsnippet>
-      <cl:htmlsnippet std:sid="htmlsnippet-ea503ba7" style="background-color:#ededed; border-radius:5px 0px 0px 5px; background-image:none; text-align:center;" value="전화번호">
+      <cl:htmlsnippet std:sid="htmlsnippet-ea503ba7" style="background-color:#ededed; border-radius:5px 0px 0px 5px; background-image:none; text-align:center;" value="* 전화번호">
         <cl:xylayoutdata std:sid="xyl-data-2f056411" top="41px" left="290px" width="90px" height="25px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
       </cl:htmlsnippet>
       <cl:htmlsnippet std:sid="htmlsnippet-8651d20d" style="border-right-style:solid; border-top-width:1px; color:white; border-right-width:1px; vertical-align:middle; border-left-width:1px; border-top-style:solid; background-color:black; border-radius:25px; border-left-style:solid; border-bottom-width:1px; border-bottom-style:solid; text-align:center;" value="고객 정보">
@@ -235,6 +235,20 @@
     <cl:numbereditor std:sid="n-editor-5145c97f" id="ipb12" style="border-radius:0px 3px 3px 0px; font-size:16px; text-align:right;" spinbutton="false" placeholder=" " displayexp="text + ' 원'">
       <cl:xylayoutdata std:sid="xyl-data-385848be" top="665px" left="735px" width="150px" height="40px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
     </cl:numbereditor>
+    <cl:button std:sid="button-448682ba" id="btnPopUp" class="btn-gray" value="새 창 열기">
+      <cl:listener std:sid="listener-e257fbc0" name="click" handler="onBtnPopUpClick"/>
+      <cl:xylayoutdata std:sid="xyl-data-8036cb66" top="673px" left="904px" width="1px" height="1px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+    </cl:button>
+    <cl:output std:sid="output-61a71996" id="mainWindowOpt" style="border-right-style:solid; border-top-width:1px; border-bottom-color:black; border-right-width:1px; padding-left:5px; border-left-color:black; border-right-color:black; border-left-width:1px; border-top-style:solid; border-left-style:solid; border-bottom-width:1px; border-top-color:black; border-bottom-style:solid;" visible="false" value="window 창에서 값 받아오기">
+      <cl:xylayoutdata std:sid="xyl-data-055ab06d" top="673px" left="915px" width="1px" height="1px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+    </cl:output>
+    <cl:inputbox std:sid="i-box-613c5825" id="mainWindowIpb" visible="false" placeholder="전송할 값을 입력해주세요.">
+      <cl:xylayoutdata std:sid="xyl-data-b958a2dc" top="673px" left="915px" width="1px" height="1px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+    </cl:inputbox>
+    <cl:button std:sid="button-c130b556" id="btnMsgWindow" class="btn-secondary" visible="false" value="보내기 버튼">
+      <cl:listener std:sid="listener-34b9c806" name="click" handler="onBtnMsgWindowClick"/>
+      <cl:xylayoutdata std:sid="xyl-data-cb2f27e5" top="673px" left="915px" width="1px" height="1px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+    </cl:button>
     <cl:xylayout std:sid="xylayout-004fcdef"/>
   </body>
   <std:studiosetting>

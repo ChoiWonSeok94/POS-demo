@@ -254,18 +254,24 @@
 				var idNo = app.lookup("ID_NO");
 				var busiNo = app.lookup("BUSI_NO");
 				var pers = app.lookup("PERS_COP_TY");
+				var idNoBox = app.lookup("idNoBox");
+				var busiNoBox = app.lookup("busiNoBox");
 				if(pers.value == 1){
 					busiNo.value = '';
 					busiNo.readOnly = true;
 					busiNo.placeholder = ''
 					idNo.placeholder = '숫자만 입력해 주세요.';
 					idNo.readOnly = false;
+					idNoBox.visible = true;
+					busiNoBox.visible = false;
 				}else{
 					idNo.value = '';
 					idNo.readOnly = true;
 					idNo.placeholder = ''
 					busiNo.placeholder = '숫자만 입력해 주세요.';
 					busiNo.readOnly = false;
+					busiNoBox.visible = true;
+					idNoBox.visible = false;
 				}
 			}
 
@@ -799,7 +805,7 @@
 					"height": "35px"
 				});
 				var dateInput_1 = new cpr.controls.DateInput("BIR_DAY");
-				dateInput_1.placeholder = "YYYY-MM-DD";
+				dateInput_1.placeholder = "2001-01-01";
 				dateInput_1.style.css({
 					"text-align" : "center"
 				});
@@ -867,6 +873,124 @@
 					"width": "100px",
 					"height": "40px"
 				});
+				var output_14 = new cpr.controls.Output();
+				output_14.enabled = false;
+				output_14.value = "은 필수값입니다.";
+				output_14.style.css({
+					"color" : "red",
+					"text-align" : "left"
+				});
+				container.addChild(output_14, {
+					"top": "9px",
+					"left": "839px",
+					"width": "120px",
+					"height": "20px"
+				});
+				var output_15 = new cpr.controls.Output();
+				output_15.value = "* ";
+				output_15.style.css({
+					"color" : "red",
+					"font-weight" : "800",
+					"font-size" : "22px",
+					"line-height" : "22px",
+					"text-align" : "right"
+				});
+				container.addChild(output_15, {
+					"top": "9px",
+					"left": "809px",
+					"width": "30px",
+					"height": "20px"
+				});
+				var output_16 = new cpr.controls.Output("idNoBox");
+				output_16.value = "* ";
+				output_16.style.css({
+					"color" : "red",
+					"font-weight" : "800",
+					"font-size" : "22px",
+					"line-height" : "22px",
+					"text-align" : "right"
+				});
+				container.addChild(output_16, {
+					"top": "210px",
+					"left": "37px",
+					"width": "30px",
+					"height": "20px"
+				});
+				var output_17 = new cpr.controls.Output("busiNoBox");
+				output_17.value = "* ";
+				output_17.style.css({
+					"color" : "red",
+					"font-weight" : "800",
+					"font-size" : "22px",
+					"line-height" : "22px",
+					"text-align" : "right"
+				});
+				container.addChild(output_17, {
+					"top": "270px",
+					"left": "37px",
+					"width": "30px",
+					"height": "20px"
+				});
+				var output_18 = new cpr.controls.Output();
+				output_18.value = "* ";
+				output_18.style.css({
+					"color" : "red",
+					"font-weight" : "800",
+					"font-size" : "22px",
+					"line-height" : "22px",
+					"text-align" : "right"
+				});
+				container.addChild(output_18, {
+					"top": "330px",
+					"left": "37px",
+					"width": "30px",
+					"height": "20px"
+				});
+				var output_19 = new cpr.controls.Output();
+				output_19.value = "* ";
+				output_19.style.css({
+					"color" : "red",
+					"font-weight" : "800",
+					"font-size" : "22px",
+					"line-height" : "22px",
+					"text-align" : "right"
+				});
+				container.addChild(output_19, {
+					"top": "210px",
+					"left": "331px",
+					"width": "30px",
+					"height": "20px"
+				});
+				var output_20 = new cpr.controls.Output();
+				output_20.value = "* ";
+				output_20.style.css({
+					"color" : "red",
+					"font-weight" : "800",
+					"font-size" : "22px",
+					"line-height" : "22px",
+					"text-align" : "right"
+				});
+				container.addChild(output_20, {
+					"top": "270px",
+					"left": "331px",
+					"width": "30px",
+					"height": "20px"
+				});
+				var output_21 = new cpr.controls.Output();
+				output_21.value = "* ";
+				output_21.style.css({
+					"color" : "red",
+					"font-weight" : "800",
+					"font-size" : "22px",
+					"line-height" : "22px",
+					"text-align" : "right"
+				});
+				container.addChild(output_21, {
+					"top": "210px",
+					"left": "628px",
+					"width": "30px",
+					"height": "20px"
+				});
 			})(group_1);
 			container.addChild(group_1, {
 				"top": "150px",
@@ -875,14 +999,14 @@
 				"height": "598px"
 			});
 			
-			var output_14 = new cpr.controls.Output("title");
-			output_14.value = "회원 등록";
-			output_14.style.css({
+			var output_22 = new cpr.controls.Output("title");
+			output_22.value = "회원 등록";
+			output_22.style.css({
 				"font-weight" : "bold",
 				"font-size" : "25px",
 				"text-align" : "center"
 			});
-			container.addChild(output_14, {
+			container.addChild(output_22, {
 				"top": "90px",
 				"left": "353px",
 				"width": "318px",

@@ -97,6 +97,12 @@ public class PosController {
 		return new JSONDataView();
 	}
 	
+	// 회원검색시 2명 이상 팝업창 호출
+	@RequestMapping(value="/PosMainMemSrc.do", method = RequestMethod.GET)
+	public UIView PosMainMemberPopup(HttpServletRequest req, HttpServletResponse res, DataRequest dataReq) throws Exception {
+		return new UIView("/ui/PosMainMemberSrc.clx");
+	}
+	
 	// 회원관리 페이지 등록버튼 클릭시 insert
 	//POS 화면에서 약식 회원정보 insert
 	@RequestMapping(value = "/addMember.do", method = RequestMethod.POST)

@@ -602,6 +602,154 @@
 					"width": "118px",
 					"height": "40px"
 				});
+				var output_11 = new cpr.controls.Output();
+				output_11.enabled = false;
+				output_11.value = "은 필수값입니다.";
+				output_11.style.css({
+					"color" : "red",
+					"text-align" : "left"
+				});
+				container.addChild(output_11, {
+					"top": "10px",
+					"left": "861px",
+					"width": "120px",
+					"height": "20px"
+				});
+				var output_12 = new cpr.controls.Output();
+				output_12.value = "* ";
+				output_12.style.css({
+					"color" : "red",
+					"font-weight" : "800",
+					"font-size" : "22px",
+					"line-height" : "22px",
+					"text-align" : "right"
+				});
+				container.addChild(output_12, {
+					"top": "10px",
+					"left": "831px",
+					"width": "30px",
+					"height": "20px"
+				});
+				var output_13 = new cpr.controls.Output();
+				output_13.value = "* ";
+				output_13.style.css({
+					"color" : "red",
+					"font-weight" : "800",
+					"font-size" : "22px",
+					"line-height" : "22px",
+					"text-align" : "right"
+				});
+				container.addChild(output_13, {
+					"top": "212px",
+					"left": "107px",
+					"width": "30px",
+					"height": "20px"
+				});
+				var output_14 = new cpr.controls.Output();
+				output_14.value = "* ";
+				output_14.style.css({
+					"color" : "red",
+					"font-weight" : "800",
+					"font-size" : "22px",
+					"line-height" : "22px",
+					"text-align" : "right"
+				});
+				container.addChild(output_14, {
+					"top": "271px",
+					"left": "107px",
+					"width": "30px",
+					"height": "20px"
+				});
+				var output_15 = new cpr.controls.Output();
+				output_15.value = "* ";
+				output_15.style.css({
+					"color" : "red",
+					"font-weight" : "800",
+					"font-size" : "22px",
+					"line-height" : "22px",
+					"text-align" : "right"
+				});
+				container.addChild(output_15, {
+					"top": "330px",
+					"left": "107px",
+					"width": "30px",
+					"height": "20px"
+				});
+				var output_16 = new cpr.controls.Output();
+				output_16.value = "* ";
+				output_16.style.css({
+					"color" : "red",
+					"font-weight" : "800",
+					"font-size" : "22px",
+					"line-height" : "22px",
+					"text-align" : "right"
+				});
+				container.addChild(output_16, {
+					"top": "391px",
+					"left": "107px",
+					"width": "30px",
+					"height": "20px"
+				});
+				var output_17 = new cpr.controls.Output();
+				output_17.value = "* ";
+				output_17.style.css({
+					"color" : "red",
+					"font-weight" : "800",
+					"font-size" : "22px",
+					"line-height" : "22px",
+					"text-align" : "right"
+				});
+				container.addChild(output_17, {
+					"top": "212px",
+					"left": "470px",
+					"width": "30px",
+					"height": "20px"
+				});
+				var output_18 = new cpr.controls.Output();
+				output_18.value = "* ";
+				output_18.style.css({
+					"color" : "red",
+					"font-weight" : "800",
+					"font-size" : "22px",
+					"line-height" : "22px",
+					"text-align" : "right"
+				});
+				container.addChild(output_18, {
+					"top": "271px",
+					"left": "470px",
+					"width": "30px",
+					"height": "20px"
+				});
+				var output_19 = new cpr.controls.Output();
+				output_19.value = "* ";
+				output_19.style.css({
+					"color" : "red",
+					"font-weight" : "800",
+					"font-size" : "22px",
+					"line-height" : "22px",
+					"text-align" : "right"
+				});
+				container.addChild(output_19, {
+					"top": "331px",
+					"left": "470px",
+					"width": "30px",
+					"height": "20px"
+				});
+				var output_20 = new cpr.controls.Output();
+				output_20.value = "* ";
+				output_20.style.css({
+					"color" : "red",
+					"font-weight" : "800",
+					"font-size" : "22px",
+					"line-height" : "22px",
+					"text-align" : "right"
+				});
+				container.addChild(output_20, {
+					"top": "391px",
+					"left": "470px",
+					"width": "30px",
+					"height": "20px"
+				});
 			})(group_1);
 			container.addChild(group_1, {
 				"top": "150px",
@@ -610,14 +758,14 @@
 				"height": "598px"
 			});
 			
-			var output_11 = new cpr.controls.Output("title");
-			output_11.value = "거래처 관리";
-			output_11.style.css({
+			var output_21 = new cpr.controls.Output("title");
+			output_21.value = "거래처 관리";
+			output_21.style.css({
 				"font-weight" : "bold",
 				"font-size" : "25px",
 				"text-align" : "center"
 			});
-			container.addChild(output_11, {
+			container.addChild(output_21, {
 				"top": "90px",
 				"left": "353px",
 				"width": "318px",
