@@ -39,7 +39,7 @@
       <cl:output std:sid="output-6bd14a88" style="font-weight:bold; font-size:18px; text-align:center;" value="거래처 번호 :">
         <cl:xylayoutdata std:sid="xyl-data-9f359167" top="70px" left="379px" width="141px" height="40px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
       </cl:output>
-      <cl:output std:sid="output-33ce9d45" id="CLIENT_NO" style="color:black; font-weight:bolder; font-size:18px; text-align:left;">
+      <cl:output std:sid="output-33ce9d45" id="CLIENT_NO" style="color:black; font-weight:bolder; font-size:18px; text-align:left;" readonly="true">
         <cl:xylayoutdata std:sid="xyl-data-0fec3c87" top="70px" left="530px" width="130px" height="40px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
       </cl:output>
       <cl:radiobutton std:sid="r-button-200fc85b" id="PERS_COP_TY">
@@ -86,10 +86,10 @@
       <cl:inputbox std:sid="i-box-68905db0" id="PH_NO" style="border-radius:0px 5px 5px 0px;" placeholder="숫자만 입력해 주세요" maxlength="12" inputfilter="[0-9]">
         <cl:xylayoutdata std:sid="xyl-data-569236ab" top="212px" left="585px" width="200px" height="40px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
       </cl:inputbox>
-      <cl:inputbox std:sid="i-box-9e73feec" id="POST_NO" style="border-radius:0px 5px 5px 0px;">
+      <cl:inputbox std:sid="i-box-9e73feec" id="POST_NO" style="border-radius:0px 5px 5px 0px;" readonly="true">
         <cl:xylayoutdata std:sid="xyl-data-c08e6e44" top="272px" left="585px" width="200px" height="40px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
       </cl:inputbox>
-      <cl:inputbox std:sid="i-box-44d649b3" id="ADDR1" style="border-radius:0px 5px 5px 0px;">
+      <cl:inputbox std:sid="i-box-44d649b3" id="ADDR1" style="border-radius:0px 5px 5px 0px;" readonly="true">
         <cl:xylayoutdata std:sid="xyl-data-f3b790fa" top="332px" left="585px" width="328px" height="40px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
       </cl:inputbox>
       <cl:inputbox std:sid="i-box-4550bbce" id="ADDR2" style="border-radius:0px 5px 5px 0px;" maxlength="30" inputfilter="[A-zㄱ-힣0-9\s]">

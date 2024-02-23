@@ -53,4 +53,13 @@
 		ORDER BY
 			CLIENT_NM ASC
 	</select>
+		
+	<select id="isExistClientByBusiNo" parameterType="com.pos.Vo.ClientVo" resultType="int">
+		SELECT
+		    COUNT(*)
+		FROM
+		    CLIENT_TBL
+		WHERE
+		    BUSI_NO = #{BUSI_NO}
+	</select>
 </mapper>

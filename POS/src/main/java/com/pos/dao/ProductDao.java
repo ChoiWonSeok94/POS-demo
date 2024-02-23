@@ -12,4 +12,5 @@ public interface ProductDao {
 	void productInsert(ProductVo prodVo);
 	String getProdCnt();
 	List getProdClsName(ProductClsVo prodClsVo);
+	int isExistProductByBarCode(ProductVo prodVo);
 }

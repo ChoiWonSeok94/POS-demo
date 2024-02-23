@@ -15,11 +15,6 @@ public class ClientDaoImpl implements ClientDao{
 	@Autowired
 	SqlSession sqlsession;
 
-	@Override
-	public List<ClientVo> searchClient(ClientVo cliVo) {
-		
-		return sqlsession.selectList("Client.searchClient", cliVo);
-	}
 
 	@Override
 	public void clientInsert(ClientVo cliVo) {
@@ -39,5 +34,10 @@ public class ClientDaoImpl implements ClientDao{
 	@Override
 	public List srcClientByName(ClientVo cliVo) {
 		return sqlsession.selectList("Client.srcClientByName", cliVo);
+	}
+
+	@Override
+	public int isExistClientByBusiNo(ClientVo cliVo) {
+		return sqlsession.selectOne("Client.isExistClientByBusiNo", cliVo);
 	}
 }

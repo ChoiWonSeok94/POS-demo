@@ -74,4 +74,12 @@
 			PROD_CLS_TBL
 	</select>
 	
+	<select id="isExistProductByBarCode" parameterType="com.pos.Vo.ProductVo" resultType="int">
+		SELECT
+		    COUNT(*)
+		FROM
+		    PROD_TBL
+		WHERE
+		    BAR_CODE = #{BAR_CODE}
+	</select>
 </mapper>

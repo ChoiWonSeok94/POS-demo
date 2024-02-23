@@ -11,6 +11,11 @@
  */
 function onBodyLoad(/* cpr.events.CUIEvent */e){
 	
+	// daumApi 스크립트 억지로 집어넣어주는 코드
+	var scriptElement = document.createElement("script");
+	var daumApi = "t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js";
+	scriptElement.src = "http://" + daumApi;
+	document.body.appendChild(scriptElement);
 	
 //	var utilProperty = cpr.core.Module.require("ui/js/daumApi.module.js");
 //	var utilProperty = cpr.core.Module.require("module/js/daumApi.module.js");
@@ -153,7 +158,9 @@ function chkDupl(){
 		return false;
 	}
 	var engMemTest = /(\s)\1/;
-	if(membEngNm.value == ''){
+	var engMemTest2 = /([,-])\1/;
+	var engMemTest3 = /^[a-zA-Z0-9 ,-]+$/;
+	if(membEngNm.value == '' && membEngNm.length > 0){
 		alert('영문명을 입력해 주세요.');
 		membEngNm.focus();
 		return false;
@@ -162,21 +169,31 @@ function chkDupl(){
 		alert('연속된 공백은 불가합니다.');
 		membEngNm.focus();
 		return false;
+	}else if(engMemTest2.test(membEngNm.value) && membEngNm.length > 0){
+		alert('연속된 특수문자는 불가합니다.');
+		membEngNm.focus();
+		return false;
+	}else if(!engMemTest3.test(membEngNm.value) && membEngNm.length > 0){
+		alert('사용 가능한 특수문자는 다음과 같습니다.( , - )');
+		membEngNm.focus();
+		return false;
 	}
-	var inputYear = birDay.value.substr(0, 4);
+	// 추후 구현할 때 주민등록번호에서 뒷자리 시작이 1,2 일경우 생년월일에 '19'
+	// 뒷자리 시작이 3,4 로 시작할 경우에 '20'으로 설정해서 자동으로 계산해주기
+	// 계산을 한다면 주민번호 or 생년월일이 바뀌었을 때 값의 셋팅 & 값이 비워졌을때는 어떻게 할껀지?
 	if(birDay.value == ''){
 		alert('생년월일을 입력해 주세요.');
 		birDay.focus();
 		return false;
 	
 	}
-	if(birDay.value > now){
+	else if(birDay.value > now){
 		alert('생년월일이 올바르지 않습니다.');
 		birDay.focus();
 		return false;
 	}
 	// 12살 미만일 때
-	if(inputYear % parseInt(inputYear) < 12){
+	else if((year - birDay.value.substr(0,4)) < 13){
 		alert('만 13세 이상 가입이 가능합니다.');
 		birDay.focus();
 		return false;
@@ -186,29 +203,27 @@ function chkDupl(){
 		alert('휴대폰번호를 입력해 주세요.');
 		mobPhNo.focus();
 		return false;
-	}
-	if(!mobPhTest.test(mobPhNo.value) && mobPhNo.length > 0){
+	}else if(!mobPhTest.test(mobPhNo.value) && mobPhNo.length > 0){
 		alert('휴대폰번호가 올바르지 않습니다.');
 		mobPhNo.focus();
 		return false;
 	}
 	var phNoTest = /^0\d{1,2}\d{3,4}\d{4}$/;
-	if(phNo.length < 9){
+	if(phNo.length < 9 && phNo.length > 0){
 		alert('전화번호가 올바르지 않습니다.');
 		phNo.focus();
 		return false;
-	}
-	if(phNoTest.test(phNo.value)){
+	}else if(phNoTest.test(phNo.value) && phNo.length > 0){
 		alert('전화번호가 올바르지 않습니다.');
 		phNo.focus();
 		return false;
 	}
 	var emailTest = /^([A-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,3})$/;
-	if(email.value == ''){
-		alert('이메일을 작성해 주세요');
-		email.focus();
-		return false;
-	}
+//	if(email.value == ''){
+//		alert('이메일을 작성해 주세요');
+//		email.focus();
+//		return false;
+//	}
 	if(emailTest.test(email.value)){
 		alert('이메일을 형식이 올바르지 않습니다.');
 		email.focus();
@@ -266,6 +281,53 @@ function onPERS_COP_TYSelectionChange(e){
  * 사용자가 컨트롤을 클릭할 때 발생하는 이벤트.
  */
 function onButtonClick2(e){
-	var button = e.control;
-	
+	postCode();
+}
+
+function postCode() {
+	new daum.Postcode({
+		/* 해당 정보를 받아 처리할 콜백 함수를 정의하는 부분 입니다. */
+		oncomplete: function(data) {
+			/* 팝업에서 검색결과 항목을 클릭했을떄 실행할 코드를 작성하는 부분 */
+			var vcPostCode = app.lookup("POST_NO");
+			var vcAddress = app.lookup("ADDR_1");
+//			var vcAddressJibun = app.lookup("ADDR_1");
+			var vcDetailAddress = app.lookup("ADDR_2");
+			var vcExtraAddress = app.lookup("ADDR_2");
+			
+			// 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
+			// 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+			var roadAddr = data.roadAddress; // 도로명 주소 변수
+			var extraRoadAddr = ""; // 참고 항목 변수
+			
+			// 법정동명이 있을 경우 추가한다. (법정리는 제외)
+			// 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+			if (data.bname !== "" && /[동|로|가]$/g.test(data.bname)) {
+				extraRoadAddr += data.bname;
+			}
+			// 건물명이 있고, 공동주택일 경우 추가한다.
+			if (data.buildingName !== "" && data.apartment === "Y") {
+				extraRoadAddr += (extraRoadAddr !== "" ? ", " + data.buildingName : data.buildingName);
+			}
+			// 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+			if (extraRoadAddr !== "") {
+				extraRoadAddr = " (" + extraRoadAddr + ")";
+			}
+			debugger
+			// 참고항목 문자열이 있을 경우 해당 필드에 넣는다.
+			if (roadAddr !== "") {
+				roadAddr += extraRoadAddr;
+			} else {
+				vcExtraAddress.value = "";
+			}
+			
+			// 우편번호와 주소 정보를 해당 필드에 넣는다.
+			vcPostCode.value = data.zonecode;
+			vcAddress.value = roadAddr;
+//			vcAddressJibun.value = data.jibunAddress;
+			
+			/*커서를 상세주소 필드로 이동합니다. */
+			vcDetailAddress.focus();
+		}
+	}).open();
 }

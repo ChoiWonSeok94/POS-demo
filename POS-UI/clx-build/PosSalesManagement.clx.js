@@ -418,10 +418,10 @@
 				"dataSet": app.lookup("recipe"),
 				"columns": [
 					{"width": "25px"},
-					{"width": "109px"},
+					{"width": "112px"},
 					{"width": "90px"},
 					{"width": "93px"},
-					{"width": "107px"},
+					{"width": "118px"},
 					{"width": "73px"},
 					{"width": "179px"}
 				],
@@ -523,6 +523,7 @@
 								cell.columnName = "SALES_AMT";
 								cell.control = (function(){
 									var numberEditor_1 = new cpr.controls.NumberEditor("nbe1");
+									numberEditor_1.readOnly = true;
 									numberEditor_1.spinButton = false;
 									numberEditor_1.format = "s#,###";
 									numberEditor_1.style.css({
@@ -545,6 +546,7 @@
 								cell.columnName = "TRANS_TM";
 								cell.control = (function(){
 									var dateInput_1 = new cpr.controls.DateInput("dti1");
+									dateInput_1.readOnly = true;
 									dateInput_1.showOtherMonths = false;
 									dateInput_1.mask = "YYYY-MM-DD HH:mm:ss";
 									dateInput_1.format = "YYYYMMDDHHmmss";
@@ -666,14 +668,14 @@
 				"dataSet": app.lookup("sellItem"),
 				"columns": [
 					{"width": "25px"},
+					{"width": "153px"},
+					{"width": "190px"},
 					{"width": "100px"},
+					{"width": "94px"},
 					{"width": "100px"},
-					{"width": "100px"},
-					{"width": "100px"},
-					{"width": "100px"},
-					{"width": "100px"},
-					{"width": "100px"},
-					{"width": "100px"}
+					{"width": "82px"},
+					{"width": "118px"},
+					{"width": "87px"}
 				],
 				"header": {
 					"rows": [{"height": "24px"}],
@@ -791,30 +793,85 @@
 							"constraint": {"rowIndex": 0, "colIndex": 4},
 							"configurator": function(cell){
 								cell.columnName = "SELL_PR";
+								cell.control = (function(){
+									var numberEditor_2 = new cpr.controls.NumberEditor("SELL_PR");
+									numberEditor_2.readOnly = true;
+									numberEditor_2.spinButton = false;
+									numberEditor_2.format = "s#,###";
+									numberEditor_2.style.css({
+										"text-align" : "center"
+									});
+									numberEditor_2.bind("value").toDataColumn("SELL_PR");
+									return numberEditor_2;
+								})();
 							}
 						},
 						{
 							"constraint": {"rowIndex": 0, "colIndex": 5},
 							"configurator": function(cell){
 								cell.columnName = "ASELL_PR";
+								cell.control = (function(){
+									var numberEditor_3 = new cpr.controls.NumberEditor("ASELL_PR");
+									numberEditor_3.readOnly = true;
+									numberEditor_3.spinButton = false;
+									numberEditor_3.format = "s#,###";
+									numberEditor_3.style.css({
+										"text-align" : "center"
+									});
+									numberEditor_3.bind("value").toDataColumn("ASELL_PR");
+									return numberEditor_3;
+								})();
 							}
 						},
 						{
 							"constraint": {"rowIndex": 0, "colIndex": 6},
 							"configurator": function(cell){
 								cell.columnName = "SALE_PR";
+								cell.control = (function(){
+									var numberEditor_4 = new cpr.controls.NumberEditor("SALE_PR");
+									numberEditor_4.readOnly = true;
+									numberEditor_4.spinButton = false;
+									numberEditor_4.format = "s#,###";
+									numberEditor_4.style.css({
+										"text-align" : "center"
+									});
+									numberEditor_4.bind("value").toDataColumn("SALE_PR");
+									return numberEditor_4;
+								})();
 							}
 						},
 						{
 							"constraint": {"rowIndex": 0, "colIndex": 7},
 							"configurator": function(cell){
 								cell.columnName = "SALES_AMT";
+								cell.control = (function(){
+									var numberEditor_5 = new cpr.controls.NumberEditor("SALES_AMT");
+									numberEditor_5.readOnly = true;
+									numberEditor_5.spinButton = false;
+									numberEditor_5.format = "s#,###";
+									numberEditor_5.style.css({
+										"text-align" : "center"
+									});
+									numberEditor_5.bind("value").toDataColumn("SALES_AMT");
+									return numberEditor_5;
+								})();
 							}
 						},
 						{
 							"constraint": {"rowIndex": 0, "colIndex": 8},
 							"configurator": function(cell){
 								cell.columnName = "POINT";
+								cell.control = (function(){
+									var numberEditor_6 = new cpr.controls.NumberEditor("POINT");
+									numberEditor_6.readOnly = true;
+									numberEditor_6.spinButton = false;
+									numberEditor_6.format = "s#,###";
+									numberEditor_6.style.css({
+										"text-align" : "center"
+									});
+									numberEditor_6.bind("value").toDataColumn("POINT");
+									return numberEditor_6;
+								})();
 							}
 						}
 					]

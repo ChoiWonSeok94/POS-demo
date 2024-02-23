@@ -22,12 +22,10 @@ public class ProductDaoImpl implements ProductDao {
 		return sqlsession.selectOne("Product.srcProductByBarCode", prodVo);
 	}
 
-
 	@Override
 	public void productInsert(ProductVo prodVo) {
 		sqlsession.insert("Product.productInsert", prodVo);
 	}
-
 
 	@Override
 	public String getProdCnt() {
@@ -37,6 +35,11 @@ public class ProductDaoImpl implements ProductDao {
 	@Override
 	public List getProdClsName(ProductClsVo prodClsVo) {
 		return sqlsession.selectList("Product.getProdClsName", prodClsVo);
+	}
+
+	@Override
+	public int isExistProductByBarCode(ProductVo prodVo) {
+		return sqlsession.selectOne("Product.isExistProductByBarCode", prodVo);
 	}
 	
 }

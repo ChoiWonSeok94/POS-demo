@@ -87,13 +87,13 @@
       <cl:output std:sid="output-f2c7c56f" style="border-right-style:solid; border-bottom-color:#cecece; border-top-width:1px; border-right-width:1px; border-left-color:#cecece; border-right-color:#cecece; border-left-width:1px; border-top-style:solid; border-radius:5px 0px 0px 5px; background-color:#EDEDED; border-left-style:solid; border-bottom-width:1px; border-top-color:#cecece; border-bottom-style:solid; text-align:center;" value="우편번호">
         <cl:xylayoutdata std:sid="xyl-data-13810e98" top="270px" left="641px" width="95px" height="35px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
       </cl:output>
-      <cl:inputbox std:sid="i-box-874ba7fe" id="POST_NO" style="border-radius:0px 5px 5px 0px; text-align:center;">
+      <cl:inputbox std:sid="i-box-874ba7fe" id="POST_NO" style="border-radius:0px 5px 5px 0px; text-align:center;" readonly="true">
         <cl:xylayoutdata std:sid="xyl-data-6e9baaef" top="270px" left="735px" width="120px" height="35px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
       </cl:inputbox>
       <cl:output std:sid="output-35233a34" style="border-right-style:solid; border-bottom-color:#cecece; border-top-width:1px; border-right-width:1px; border-left-color:#cecece; border-right-color:#cecece; border-left-width:1px; border-top-style:solid; border-radius:5px 0px 0px 5px; background-color:#EDEDED; border-left-style:solid; border-bottom-width:1px; border-top-color:#cecece; border-bottom-style:solid; text-align:center;" value="주소">
         <cl:xylayoutdata std:sid="xyl-data-358943a4" top="330px" left="641px" width="95px" height="35px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
       </cl:output>
-      <cl:inputbox std:sid="i-box-ed531527" id="ADDR_1" style="border-radius:0px 5px 5px 0px; text-align:center;">
+      <cl:inputbox std:sid="i-box-ed531527" id="ADDR_1" style="border-radius:0px 5px 5px 0px; text-align:center;" readonly="true">
         <cl:xylayoutdata std:sid="xyl-data-9ab58288" top="330px" left="735px" width="250px" height="35px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
       </cl:inputbox>
       <cl:output std:sid="output-705ecf4b" style="border-right-style:solid; border-bottom-color:#cecece; border-top-width:1px; border-right-width:1px; border-left-color:#cecece; border-right-color:#cecece; border-left-width:1px; border-top-style:solid; border-radius:5px 0px 0px 5px; background-color:#EDEDED; border-left-style:solid; border-bottom-width:1px; border-top-color:#cecece; border-bottom-style:solid; text-align:center;" value="상세주소">
@@ -102,7 +102,7 @@
       <cl:inputbox std:sid="i-box-a68f0efb" id="ADDR_2" style="border-radius:0px 5px 5px 0px; text-align:center;" maxlength="33">
         <cl:xylayoutdata std:sid="xyl-data-f7af3c5a" top="390px" left="735px" width="250px" height="35px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
       </cl:inputbox>
-      <cl:dateinput std:sid="d-input-b2449a01" id="BIR_DAY" style="text-align:center;" placeholder="2001-01-01">
+      <cl:dateinput std:sid="d-input-b2449a01" id="BIR_DAY" style="text-align:center;" defaultdate="2000-01-01" placeholder="2000-01-01">
         <cl:xylayoutdata std:sid="xyl-data-d0ca9ec3" top="210px" left="438px" width="160px" height="35px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
       </cl:dateinput>
       <cl:button std:sid="button-3cf77bba" value="주소 찾기">

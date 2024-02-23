@@ -25,6 +25,11 @@
           </cl:datarow>
         </cl:datarowlist>
       </cl:dataset>
+      <cl:dataset std:sid="d-set-6d00e220" id="EXIST">
+        <cl:datacolumnlist>
+          <cl:datacolumn std:sid="d-column-1fb54ab6" name="isExist"/>
+        </cl:datacolumnlist>
+      </cl:dataset>
     </cl:model>
     <cl:appspec/>
   </head>
@@ -113,7 +118,7 @@
         <cl:listener std:sid="listener-e35d2565" name="click" handler="onButtonClick"/>
         <cl:xylayoutdata std:sid="xyl-data-bc0140a9" top="330px" left="885px" width="53px" height="50px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
       </cl:button>
-      <cl:checkbox std:sid="c-box-b4f8840b" id="SALE_OR_NOT" style="text-align:center;" value="">
+      <cl:checkbox std:sid="c-box-b4f8840b" id="SALE_OR_NOT" style="text-align:center;" value="0" truevalue="1" falsevalue="0">
         <cl:listener std:sid="listener-7e7cd829" name="value-change" handler="onCbx2ValueChange"/>
         <cl:xylayoutdata std:sid="xyl-data-fbe271c4" top="60px" left="795px" width="30px" height="30px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
       </cl:checkbox>
@@ -133,7 +138,7 @@
       <cl:numbereditor std:sid="n-editor-ccd5d102" id="SALE_PR" style="text-align:center;" enabled="false" readonly="true" max="99999" spinbutton="false" format="s#,###">
         <cl:xylayoutdata std:sid="xyl-data-a9bbf79c" top="120px" left="733px" width="142px" height="50px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
       </cl:numbereditor>
-      <cl:output std:sid="output-aa141c9f" id="CLIENT_NO" visible="true" readonly="true">
+      <cl:output std:sid="output-aa141c9f" id="CLIENT_NO" visible="false" readonly="true">
         <cl:xylayoutdata std:sid="xyl-data-36c6007a" top="389px" left="735px" width="140px" height="23px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
       </cl:output>
       <cl:output std:sid="output-17719027" style="color:red; text-align:left;" enabled="false" value="은 필수값입니다.">
@@ -143,31 +148,31 @@
         <cl:xylayoutdata std:sid="xyl-data-2b5e4090" top="8px" left="807px" width="30px" height="20px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
       </cl:output>
       <cl:output std:sid="output-158c0cf1" style="color:red; font-weight:800; font-size:22px; line-height:22px; text-align:right;" value="* ">
-        <cl:xylayoutdata std:sid="xyl-data-8671a3f5" top="65px" left="54px" width="30px" height="20px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+        <cl:xylayoutdata std:sid="xyl-data-8671a3f5" top="65px" left="57px" width="30px" height="20px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
       </cl:output>
       <cl:output std:sid="output-2cdb5c49" style="color:red; font-weight:800; font-size:22px; line-height:22px; text-align:right;" value="* ">
-        <cl:xylayoutdata std:sid="xyl-data-66b132e2" top="133px" left="54px" width="30px" height="20px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+        <cl:xylayoutdata std:sid="xyl-data-66b132e2" top="133px" left="57px" width="30px" height="20px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
       </cl:output>
       <cl:output std:sid="output-d2ca0254" style="color:red; font-weight:800; font-size:22px; line-height:22px; text-align:right;" value="* ">
-        <cl:xylayoutdata std:sid="xyl-data-8d056bae" top="201px" left="54px" width="30px" height="20px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+        <cl:xylayoutdata std:sid="xyl-data-8d056bae" top="201px" left="57px" width="30px" height="20px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
       </cl:output>
       <cl:output std:sid="output-699a3992" style="color:red; font-weight:800; font-size:22px; line-height:22px; text-align:right;" value="* ">
-        <cl:xylayoutdata std:sid="xyl-data-7463fc26" top="273px" left="54px" width="30px" height="20px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+        <cl:xylayoutdata std:sid="xyl-data-7463fc26" top="273px" left="57px" width="30px" height="20px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
       </cl:output>
       <cl:output std:sid="output-4bf0c62c" style="color:red; font-weight:800; font-size:22px; line-height:22px; text-align:right;" value="* ">
-        <cl:xylayoutdata std:sid="xyl-data-c8a326f5" top="343px" left="54px" width="30px" height="20px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+        <cl:xylayoutdata std:sid="xyl-data-c8a326f5" top="343px" left="57px" width="30px" height="20px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
       </cl:output>
       <cl:output std:sid="output-eb4cd660" style="color:red; font-weight:800; font-size:22px; line-height:22px; text-align:right;" value="* ">
-        <cl:xylayoutdata std:sid="xyl-data-94205cfb" top="203px" left="329px" width="30px" height="20px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+        <cl:xylayoutdata std:sid="xyl-data-94205cfb" top="203px" left="332px" width="30px" height="20px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
       </cl:output>
       <cl:output std:sid="output-103da2c8" style="color:red; font-weight:800; font-size:22px; line-height:22px; text-align:right;" value="* ">
-        <cl:xylayoutdata std:sid="xyl-data-1fbd5e4e" top="64px" left="329px" width="30px" height="20px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+        <cl:xylayoutdata std:sid="xyl-data-1fbd5e4e" top="64px" left="332px" width="30px" height="20px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
       </cl:output>
       <cl:output std:sid="output-a2e68878" style="color:red; font-weight:800; font-size:22px; line-height:22px; text-align:right;" value="* ">
-        <cl:xylayoutdata std:sid="xyl-data-ff491183" top="132px" left="329px" width="30px" height="20px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+        <cl:xylayoutdata std:sid="xyl-data-ff491183" top="132px" left="332px" width="30px" height="20px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
       </cl:output>
       <cl:output std:sid="output-fc659732" style="color:red; font-weight:800; font-size:22px; line-height:22px; text-align:right;" value="* ">
-        <cl:xylayoutdata std:sid="xyl-data-891be000" top="343px" left="616px" width="30px" height="20px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+        <cl:xylayoutdata std:sid="xyl-data-891be000" top="343px" left="623px" width="30px" height="20px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
       </cl:output>
       <cl:xylayout std:sid="xylayout-b8e2e988"/>
     </cl:group>

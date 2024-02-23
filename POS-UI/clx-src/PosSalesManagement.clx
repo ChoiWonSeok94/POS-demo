@@ -68,10 +68,10 @@
       <cl:listener std:sid="listener-51a7fe9f" name="cell-click" handler="onGrd1CellClick"/>
       <cl:xylayoutdata std:sid="xyl-data-14caaf82" top="190px" left="20px" width="719px" height="351px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
       <cl:gridcolumn std:sid="g-column-2849fb25" width="25px"/>
-      <cl:gridcolumn std:sid="g-column-b45f955e" width="109px"/>
+      <cl:gridcolumn std:sid="g-column-b45f955e" width="112px"/>
       <cl:gridcolumn std:sid="g-column-8c90656f" width="90px"/>
       <cl:gridcolumn std:sid="g-column-a4460873" width="93px"/>
-      <cl:gridcolumn std:sid="g-column-31edc8e6" width="107px"/>
+      <cl:gridcolumn std:sid="g-column-31edc8e6" width="118px"/>
       <cl:gridcolumn std:sid="g-column-b0275c16" width="73px"/>
       <cl:gridcolumn std:sid="g-column-4b32d52e" width="179px"/>
       <cl:gridheader std:sid="gh-band-31a56bf2">
@@ -91,13 +91,13 @@
         <cl:gridcell std:sid="gd-cell-a28840dd" rowindex="0" colindex="2" columnname="MEMB_SER_NO"/>
         <cl:gridcell std:sid="gd-cell-b955d68a" rowindex="0" colindex="3" columnname="MEMB_TY"/>
         <cl:gridcell std:sid="gd-cell-05f07e6b" rowindex="0" colindex="4" columnname="SALES_AMT">
-          <cl:numbereditor std:sid="n-editor-50fc7a48" id="nbe1" style="text-align:center;" spinbutton="false" format="s#,###">
+          <cl:numbereditor std:sid="n-editor-50fc7a48" id="nbe1" style="text-align:center;" readonly="true" spinbutton="false" format="s#,###">
             <cl:celldata std:sid="c-data-5773bd86"/>
           </cl:numbereditor>
         </cl:gridcell>
         <cl:gridcell std:sid="gd-cell-f9b3df3d" rowindex="0" colindex="5" columnname="SALES_TY"/>
         <cl:gridcell std:sid="gd-cell-b147edc6" rowindex="0" colindex="6" columnname="TRANS_TM">
-          <cl:dateinput std:sid="d-input-ee12f199" id="dti1" showothermonths="false" mask="YYYY-MM-DD HH:mm:ss" format="YYYYMMDDHHmmss">
+          <cl:dateinput std:sid="d-input-ee12f199" id="dti1" readonly="true" showothermonths="false" mask="YYYY-MM-DD HH:mm:ss" format="YYYYMMDDHHmmss">
             <cl:celldata std:sid="c-data-031d4c07"/>
           </cl:dateinput>
         </cl:gridcell>
@@ -133,14 +133,14 @@
     <cl:grid std:sid="grid-8d7ab881" id="grd2" datasetid="sellItem">
       <cl:xylayoutdata std:sid="xyl-data-e971fae8" top="585px" left="20px" width="981px" height="161px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
       <cl:gridcolumn std:sid="g-column-962f8f5e" width="25px"/>
-      <cl:gridcolumn std:sid="g-column-a31432fa"/>
-      <cl:gridcolumn std:sid="g-column-e1461520"/>
+      <cl:gridcolumn std:sid="g-column-a31432fa" width="153px"/>
+      <cl:gridcolumn std:sid="g-column-e1461520" width="190px"/>
       <cl:gridcolumn std:sid="g-column-64adf93b"/>
-      <cl:gridcolumn std:sid="g-column-82b32a3b"/>
+      <cl:gridcolumn std:sid="g-column-82b32a3b" width="94px"/>
       <cl:gridcolumn std:sid="g-column-cdba969d"/>
-      <cl:gridcolumn std:sid="g-column-b5c82607"/>
-      <cl:gridcolumn std:sid="g-column-cf890d39"/>
-      <cl:gridcolumn std:sid="g-column-6dff7091"/>
+      <cl:gridcolumn std:sid="g-column-b5c82607" width="82px"/>
+      <cl:gridcolumn std:sid="g-column-cf890d39" width="118px"/>
+      <cl:gridcolumn std:sid="g-column-6dff7091" width="87px"/>
       <cl:gridheader std:sid="gh-band-066e92a9">
         <cl:gridrow std:sid="g-row-fd65efde"/>
         <cl:gridcell std:sid="gh-cell-1e9c1783" rowindex="0" colindex="0" sortable="false" filterable="false" columntype="checkbox"/>
@@ -159,11 +159,31 @@
         <cl:gridcell std:sid="gd-cell-267fd5dd" rowindex="0" colindex="1" columnname="BAR_CODE"/>
         <cl:gridcell std:sid="gd-cell-f4e975c2" rowindex="0" colindex="2" columnname="PROD_NM"/>
         <cl:gridcell std:sid="gd-cell-f6009ec1" rowindex="0" colindex="3" columnname="QTY"/>
-        <cl:gridcell std:sid="gd-cell-16c598e5" rowindex="0" colindex="4" columnname="SELL_PR"/>
-        <cl:gridcell std:sid="gd-cell-4d3644fc" rowindex="0" colindex="5" columnname="ASELL_PR"/>
-        <cl:gridcell std:sid="gd-cell-c293cf42" rowindex="0" colindex="6" columnname="SALE_PR"/>
-        <cl:gridcell std:sid="gd-cell-de1fba21" rowindex="0" colindex="7" columnname="SALES_AMT"/>
-        <cl:gridcell std:sid="gd-cell-1263050e" rowindex="0" colindex="8" columnname="POINT"/>
+        <cl:gridcell std:sid="gd-cell-16c598e5" rowindex="0" colindex="4" columnname="SELL_PR">
+          <cl:numbereditor std:sid="n-editor-1d04f811" id="SELL_PR" style="text-align:center;" readonly="true" spinbutton="false" format="s#,###">
+            <cl:celldata std:sid="c-data-2577f8b8"/>
+          </cl:numbereditor>
+        </cl:gridcell>
+        <cl:gridcell std:sid="gd-cell-4d3644fc" rowindex="0" colindex="5" columnname="ASELL_PR">
+          <cl:numbereditor std:sid="n-editor-e5a90884" id="ASELL_PR" style="text-align:center;" readonly="true" spinbutton="false" format="s#,###">
+            <cl:celldata std:sid="c-data-f9ddf768"/>
+          </cl:numbereditor>
+        </cl:gridcell>
+        <cl:gridcell std:sid="gd-cell-c293cf42" rowindex="0" colindex="6" columnname="SALE_PR">
+          <cl:numbereditor std:sid="n-editor-194cd3a0" id="SALE_PR" style="text-align:center;" readonly="true" spinbutton="false" format="s#,###">
+            <cl:celldata std:sid="c-data-d7e1299d"/>
+          </cl:numbereditor>
+        </cl:gridcell>
+        <cl:gridcell std:sid="gd-cell-de1fba21" rowindex="0" colindex="7" columnname="SALES_AMT">
+          <cl:numbereditor std:sid="n-editor-4401dffc" id="SALES_AMT" style="text-align:center;" readonly="true" spinbutton="false" format="s#,###">
+            <cl:celldata std:sid="c-data-d7d6097b"/>
+          </cl:numbereditor>
+        </cl:gridcell>
+        <cl:gridcell std:sid="gd-cell-1263050e" rowindex="0" colindex="8" columnname="POINT">
+          <cl:numbereditor std:sid="n-editor-f35736fb" id="POINT" style="text-align:center;" readonly="true" spinbutton="false" format="s#,###">
+            <cl:celldata std:sid="c-data-1c1a4a65"/>
+          </cl:numbereditor>
+        </cl:gridcell>
       </cl:griddetail>
     </cl:grid>
     <cl:group std:sid="group-b4e0071c">

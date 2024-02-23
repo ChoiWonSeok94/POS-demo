@@ -17,16 +17,13 @@ public class ProductServiceImpl implements ProductService{
 	
 	@Override
 	public Map<String, Object> srcProductByBarCode(ProductVo prodVo) {
-		
 		return prodDao.srcProductByBarCode(prodVo);
 	}
-	
 
 	@Override
 	public void productInsert(ProductVo prodVo) {
 		prodDao.productInsert(prodVo);
 	}
-
 
 	@Override
 	public String getProdCnt() {
@@ -36,5 +33,10 @@ public class ProductServiceImpl implements ProductService{
 	@Override
 	public List getProdClsName(ProductClsVo prodClsVo) {
 		return prodDao.getProdClsName(prodClsVo);
+	}
+
+	@Override
+	public int isExistProductByBarCode(ProductVo prodVo) {
+		return prodDao.isExistProductByBarCode(prodVo);
 	}
 }

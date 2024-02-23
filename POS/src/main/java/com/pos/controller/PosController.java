@@ -206,12 +206,16 @@ public class PosController {
 	@RequestMapping(value = "/productInsert.do", method = RequestMethod.POST)
 	public JSONDataView productInsert(DataRequest dataReq, ProductVo prodVo) {
 		
-		// 거래처명으로 거래처 번호 가져오기
-//		String clientNm = prodVo.getCLIENT_NO();
-//		prodVo.setCLIENT_NO(cliService.getClientNoByClientNm(clientNm));
-		
-		// 상품 TB insert
-		prodService.productInsert(prodVo);
+		int isExistProduct = prodService.isExistProductByBarCode(prodVo);
+		Map<String,String> exist = new HashMap<>();
+		if(isExistProduct == 0) {
+			// 상품 TB insert
+			prodService.productInsert(prodVo);
+			exist.put("isExist", "none");
+		}else {
+			exist.put("isExist", "does");
+		}
+		dataReq.setResponse("EXIST", exist);
 		
 		return new JSONDataView();
 	}
@@ -261,8 +265,15 @@ public class PosController {
 	@RequestMapping(value = "/clientInsert.do", method = RequestMethod.POST)
 	public JSONDataView clientInsert(DataRequest dataReq, ClientVo cliVo) {
 		
-		cliService.clientInsert(cliVo);
-		
+		int isExistCilent = cliService.isExistClientByBusiNo(cliVo);
+		Map<String,String> exist = new HashMap<>();
+		if(isExistCilent == 0) {
+			cliService.clientInsert(cliVo);
+			exist.put("isExist", "none");
+		}else {
+			exist.put("isExist", "does");
+		}
+		dataReq.setResponse("EXIST", exist);
 		return new JSONDataView();
 	}
 	

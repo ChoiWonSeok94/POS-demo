@@ -24,62 +24,62 @@ function onBodyInit(e) {
 //  	svgElem.setAttributeNS(null, "popup", "popup");
 }
 
-//function postCode() {
-//	new daum.Postcode({
-//		/* 해당 정보를 받아 처리할 콜백 함수를 정의하는 부분 입니다. */
-//		oncomplete: function(data) {
-//			/* 팝업에서 검색결과 항목을 클릭했을떄 실행할 코드를 작성하는 부분 */
-//			var vcPostCode = app.lookup("POST_NO");
-////			var vcAddress = app.lookup("address");
+function postCode() {
+	new daum.Postcode({
+		/* 해당 정보를 받아 처리할 콜백 함수를 정의하는 부분 입니다. */
+		oncomplete: function(data) {
+			/* 팝업에서 검색결과 항목을 클릭했을떄 실행할 코드를 작성하는 부분 */
+			var vcPostCode = app.lookup("POST_NO");
+			var vcAddress = app.lookup("ADDR1");
 //			var vcAddressJibun = app.lookup("ADDR1");
-//			var vcDetailAddress = app.lookup("ADDR2");
-////			var vcExtraAddress = app.lookup("extraAddress");
-//			
-//			// 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
-//			// 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-////			var roadAddr = data.roadAddress; // 도로명 주소 변수
-////			var extraRoadAddr = ""; // 참고 항목 변수
-//			
-//			// 법정동명이 있을 경우 추가한다. (법정리는 제외)
-//			// 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
-////			if (data.bname !== "" && /[동|로|가]$/g.test(data.bname)) {
-////				extraRoadAddr += data.bname;
-////			}
-//			// 건물명이 있고, 공동주택일 경우 추가한다.
-////			if (data.buildingName !== "" && data.apartment === "Y") {
-////				extraRoadAddr += (extraRoadAddr !== "" ? ", " + data.buildingName : data.buildingName);
-////			}
-//			// 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
-////			if (extraRoadAddr !== "") {
-////				extraRoadAddr = " (" + extraRoadAddr + ")";
-////			}
-//			
-//			// 우편번호와 주소 정보를 해당 필드에 넣는다.
-//			vcPostCode.value = data.zonecode;
-////			vcAddress.value = roadAddr;
+			var vcDetailAddress = app.lookup("ADDR2");
+			var vcExtraAddress = app.lookup("extraAddress");
+			
+			// 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
+			// 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+			var roadAddr = data.roadAddress; // 도로명 주소 변수
+			var extraRoadAddr = ""; // 참고 항목 변수
+			
+			// 법정동명이 있을 경우 추가한다. (법정리는 제외)
+			// 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+			if (data.bname !== "" && /[동|로|가]$/g.test(data.bname)) {
+				extraRoadAddr += data.bname;
+			}
+			// 건물명이 있고, 공동주택일 경우 추가한다.
+			if (data.buildingName !== "" && data.apartment === "Y") {
+				extraRoadAddr += (extraRoadAddr !== "" ? ", " + data.buildingName : data.buildingName);
+			}
+			// 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+			if (extraRoadAddr !== "") {
+				extraRoadAddr = " (" + extraRoadAddr + ")";
+			}
+			
+			// 참고항목 문자열이 있을 경우 해당 필드에 넣는다.
+			if (roadAddr !== "") {
+				roadAddr += extraRoadAddr;
+			} else {
+				vcExtraAddress.value = "";
+			}
+			
+			// 우편번호와 주소 정보를 해당 필드에 넣는다.
+			vcPostCode.value = data.zonecode;
+			vcAddress.value = roadAddr;
 //			vcAddressJibun.value = data.jibunAddress;
-//			
-//			// 참고항목 문자열이 있을 경우 해당 필드에 넣는다.
-////			if (roadAddr !== "") {
-////				vcExtraAddress.value = extraRoadAddr;
-////			} else {
-////				vcExtraAddress.value = "";
-////			}
-//			
-//			/*커서를 상세주소 필드로 이동합니다. */
-//			vcDetailAddress.focus();
-//			
-//		}
-//		
-//	}).open();
-//}
+			
+			/*커서를 상세주소 필드로 이동합니다. */
+			vcDetailAddress.focus();
+			
+		}
+		
+	}).open();
+}
 
 /*
  * "우편 검색" 버튼(btnClick)에서 click 이벤트 발생 시 호출.
  * 사용자가 컨트롤을 클릭할 때 발생하는 이벤트.
  */
 function onBtnClickClick(e){
-//	postCode();
+	postCode();
 }
 
 /*
@@ -97,6 +97,11 @@ function onBodyUnload(e){
  * 앱이 최초 구성된후 최초 랜더링 직후에 발생하는 이벤트 입니다.
  */
 function onBodyLoad(e){
+	
+	var scriptElement = document.createElement("script");
+	var daumApi = "t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js";
+	scriptElement.src = "http://" + daumApi;
+	document.body.appendChild(scriptElement);
 	
     app.lookup("PERS_COP_TY").selectItem(0);
     
@@ -127,32 +132,49 @@ function chkDupl(){
 	var addr2 = app.lookup("ADDR2");
 	var idBusiOutput = app.lookup("idBusiOutput");
 	
-	console.log(clientNm.length);
+	// 한글에 자음이나 모음걸러내기 + 공백허용 정규식
+	var clientTest = /^[가-힣A-z\s]+$/;
+	// 연속된 공백이 있는지 확인하는 정규식
+	var clientTest2 = /(\s)\1/;
 	if(clientNm.value == '' || clientNm.length == 0){
 		alert('거래처명을 입력해 주세요.');
 		clientNm.focus();
 		return false;
+	}else if(!clientTest.test(clientNm.value) && clientNm.length > 0){
+		alert('유효하지 않은 거래처 명 형식입니다.');
+		clientNm.focus();
+		return false;
+	}else if(clientTest2.test(clientNm.value) && clientNm.length > 0){
+		alert('연속된 공백은 불가합니다.');
+		clientNm.focus();
+		return false;
 	}
+	
 	if(busiNo.value == '' || busiNo.length == 0){
 		alert('사업자번호를 입력해 주세요.');
 		busiNo.focus();
 		return false;
-		
 	}else if(busiNo.length != 10 && busiNo.length > 0){
 		alert('사업자번호가 올바르지 않습니다.');
 		busiNo.focus();
 		return false;
+	}else if(busiNo.value.substr(0,3) !== '325' && busiNo.length > 0){
+		alert('사업자번호가 유효하지 않습니다.');
+		busiNo.focus();
+		return false;
 	}
+	
 	var represNmTest = /^[가-힣A-z]+$/;
 	if(represNm.value == '' || represNm.length == 0){
 		alert('대표자성명을 입력해 주세요.');
 		represNm.focus();
 		return false;
-	}else if(represNmTest.test(represNm.value)){
-		alert('유효하지 않은 형식입니다.');
+	}else if(!represNmTest.test(represNm.value) && represNm.length > 0){
+		alert('유효하지 않은 대표자명 형식입니다.');
 		represNm.focus();
 		return false;
 	}
+	
 	if(idBusiOutput.value == '주민번호'){
 		if(idNo.value == '' || idNo.length == 0){
 			alert('주민등록번호를 입력해 주세요');
@@ -196,17 +218,25 @@ function chkDupl(){
 		phNo.focus();
 		return false;
 	
-	}else if(phNoTest.test(phNo.value)){
+	}else if(!phNoTest.test(phNo.value)){
 		alert('유효하지 않은 전화번호 형식입니다.');
 		phNo.focus();
 		return false;
 	}
+	
 	if(postNo.value == '' || postNo.length == 0){
 		alert('우편번호를 검색해 주세요.');
 		return false;
-	
 	}else if(postNo.value != '' && addr2.value == ''){
 		alert('상세주소를 입력해 주세요.');
+		addr2.focus();
+		return false;
+	}else if(clientTest.test(postNo.value) && postNo.length > 0){
+		alert('유효하지 않은 상세주소 형식입니다.');
+		addr2.focus();
+		return false;
+	}else if(clientTest2.test(postNo.value) && postNo.length > 0){
+		alert('연속된 공백은 불가합니다.');
 		addr2.focus();
 		return false;
 	}
@@ -239,11 +269,29 @@ function onButtonClick(e){
 		submission.setParameters("BUSI_NO", busiNo.value);
 		submission.setParameters("PERS_COP_TY", persCopTy.value);
 		submission.setParameters("ID_NO", idNo.value);
-		submission.setParameters("REPRES_NM", represNm);
+		submission.setParameters("REPRES_NM", represNm.value);
 		submission.setParameters("PH_NO", phNo.value);
 		submission.setParameters("POST_NO", postNo.value);
 		submission.setParameters("ADDR", addr);
-//		submission.addEventListener("submit-success", successInsert());
+		
+		// EventListener 순위 
+		// 1. recieve
+		// 2. submit-success || submit-error
+		// 3. submit-done
+		submission.addEventListener("receive", function(e){
+			var jsonObj = JSON.parse(e.control.xhr.responseText);
+			console.log(jsonObj.EXIST.isExist);
+			
+			// 'does' => 등록된 사업자번호
+			if(jsonObj.EXIST.isExist === 'does'){
+				alert('이미 등록된 거래처입니다.');
+			}	
+			// 'none' => 없는 사업자 번호 => insert
+			else if(jsonObj.EXIST.isExist === 'none'){
+				successInsert();
+			}
+			debugger
+		});
 		submission.send();
 	
 	}
@@ -252,7 +300,7 @@ function onButtonClick(e){
 
 // 등록 통신 성공시 호출 함수
 function successInsert(){
-	alert('상품이 등록되었습니다.');
+	alert('거래처가 성공적으로 등록되었습니다.');
 }
 
 /*
