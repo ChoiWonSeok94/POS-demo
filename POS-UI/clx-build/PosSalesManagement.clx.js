@@ -32,11 +32,11 @@
 					debugger
 					if(e === '전체취소'){
 						if(confirm('전체취소 하시겠습니까?')){
-							conf = 'Y'
+							conf = 'Y';
 						}
 					}else{
 						if(confirm('선택 상품을 취소하시겠습니까??')){
-							conf = 'Y'
+							conf = 'Y';
 						}
 					}
 					if(conf === 'Y'){
@@ -757,7 +757,7 @@
 								cell.filterable = false;
 								cell.sortable = false;
 								cell.targetColumnName = "POINT";
-								cell.text = "포인트";
+								cell.text = "적립 포인트";
 							}
 						}
 					]
@@ -933,9 +933,9 @@
 					"text-align" : "center"
 				});
 				container.addChild(output_2, {
-					"top": "46px",
+					"top": "42px",
 					"left": "9px",
-					"width": "70px",
+					"width": "82px",
 					"height": "55px"
 				});
 				var output_3 = new cpr.controls.Output();
@@ -960,9 +960,9 @@
 					"text-align" : "center"
 				});
 				container.addChild(output_3, {
-					"top": "100px",
+					"top": "96px",
 					"left": "9px",
-					"width": "70px",
+					"width": "82px",
 					"height": "60px"
 				});
 				var output_4 = new cpr.controls.Output();
@@ -987,9 +987,9 @@
 					"text-align" : "center"
 				});
 				container.addChild(output_4, {
-					"top": "159px",
+					"top": "155px",
 					"left": "9px",
-					"width": "70px",
+					"width": "82px",
 					"height": "60px"
 				});
 				var output_5 = new cpr.controls.Output();
@@ -1014,9 +1014,9 @@
 					"text-align" : "center"
 				});
 				container.addChild(output_5, {
-					"top": "277px",
+					"top": "273px",
 					"left": "9px",
-					"width": "70px",
+					"width": "82px",
 					"height": "60px"
 				});
 				var output_6 = new cpr.controls.Output();
@@ -1041,13 +1041,13 @@
 					"text-align" : "center"
 				});
 				container.addChild(output_6, {
-					"top": "218px",
+					"top": "214px",
 					"left": "9px",
-					"width": "70px",
+					"width": "82px",
 					"height": "60px"
 				});
 				var output_7 = new cpr.controls.Output();
-				output_7.value = "포인트";
+				output_7.value = "사용 포인트";
 				output_7.style.css({
 					"border-right-style" : "solid",
 					"border-top-width" : "1px",
@@ -1068,9 +1068,9 @@
 					"text-align" : "center"
 				});
 				container.addChild(output_7, {
-					"top": "336px",
+					"top": "332px",
 					"left": "9px",
-					"width": "70px",
+					"width": "82px",
 					"height": "60px"
 				});
 				var output_8 = new cpr.controls.Output();
@@ -1093,8 +1093,8 @@
 					"text-align" : "center"
 				});
 				container.addChild(output_8, {
-					"top": "46px",
-					"left": "78px",
+					"top": "42px",
+					"left": "101px",
 					"width": "130px",
 					"height": "55px"
 				});
@@ -1118,8 +1118,8 @@
 					"text-align" : "center"
 				});
 				container.addChild(output_9, {
-					"top": "100px",
-					"left": "78px",
+					"top": "96px",
+					"left": "101px",
 					"width": "130px",
 					"height": "60px"
 				});
@@ -1143,8 +1143,8 @@
 					"text-align" : "center"
 				});
 				container.addChild(output_10, {
-					"top": "159px",
-					"left": "78px",
+					"top": "155px",
+					"left": "101px",
 					"width": "130px",
 					"height": "60px"
 				});
@@ -1168,8 +1168,8 @@
 					"text-align" : "center"
 				});
 				container.addChild(output_11, {
-					"top": "218px",
-					"left": "78px",
+					"top": "214px",
+					"left": "101px",
 					"width": "130px",
 					"height": "60px"
 				});
@@ -1193,8 +1193,8 @@
 					"text-align" : "center"
 				});
 				container.addChild(output_12, {
-					"top": "277px",
-					"left": "78px",
+					"top": "273px",
+					"left": "101px",
 					"width": "130px",
 					"height": "60px"
 				});
@@ -1218,16 +1218,16 @@
 					"text-align" : "center"
 				});
 				container.addChild(output_13, {
-					"top": "336px",
-					"left": "78px",
+					"top": "332px",
+					"left": "101px",
 					"width": "130px",
 					"height": "60px"
 				});
 			})(group_2);
 			container.addChild(group_2, {
 				"top": "139px",
-				"left": "785px",
-				"width": "217px",
+				"left": "767px",
+				"width": "235px",
 				"height": "405px"
 			});
 			

@@ -30,6 +30,7 @@
           <cl:datacolumn comment="할인 후 단가" std:sid="d-column-3e727690" name="ASELL_PR"/>
           <cl:datacolumn comment="할인금액" std:sid="d-column-8e71cd9d" name="SALE_PR" datatype="string"/>
           <cl:datacolumn comment="총 구매금액" std:sid="d-column-5af06fa7" name="SALES_AMT"/>
+          <cl:datacolumn comment="상품에 대한 적립금" std:sid="d-column-e78ecaaa" name="MEM_POINT"/>
         </cl:datacolumnlist>
         <cl:datarowlist/>
       </cl:dataset>
@@ -74,6 +75,7 @@
       <cl:gridcolumn std:sid="g-column-0440103b" width="91px"/>
       <cl:gridcolumn std:sid="g-column-7aab2351" width="92px"/>
       <cl:gridcolumn std:sid="g-column-f5c0ff72"/>
+      <cl:gridcolumn std:sid="g-column-2d7a693c" visible="false"/>
       <cl:gridheader std:sid="gh-band-3d88d9b3">
         <cl:gridrow std:sid="g-row-f17d3cfb"/>
         <cl:gridcell std:sid="gh-cell-81546a26" rowindex="0" colindex="0" sortable="false" filterable="false" columntype="checkbox"/>
@@ -84,6 +86,7 @@
         <cl:gridcell std:sid="gh-cell-cb00beb1" rowindex="0" colindex="5" targetcolumnname="ASELL_PR" sortable="false" filterable="false" text="금액"/>
         <cl:gridcell std:sid="gh-cell-8816a808" rowindex="0" colindex="6" targetcolumnname="SALE_PR" sortable="false" filterable="false" text="할인"/>
         <cl:gridcell std:sid="gh-cell-9cfb15c4" rowindex="0" colindex="7" targetcolumnname="SALES_AMT" sortable="false" filterable="false" text="판매금액"/>
+        <cl:gridcell std:sid="gh-cell-023e4416" rowindex="0" colindex="8" text="포인트"/>
       </cl:gridheader>
       <cl:griddetail std:sid="gd-band-ed213acc">
         <cl:gridrow std:sid="g-row-8f7b4be4"/>
@@ -123,6 +126,11 @@
           <cl:numbereditor std:sid="n-editor-c44f5b79" id="SALES_AMT" style="cursor:default; text-align:center;" readonly="true" spinbutton="false" format="s#,###">
             <cl:celldata std:sid="c-data-f1687cd1"/>
           </cl:numbereditor>
+        </cl:gridcell>
+        <cl:gridcell std:sid="gd-cell-9fce2ec2" rowindex="0" colindex="8" columnname="MEM_POINT">
+          <cl:output std:sid="output-b7e783aa" style="text-align:center;">
+            <cl:celldata/>
+          </cl:output>
         </cl:gridcell>
       </cl:griddetail>
     </cl:grid>

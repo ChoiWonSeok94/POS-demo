@@ -112,8 +112,9 @@ function onBodyLoad(e){
 	submission.async = false;
 	submission.addEventListener("receive", function(e){
 		var submi = e.control.xhr.responseText;
+		var jsonObj = JSON.parse(submi);
 		//총 거래처정보 반환된 값 세팅
-		app.lookup("CLIENT_NO").value = JSON.parse(submission.xhr.responseText)['clientNo']['CLIENT_NO'];
+		app.lookup("CLIENT_NO").value = parseInt(jsonObj['clientNo']['CLIENT_NO']) +1;
 	});
 	submission.send();
 	

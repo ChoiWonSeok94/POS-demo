@@ -64,7 +64,7 @@ public class PosController {
 							DataRequest dataReq, ProductVo prodVo) throws IOException {
 		
 		prodVo.setBAR_CODE(dataReq.getParameter("BAR_CODE"));
-		System.out.println(dataReq.getParameter("BAR_CODE"));
+//		System.out.println(dataReq.getParameter("BAR_CODE"));
 //		prodVo.setPROD_CD(dataReq.getParameter("PROD_CD"));
 		Map<String, Object> srcBarCode = prodService.srcProductByBarCode(prodVo);
 		

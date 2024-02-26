@@ -45,9 +45,6 @@ public class SalesServiceImpl implements SalesService{
 			
 			if(i == 0) {
 				// 최초 한번만 리스트에 담아서 insert
-//				sellList.add(realSalesAmt);
-//				sellList.add(membTy);
-//				sellList.add(membSerNo);
 				salProVo.setTRANS_TY(jsonObj.getString("TRANS_TY"));
 				String memTy = jsonObj.getString("MEMB_TY").toString();
 				if(memTy.equals("1")) {

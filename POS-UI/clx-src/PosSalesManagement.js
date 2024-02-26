@@ -19,11 +19,11 @@ function onButtonClick(e){
 		debugger
 		if(e === '전체취소'){
 			if(confirm('전체취소 하시겠습니까?')){
-				conf = 'Y'
+				conf = 'Y';
 			}
 		}else{
 			if(confirm('선택 상품을 취소하시겠습니까??')){
-				conf = 'Y'
+				conf = 'Y';
 			}
 		}
 		if(conf === 'Y'){

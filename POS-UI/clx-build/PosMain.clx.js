@@ -469,7 +469,7 @@
 			       	// 바코드를 기준으로 해당 행을 찾습니다.
 			       	var rowIndex = findRowIndexByBarcode(sellItem, barcode);
 			       	var grd1RowIndex = grd1.getSelectedRowIndex();
-			        // 바코드에 해당하는 행이 있을 경우에만 데이터를 업데이트합니다.
+			       	
 			      	// 바코드에 해당하는 행이 있을 경우에만 데이터를 업데이트합니다.
 			       	if (rowIndex !== -1) {
 			        	console.log("Row index found: " + rowIndex);
@@ -480,22 +480,27 @@
 			          		var asellPr = grd1.getCellValue(rowIndex, "ASELL_PR");
 			          		var salePr = grd1.getCellValue(rowIndex, "SALE_PR");
 			          		var salesAmt = grd1.getCellValue(rowIndex, "SALES_AMT");
-			          		// 가져온 rowIndex의 QTY가 1일 경우
+			          		var memPoint = grd1.getCellValue(rowIndex, "MEM_POINT");
+			          		
+			          		// 입력되기 전 rowIndex의 QTY가 1일 경우
 			          		if(beforeQty === '1'){
 			          			grd1.setCellValue(rowIndex, "QTY", parseInt(beforeQty)+1);
 			          			grd1.setCellValue(rowIndex, "ASELL_PR", grd1.getCellValue(rowIndex, "ASELL_PR") * 2);
 			          			grd1.setCellValue(rowIndex, "SALE_PR", grd1.getCellValue(rowIndex, "SALE_PR") * 2);
 			          			grd1.setCellValue(rowIndex, "SALES_AMT", (grd1.getCellValue(rowIndex, "SELL_PR") * 2) - (grd1.getCellValue(rowIndex, "SALE_PR")));
+			          			grd1.setCellValue(rowIndex, "MEM_POINT", grd1.getCellValue(rowIndex, "MEM_POINT") * 2);
 			          			grd1.deleteRow(grd1RowIndex);
 			          		}else{
 				          		var asellPr1 = asellPr / beforeQty;
 				          		var salePr1 = salePr / beforeQty;
 				          		var salesAmt1 = (asellPr / beforeQty) - (salePr / beforeQty)
+				          		var memPoint1 = (memPoint / beforeQty);
 			          			
 			          			grd1.setCellValue(rowIndex, "QTY", parseInt(beforeQty)+1);
-			          			grd1.setCellValue(rowIndex, "ASELL_PR", asellPr1 * (parseInt(beforeQty)+1));
-			          			grd1.setCellValue(rowIndex, "SALE_PR", salePr1 * (parseInt(beforeQty)+1));
-			          			grd1.setCellValue(rowIndex, "SALES_AMT", salesAmt1 * (parseInt(beforeQty)+1));
+			          			grd1.setCellValue(rowIndex, "ASELL_PR", asellPr1 * (parseInt(beforeQty) +1));
+			          			grd1.setCellValue(rowIndex, "SALE_PR", salePr1 * (parseInt(beforeQty) +1));
+			          			grd1.setCellValue(rowIndex, "SALES_AMT", salesAmt1 * (parseInt(beforeQty) +1));
+			          			grd1.setCellValue(rowIndex, "MEM_POINT", memPoint1 * (parseInt(beforeQty) +1));
 			          			grd1.deleteRow(grd1RowIndex);
 			          		}
 			          		totPr();
@@ -504,7 +509,9 @@
 
 					          	if (jsonObj["sellItem"] === null) {
 					              	console.log("SELL_PR is null, setting SALES_AMT to 0");
-					              	sellItem.setValue(rowIndex, "SALES_AMT", 0);
+			//		              	sellItem.setValue(rowIndex, "SALES_AMT", 0);
+									// 바코드를 입력했으나 해당 상품이 없을경우 해당 row delete
+					              	grd1.deleteRow(rowIndex);
 					              	alert('해당 상품이 없습니다.');
 					          	} else {
 					          		// SELL_PR 값 업데이트
@@ -515,11 +522,13 @@
 					              	sellItem.setValue(rowIndex, "PROD_NM", jsonObj['sellItem']['PROD_NM']);
 					              	sellItem.setValue(rowIndex, "QTY", "1");
 					              	sellItem.setValue(rowIndex, "ASELL_PR", jsonObj["sellItem"]["SELL_PR"]);
+					              	sellItem.setValue(rowIndex, "MEM_POINT", jsonObj['sellItem']['MEM_POINT']);
 					              	if(jsonObj['sellItem']['SALE_OR_NOT'] == '1'){
 					              		sellItem.setValue(rowIndex, "SALE_PR", jsonObj['sellItem']['SALE_PR']);
 					              	}else{
 					              		sellItem.setValue(rowIndex, "SALE_PR", '0');
 					              	}
+					              	debugger
 					          	}
 			//          		}else{
 			//          			alert('해당 바코드로 조회된 값이 없습니다.');
@@ -570,7 +579,7 @@
 					var sellItemList = new Array();
 					for(var i = 0 ; i < sellItem.getRowCount() ; i++){
 						// 상품명이 없으면 row가 비었다고 판단 => List에 push 안함.
-						if(sellItem.getRowData(i).PROD_NM != null){
+						if(sellItem.getRowData(i).PROD_NM != '' && sellItem.getRowData(i).PROD_NM != null){
 							var sellObject = {
 								BAR_CODE : sellItem.getRowData(i).BAR_CODE
 								,PROD_NM : sellItem.getRowData(i).PROD_NM
@@ -579,6 +588,7 @@
 								,ASELL_PR : sellItem.getRowData(i).ASELL_PR
 								,SALE_PR : sellItem.getRowData(i).SALE_PR
 								,PROD_TBL_SALES_AMT : sellItem.getRowData(i).SALES_AMT
+								,MEM_POINT : sellItem.getRowData(i).MEM_POINT
 							}
 							sellItemList.push(sellObject);
 						}
@@ -751,7 +761,8 @@
 						"name": "SALE_PR",
 						"dataType": "string"
 					},
-					{"name": "SALES_AMT"}
+					{"name": "SALES_AMT"},
+					{"name": "MEM_POINT"}
 				],
 				"rows": []
 			});
@@ -824,7 +835,11 @@
 					{"width": "99px"},
 					{"width": "91px"},
 					{"width": "92px"},
-					{"width": "100px"}
+					{"width": "100px"},
+					{
+						"width": "100px",
+						"visible": false
+					}
 				],
 				"header": {
 					"rows": [{"height": "24px"}],
@@ -898,6 +913,12 @@
 								cell.sortable = false;
 								cell.targetColumnName = "SALES_AMT";
 								cell.text = "판매금액";
+							}
+						},
+						{
+							"constraint": {"rowIndex": 0, "colIndex": 8},
+							"configurator": function(cell){
+								cell.text = "포인트";
 							}
 						}
 					]
@@ -1033,6 +1054,20 @@
 									});
 									numberEditor_4.bind("value").toDataColumn("SALES_AMT");
 									return numberEditor_4;
+								})();
+							}
+						},
+						{
+							"constraint": {"rowIndex": 0, "colIndex": 8},
+							"configurator": function(cell){
+								cell.columnName = "MEM_POINT";
+								cell.control = (function(){
+									var output_1 = new cpr.controls.Output();
+									output_1.style.css({
+										"text-align" : "center"
+									});
+									output_1.bind("value").toDataColumn("MEM_POINT");
+									return output_1;
 								})();
 							}
 						}
@@ -1518,10 +1553,10 @@
 				"height": "1px"
 			});
 			
-			var output_1 = new cpr.controls.Output("mainWindowOpt");
-			output_1.visible = false;
-			output_1.value = "window 창에서 값 받아오기";
-			output_1.style.css({
+			var output_2 = new cpr.controls.Output("mainWindowOpt");
+			output_2.visible = false;
+			output_2.value = "window 창에서 값 받아오기";
+			output_2.style.css({
 				"border-right-style" : "solid",
 				"border-top-width" : "1px",
 				"border-bottom-color" : "black",
@@ -1536,7 +1571,7 @@
 				"border-top-color" : "black",
 				"border-bottom-style" : "solid"
 			});
-			container.addChild(output_1, {
+			container.addChild(output_2, {
 				"top": "673px",
 				"left": "915px",
 				"width": "1px",

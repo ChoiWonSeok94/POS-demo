@@ -151,7 +151,7 @@
         <cl:gridcell std:sid="gh-cell-2295d9b8" rowindex="0" colindex="5" targetcolumnname="ASELL_PR" sortable="false" filterable="false" text="금액"/>
         <cl:gridcell std:sid="gh-cell-68e9c1c0" rowindex="0" colindex="6" targetcolumnname="SALE_PR" sortable="false" filterable="false" text="할인"/>
         <cl:gridcell std:sid="gh-cell-2433fe06" rowindex="0" colindex="7" targetcolumnname="SALES_AMT" sortable="false" filterable="false" text="판매금액"/>
-        <cl:gridcell std:sid="gh-cell-b3e8c4d5" rowindex="0" colindex="8" targetcolumnname="POINT" sortable="false" filterable="false" text="포인트"/>
+        <cl:gridcell std:sid="gh-cell-b3e8c4d5" rowindex="0" colindex="8" targetcolumnname="POINT" sortable="false" filterable="false" text="적립 포인트"/>
       </cl:gridheader>
       <cl:griddetail std:sid="gd-band-9960b6dc">
         <cl:gridrow std:sid="g-row-0566134a"/>
@@ -187,45 +187,45 @@
       </cl:griddetail>
     </cl:grid>
     <cl:group std:sid="group-b4e0071c">
-      <cl:xylayoutdata std:sid="xyl-data-09de10db" top="139px" left="785px" width="217px" height="405px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+      <cl:xylayoutdata std:sid="xyl-data-09de10db" top="139px" left="767px" width="235px" height="405px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
       <cl:htmlsnippet std:sid="htmlsnippet-4e91c7a4" style="border-right-style:solid; border-top-width:1px; color:white; border-right-width:1px; vertical-align:middle; border-left-width:1px; border-top-style:solid; background-color:black; border-radius:25px; border-left-style:solid; border-bottom-width:1px; border-bottom-style:solid; text-align:center;" value="판매 금액">
         <cl:xylayoutdata std:sid="xyl-data-b50a0563" top="7px" left="9px" width="100px" height="25px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
       </cl:htmlsnippet>
       <cl:output std:sid="output-0a645fb1" style="border-right-style:solid; border-top-width:1px; border-bottom-color:#cccccc; border-right-width:1px; vertical-align:middle; border-left-color:#cccccc; border-right-color:#cccccc; border-left-width:1px; border-top-style:solid; background-color:#ededed; border-radius:10px 0px 0px 0px; border-left-style:solid; border-bottom-width:1px; border-top-color:#cccccc; border-bottom-style:solid; background-image:none; text-align:center;" value="구분">
-        <cl:xylayoutdata std:sid="xyl-data-f5adaf27" top="46px" left="9px" width="70px" height="55px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+        <cl:xylayoutdata std:sid="xyl-data-f5adaf27" top="42px" left="9px" width="82px" height="55px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
       </cl:output>
       <cl:output std:sid="output-8643940c" style="border-right-style:solid; border-top-width:1px; border-bottom-color:#cccccc; border-right-width:1px; vertical-align:middle; border-left-color:#cccccc; border-right-color:#cccccc; border-left-width:1px; border-top-style:solid; background-color:#ededed; border-radius:0px 0px 0px 0px; border-left-style:solid; border-bottom-width:1px; border-top-color:#cccccc; border-bottom-style:solid; background-image:none; text-align:center;" value="전체">
-        <cl:xylayoutdata std:sid="xyl-data-92cfb17a" top="100px" left="9px" width="70px" height="60px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+        <cl:xylayoutdata std:sid="xyl-data-92cfb17a" top="96px" left="9px" width="82px" height="60px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
       </cl:output>
       <cl:output std:sid="output-a478b394" style="border-right-style:solid; border-top-width:1px; border-bottom-color:#cccccc; border-right-width:1px; vertical-align:middle; border-left-color:#cccccc; border-right-color:#cccccc; border-left-width:1px; border-top-style:solid; background-color:#ededed; border-radius:0px 0px 0px 0px; border-left-style:solid; border-bottom-width:1px; border-top-color:#cccccc; border-bottom-style:solid; background-image:none; text-align:center;" value="현금">
-        <cl:xylayoutdata std:sid="xyl-data-b8f5cbca" top="159px" left="9px" width="70px" height="60px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+        <cl:xylayoutdata std:sid="xyl-data-b8f5cbca" top="155px" left="9px" width="82px" height="60px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
       </cl:output>
       <cl:output std:sid="output-f5cfc605" style="border-right-style:solid; border-top-width:1px; border-bottom-color:#cccccc; border-right-width:1px; vertical-align:middle; border-left-color:#cccccc; border-right-color:#cccccc; border-left-width:1px; border-top-style:solid; background-color:#ededed; border-radius:0px 0px 0px 0px; border-left-style:solid; border-bottom-width:1px; border-top-color:#cccccc; border-bottom-style:solid; background-image:none; text-align:center;" value="카드">
-        <cl:xylayoutdata std:sid="xyl-data-812f77d5" top="277px" left="9px" width="70px" height="60px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+        <cl:xylayoutdata std:sid="xyl-data-812f77d5" top="273px" left="9px" width="82px" height="60px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
       </cl:output>
       <cl:output std:sid="output-3f1e7beb" style="border-right-style:solid; border-top-width:1px; border-bottom-color:#cccccc; border-right-width:1px; vertical-align:middle; border-left-color:#cccccc; border-right-color:#cccccc; border-left-width:1px; border-top-style:solid; background-color:#ededed; border-radius:0px 0px 0px 0px; border-left-style:solid; border-bottom-width:1px; border-top-color:#cccccc; border-bottom-style:solid; background-image:none; text-align:center;" value="상품권">
-        <cl:xylayoutdata std:sid="xyl-data-ecd4360f" top="218px" left="9px" width="70px" height="60px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+        <cl:xylayoutdata std:sid="xyl-data-ecd4360f" top="214px" left="9px" width="82px" height="60px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
       </cl:output>
-      <cl:output std:sid="output-11e47244" style="border-right-style:solid; border-top-width:1px; border-bottom-color:#cccccc; border-right-width:1px; vertical-align:middle; border-left-color:#cccccc; border-right-color:#cccccc; border-left-width:1px; border-top-style:solid; background-color:#ededed; border-radius:0px 0px 0px 10px; border-left-style:solid; border-bottom-width:1px; border-top-color:#cccccc; border-bottom-style:solid; background-image:none; text-align:center;" value="포인트">
-        <cl:xylayoutdata std:sid="xyl-data-80d56a7a" top="336px" left="9px" width="70px" height="60px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+      <cl:output std:sid="output-11e47244" style="border-right-style:solid; border-top-width:1px; border-bottom-color:#cccccc; border-right-width:1px; vertical-align:middle; border-left-color:#cccccc; border-right-color:#cccccc; border-left-width:1px; border-top-style:solid; background-color:#ededed; border-radius:0px 0px 0px 10px; border-left-style:solid; border-bottom-width:1px; border-top-color:#cccccc; border-bottom-style:solid; background-image:none; text-align:center;" value="사용 포인트">
+        <cl:xylayoutdata std:sid="xyl-data-80d56a7a" top="332px" left="9px" width="82px" height="60px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
       </cl:output>
       <cl:output std:sid="output-e6d72602" style="border-right-style:solid; border-top-width:1px; border-bottom-color:#cccccc; border-right-width:1px; border-left-color:#cccccc; border-right-color:#cccccc; border-left-width:1px; border-top-style:solid; background-color:#ededed; border-left-style:solid; border-bottom-width:1px; border-top-color:#cccccc; border-bottom-style:solid; background-image:none; text-align:center;" value="합계">
-        <cl:xylayoutdata std:sid="xyl-data-927442bf" top="46px" left="78px" width="130px" height="55px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+        <cl:xylayoutdata std:sid="xyl-data-927442bf" top="42px" left="101px" width="130px" height="55px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
       </cl:output>
       <cl:output std:sid="output-b0d7fe7f" id="totalAmt" style="border-right-style:solid; border-top-width:1px; border-bottom-color:#cccccc; border-right-width:1px; border-left-color:#cccccc; border-right-color:#cccccc; border-left-width:1px; border-top-style:solid; border-left-style:solid; border-bottom-width:1px; border-top-color:#cccccc; border-bottom-style:solid; text-align:center;" readonly="true" datatype="number" format="s#,###">
-        <cl:xylayoutdata std:sid="xyl-data-087f1519" top="100px" left="78px" width="130px" height="60px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+        <cl:xylayoutdata std:sid="xyl-data-087f1519" top="96px" left="101px" width="130px" height="60px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
       </cl:output>
       <cl:output std:sid="output-87d4141c" id="cash" style="border-right-style:solid; border-top-width:1px; border-bottom-color:#cccccc; border-right-width:1px; border-left-color:#cccccc; border-right-color:#cccccc; border-left-width:1px; border-top-style:solid; border-left-style:solid; border-bottom-width:1px; border-top-color:#cccccc; border-bottom-style:solid; text-align:center;" readonly="true" datatype="number" format="s#,###">
-        <cl:xylayoutdata std:sid="xyl-data-e8c2d6d1" top="159px" left="78px" width="130px" height="60px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+        <cl:xylayoutdata std:sid="xyl-data-e8c2d6d1" top="155px" left="101px" width="130px" height="60px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
       </cl:output>
       <cl:output std:sid="output-6c888af8" id="giftCard" style="border-right-style:solid; border-top-width:1px; border-bottom-color:#cccccc; border-right-width:1px; border-left-color:#cccccc; border-right-color:#cccccc; border-left-width:1px; border-top-style:solid; border-left-style:solid; border-bottom-width:1px; border-top-color:#cccccc; border-bottom-style:solid; text-align:center;" readonly="true" datatype="number" format="s#,###">
-        <cl:xylayoutdata std:sid="xyl-data-ce1f0674" top="218px" left="78px" width="130px" height="60px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+        <cl:xylayoutdata std:sid="xyl-data-ce1f0674" top="214px" left="101px" width="130px" height="60px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
       </cl:output>
       <cl:output std:sid="output-e6fc4417" id="card" style="border-right-style:solid; border-top-width:1px; border-bottom-color:#cccccc; border-right-width:1px; border-left-color:#cccccc; border-right-color:#cccccc; border-left-width:1px; border-top-style:solid; border-left-style:solid; border-bottom-width:1px; border-top-color:#cccccc; border-bottom-style:solid; text-align:center;" readonly="true" datatype="number" format="s#,###">
-        <cl:xylayoutdata std:sid="xyl-data-21fe1bf6" top="277px" left="78px" width="130px" height="60px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+        <cl:xylayoutdata std:sid="xyl-data-21fe1bf6" top="273px" left="101px" width="130px" height="60px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
       </cl:output>
       <cl:output std:sid="output-9f62c751" id="memPoint" style="border-right-style:solid; border-top-width:1px; border-bottom-color:#cccccc; border-right-width:1px; border-left-color:#cccccc; border-right-color:#cccccc; border-left-width:1px; border-top-style:solid; border-left-style:solid; border-bottom-width:1px; border-top-color:#cccccc; border-bottom-style:solid; text-align:center;" readonly="true" datatype="number" format="s#,###">
-        <cl:xylayoutdata std:sid="xyl-data-deaa61ca" top="336px" left="78px" width="130px" height="60px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+        <cl:xylayoutdata std:sid="xyl-data-deaa61ca" top="332px" left="101px" width="130px" height="60px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
       </cl:output>
       <cl:xylayout std:sid="xylayout-a722072f"/>
     </cl:group>

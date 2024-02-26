@@ -112,7 +112,7 @@ function onButtonClick2(e){
 		}
 		
 		var memPoint = app.lookup("MEM_POINT");
-		if(memPoint.value = ''){
+		if(memPoint.value == ''){
 			memPoint.value = '0';
 		}
 		
