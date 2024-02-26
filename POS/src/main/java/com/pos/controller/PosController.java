@@ -34,8 +34,6 @@ import com.pos.service.SalesService;
 
 @Controller
 public class PosController {
-	
-	private static final int String = 0;
 
 	@Autowired
 	MemberService memService;
@@ -320,6 +318,18 @@ public class PosController {
 		int totalMemCnt = memService.totalMemCnt()+1;
 		dataReq.setResponse("memCnt", totalMemCnt);
 		return new JSONDataView();
+	}
+	
+	
+	@RequestMapping(value="/reRegisterRecipe.do", method = RequestMethod.GET)
+	public UIView reRegisterRecipe(DataRequest dataReq) throws Exception {
+		
+		JSONObject jsonObj = dataReq.getRequestObject();
+		if(jsonObj.getString("MEM_SER_NO") != null) {
+			System.out.println(jsonObj.getString("MEM_SER_NO"));
+		}
+		System.out.println(jsonObj);
+		return new UIView("/ui/PosMain.clx");
 	}
 }
 	

@@ -104,10 +104,10 @@
         <cl:xylayoutdata std:sid="xyl-data-91e0e19a" top="272px" left="795px" width="118px" height="40px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
       </cl:button>
       <cl:output std:sid="output-3a8409c8" style="color:red; text-align:left;" enabled="false" value="은 필수값입니다.">
-        <cl:xylayoutdata std:sid="xyl-data-fd164de5" top="10px" left="861px" width="120px" height="20px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+        <cl:xylayoutdata std:sid="xyl-data-fd164de5" top="10px" left="837px" width="120px" height="20px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
       </cl:output>
       <cl:output std:sid="output-f136a17d" style="color:red; font-weight:800; font-size:22px; line-height:22px; text-align:right;" value="* ">
-        <cl:xylayoutdata std:sid="xyl-data-401d0fa0" top="10px" left="831px" width="30px" height="20px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+        <cl:xylayoutdata std:sid="xyl-data-401d0fa0" top="10px" left="807px" width="30px" height="20px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
       </cl:output>
       <cl:output std:sid="output-952efc62" style="color:red; font-weight:800; font-size:22px; line-height:22px; text-align:right;" value="* ">
         <cl:xylayoutdata std:sid="xyl-data-4b7652c9" top="212px" left="107px" width="30px" height="20px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>

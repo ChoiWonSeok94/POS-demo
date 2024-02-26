@@ -75,7 +75,11 @@
 							recipe.setValue(grd1RowIndex, "SALES_AMT", jsonObj['recipe']['SALES_AMT']);
 							grd1.redraw();
 							updateTotalAmt(jsonObj['recipe']['SALES_AMT'], grd1.getCellValue(grd1RowIndex, "SALES_TY"));
-							debugger
+							
+							// 취소 후 업데이트 된 영수증의 판매액이 0 이면 행 해당 영수증 delete
+							if(jsonObj['recipe']['SALES_AMT'] === '0'){
+								grd1.deleteRow(grd1RowIndex);
+							}
 						});
 						submission.send();
 				    	
@@ -128,7 +132,48 @@
 				onButtonClick(all);
 				
 				if(confirm("취소한 전표를 다시 등록하시겠습니까?")){
-					// 디테일이기에 다 끝나고 나중에..
+					
+					var grd1 = app.lookup("grd1");
+					var grd2 = app.lookup("grd2");
+					var submission = new cpr.protocols.Submission();
+					submission.action = "/POS/reRegisterRecipe.do";
+					submission.responseType = "javascript";
+					submission.async = false;
+			//		submission.method = 'get';
+					
+					var objArray = [];
+					for(var i=0 ; i < grd2.getRowCount() ; i++){
+						var rowObj = {
+							BAR_CODE : grd2.getCellValue(i, "BAR_CODE")
+							,PROD_NM : grd2.getCellValue(i, "PROD_NM")
+							,QTY : grd2.getCellValue(i, "QTY")
+							,SELL_PR : grd2.getCellValue(i, "SELL_PR")
+							,ASELL_PR : grd2.getCellValue(i, "ASELL_PR")
+							,SALE_PR : grd2.getCellValue(i, "SALE_PR")
+							,SALES_AMT : grd2.getCellValue(i, "SALES_AMT")
+						};
+			//			var rowObj = grd2.getDataRow(i);
+						objArray.push(rowObj);
+					}
+					
+					// grd1의 회원번호가 '-'이 아닐 때 => 회원인 경우
+					if(grd1.getCellValue(grd1.getSelectedRowIndex(), "MEM_SER_NO") !== '-'){
+						var memNum = grd1.getCellValue(grd1.getSelectedRowIndex(), "MEM_SER_NO");
+						var reqObj = {
+							sellItem : objArray
+							,MEM_SER_NO : memNum
+						}
+					}else{
+						var reqObj = {
+							sellItem : objArray
+							,MEM_SER_NO : '0'
+						}
+					}
+					submission.setRequestObject(reqObj);
+					debugger;
+					submission.send();
+					window.location.href = "/POS/reRegisterRecipe.do";
+					
 				}
 				
 				
@@ -349,6 +394,8 @@
 				"rows": []
 			});
 			app.register(dataSet_3);
+			var submission_1 = new cpr.protocols.Submission("sms1");
+			app.register(submission_1);
 			app.supportMedia("all and (min-width: 1024px)", "default");
 			app.supportMedia("all and (min-width: 500px) and (max-width: 1023px)", "tablet");
 			app.supportMedia("all and (max-width: 499px)", "mobile");

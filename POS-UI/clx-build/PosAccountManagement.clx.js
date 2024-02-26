@@ -663,7 +663,7 @@
 				});
 				container.addChild(output_11, {
 					"top": "10px",
-					"left": "861px",
+					"left": "837px",
 					"width": "120px",
 					"height": "20px"
 				});
@@ -678,7 +678,7 @@
 				});
 				container.addChild(output_12, {
 					"top": "10px",
-					"left": "831px",
+					"left": "807px",
 					"width": "30px",
 					"height": "20px"
 				});
