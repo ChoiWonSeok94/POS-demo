@@ -689,26 +689,34 @@ var qty = 0;
  * 변경된 value가 저장된 후에 발생하는 이벤트.
  */
 function onQTYValueChange(e){
-   var grd1 = app.lookup("grd1");
-   var rowIndex = grd1.getSelectedRow().getIndex();
-   if(grd1.getCellValue(rowIndex, "PROD_NM") != ''){
-      var qtyValue = app.lookup("QTY").value;
-      var salePr = grd1.getCellValue(rowIndex, "SALE_PR");
-      if(qty === '1'){
-         var saleAmt = salePr;
-      }else{
-         var saleAmt = Number(salePr/qty);
-      }
-      grd1.updateRow(rowIndex, {
-         "QTY" : qtyValue
-         ,"ASELL_PR" : String(Number(qtyValue * grd1.getCellValue(rowIndex, "SELL_PR")))
-         ,"SALE_PR" : String(Number(qtyValue * saleAmt))
-         ,"SALES_AMT" : String(Number((qtyValue * grd1.getCellValue(rowIndex, "SELL_PR") - (qtyValue * saleAmt))))
-      });
-   }else{
-      alert('잘못된 요청입니다.');
-      grd1.deleteRow(rowIndex);
-   }
+	var grd1 = app.lookup("grd1");
+    var rowIndex = grd1.getSelectedRow().getIndex();
+	// 변경된 수량이 0이 아니라면
+	if(grd1.getCellValue(rowIndex, "QTY") !== '0'){
+		// 상품명이 '' 이 아니라면
+	    if(grd1.getCellValue(rowIndex, "PROD_NM") != ''){
+	    	var qtyValue = app.lookup("QTY").value;
+	    	var salePr = grd1.getCellValue(rowIndex, "SALE_PR");
+	    	// 변경전 수량이 1이면
+	    	if(qty === '1'){
+	        	var saleAmt = salePr;
+	      	}else{
+	         	var saleAmt = Number(salePr/qty);
+	      	}
+	      	grd1.updateRow(rowIndex, {
+	         	"QTY" : qtyValue
+	         	,"ASELL_PR" : String(Number(qtyValue * grd1.getCellValue(rowIndex, "SELL_PR")))
+	         	,"SALE_PR" : String(Number(qtyValue * saleAmt))
+	         	,"SALES_AMT" : String(Number((qtyValue * grd1.getCellValue(rowIndex, "SELL_PR") - (qtyValue * saleAmt))))
+	      	});
+	   	}else{
+	      	alert('잘못된 요청입니다.');
+	      	grd1.deleteRow(rowIndex);
+	   	}
+   	}else{
+   		alert('수량이 0 입니다. 해당 행을 삭제합니다.');
+   		grd1.deleteRow(rowIndex);
+   	}
 }
 
 /*

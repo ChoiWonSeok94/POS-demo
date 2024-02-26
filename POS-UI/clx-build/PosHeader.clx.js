@@ -90,12 +90,10 @@
 				window.location.href = page;
 			}
 
-
 			function updateDateTime() {
 			    var now = app.lookup('sysDateTime');
 			    var date = new Date();
 				var ymd = date.toLocaleDateString();
-			//	var hm = date.toLocaleTimeString();
 				var hur = date.getHours();
 				hur = hur.toString().length === 1 ? "0" + hur.toString() : hur.toString();
 				var min = date.getMinutes();

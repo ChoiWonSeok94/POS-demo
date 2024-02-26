@@ -12,8 +12,8 @@
       <cl:xylayoutdata std:sid="xyl-data-bf42d67e" top="0px" right="0px" bottom="0px" left="0px" horizontalAnchor="BOTH" verticalAnchor="BOTH"/>
       <cl:group std:sid="group-44ff4c35" style="background-color:#BEBEBE; text-align:center;">
         <std:metadata>
-          <std:property key="template-uuid" value="64e4d06e-b4e3-4e16-83de-151eeed6ed79"/>
-          <std:property key="template-rev" value="4"/>
+          <std:property key="template-uuid" value="8c6d2567-acc8-4a87-88f5-01d6a354ba6f"/>
+          <std:property key="template-rev" value="1"/>
         </std:metadata>
         <cl:xylayoutdata std:sid="xyl-data-e15b0713" top="0px" right="0px" left="0px" height="80px" horizontalAnchor="BOTH" verticalAnchor="TOP"/>
         <cl:output comment="현재시간" std:sid="output-6a8d9478" id="sysDateTime" style="font-size:20px;" readonly="true">
