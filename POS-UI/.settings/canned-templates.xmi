@@ -52,11 +52,11 @@
       <layout xsi:type="cl:XYLayout" sid="xylayout-fd5c9962"/>
     </control>
   </settings:CannedTemplate>
-  <settings:CannedTemplate uuid="8c6d2567-acc8-4a87-88f5-01d6a354ba6f" name="헤더" preferredWidth="1024" preferredHeight="80" description="header">
+  <settings:CannedTemplate uuid="8c6d2567-acc8-4a87-88f5-01d6a354ba6f" name="헤더" preferredWidth="1024" preferredHeight="80" revision="2" description="header">
     <control xsi:type="cl:Group" sid="group-44ff4c35" style="background-color:#BEBEBE; text-align:center;">
       <metaData>
-        <properties key="template-uuid" value="64e4d06e-b4e3-4e16-83de-151eeed6ed79"/>
-        <properties key="template-rev" value="4"/>
+        <properties key="template-uuid" value="8c6d2567-acc8-4a87-88f5-01d6a354ba6f"/>
+        <properties key="template-rev" value="1"/>
       </metaData>
       <layoutData xsi:type="cl:XYLayoutData" sid="xyl-data-e15b0713" top="0px" right="0px" left="0px" height="80px" horizontalAnchor="BOTH" verticalAnchor="TOP"/>
       <controls xsi:type="cl:Output" comment="현재시간" sid="output-6a8d9478" id="sysDateTime" style="font-size:20px;" readOnly="true">
@@ -82,6 +82,9 @@
       </controls>
       <controls xsi:type="cl:Button" sid="button-8dddc87f" id="storeManage" value="매장관리">
         <layoutData xsi:type="cl:XYLayoutData" sid="xyl-data-88ca99ce" top="21px" left="899px" width="100px" height="38px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+      </controls>
+      <controls xsi:type="cl:NavigationBar" sid="n-bar-e8f5fff4" style="border-radius:none; border-right-style:none; background-color:#BEBEBE; border-left-style:none; font-weight:bolder; border-bottom-style:none; border-top-style:none; text-align:center;" listArrowImage="" barItemWidths="equal">
+        <layoutData xsi:type="cl:XYLayoutData" sid="xyl-data-4e931be2" top="20px" left="242px" width="765px" height="40px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
       </controls>
       <layout xsi:type="cl:XYLayout" sid="xylayout-6eff429f"/>
     </control>

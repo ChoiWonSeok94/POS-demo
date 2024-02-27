@@ -110,10 +110,82 @@
 			 */
 			function onBodyLoad(e){
 				updateDateTime();
+			}
+
+			/*
+			 * 내비게이션 바에서 item-click 이벤트 발생 시 호출.
+			 * 아이템 클릭시 발생하는 이벤트.
+			 */
+			function onNavigationBarItemClick(e){
+				var navigationBar = e.control.value;
+				
+				if(navigationBar === 'POS'){
+					var page = "/POS/PosMain.do";
+					window.location.href = page;
+				
+				}else if(navigationBar === '판매관리'){
+					var page = "/POS/PosSalesManagement.do";
+					window.location.href = page;
+				
+				}else if(navigationBar === '시재금'){
+					var page = "/POS/PosMoney.do";
+					window.location.href = page;
+				
+				}else if(navigationBar === '상품관리' || navigationBar === '상품등록'){
+					var page = "/POS/PosProductRegist1.do";
+					window.location.href = page;
+				
+				}else if(navigationBar === '상품조회'){
+					var page = "/POS/PosProductSearch.do";
+					window.location.href = page;
+				
+				}else if(navigationBar === '거래처관리' || navigationBar === '거래처등록'){
+					var page = "/POS/PosAccountManagement.do";
+					window.location.href = page;
+				
+				}else if(navigationBar === '거래처조회'){
+					var page = "/POS/PosAccountSearch.do";
+					window.location.href = page;
+				
+				}else if(navigationBar === '회원관리' || navigationBar === '회원등록'){
+					var page = "/POS/PosCust.do";
+					window.location.href = page;
+				
+				}else if(navigationBar === '회원조회'){
+					var page = "/POS/PosCustSearch.do";
+					window.location.href = page;
+				}
+				
+				
+				
 			};
 			// End - User Script
 			
 			// Header
+			var dataSet_1 = new cpr.data.DataSet("headerMenu");
+			dataSet_1.parseData({
+				"columns": [
+					{"name": "label"},
+					{"name": "value"},
+					{"name": "parent"}
+				],
+				"rows": [
+					{"label": "POS", "value": "POS", "parent": "root"},
+					{"label": "판매관리", "value": "판매관리", "parent": "root"},
+					{"label": " 시재금 ", "value": "시재금", "parent": "root"},
+					{"label": "상품관리", "value": "상품관리", "parent": "root"},
+					{"label": "상품등록", "value": "상품등록", "parent": "상품관리"},
+					{"label": "상품조회", "value": "상품조회", "parent": "상품관리"},
+					{"label": "거래처관리", "value": "거래처관리", "parent": "root"},
+					{"label": "거래처등록", "value": "거래처등록", "parent": "거래처관리"},
+					{"label": "거래처조회", "value": "거래처조회", "parent": "거래처관리"},
+					{"label": " 회원관리", "value": "회원관리", "parent": "root"},
+					{"label": " 회원등록", "value": "회원등록", "parent": "회원관리"},
+					{"label": " 회원조회", "value": "회원조회", "parent": "회원관리"},
+					{"label": " 매장관리", "value": "매장관리", "parent": "root"}
+				]
+			});
+			app.register(dataSet_1);
 			app.supportMedia("all", "header1");
 			
 			// Configure root container
@@ -230,6 +302,34 @@
 						"left": "899px",
 						"width": "100px",
 						"height": "38px"
+					});
+					var navigationBar_1 = new cpr.controls.NavigationBar();
+					navigationBar_1.barItemWidths = "equal";
+					navigationBar_1.style.css({
+						"border-radius" : "none",
+						"border-right-style" : "none",
+						"background-color" : "#BEBEBE",
+						"border-left-style" : "none",
+						"font-weight" : "bolder",
+						"border-bottom-style" : "none",
+						"border-top-style" : "none",
+						"text-align" : "center"
+					});
+					(function(navigationBar_1){
+						navigationBar_1.setItemSet(app.lookup("headerMenu"), {
+							"label": "label",
+							"value": "value",
+							"parentValue": "parent"
+						});
+					})(navigationBar_1);
+					if(typeof onNavigationBarItemClick == "function") {
+						navigationBar_1.addEventListener("item-click", onNavigationBarItemClick);
+					}
+					container.addChild(navigationBar_1, {
+						"top": "20px",
+						"left": "242px",
+						"width": "765px",
+						"height": "40px"
 					});
 				})(group_2);
 				container.addChild(group_2, {

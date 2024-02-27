@@ -182,10 +182,16 @@ public class PosController {
 	}
 	
 	
-	// 상품관리 페이지 호출
+	// 상품관리 & 상품등록 페이지 호출
 	@RequestMapping(value="/PosProductRegist1.do", method = RequestMethod.GET)
 	public UIView posProductRegist1(HttpServletRequest req, HttpServletResponse res, DataRequest dataReq) throws Exception {
 		return new UIView("/ui/PosProductRegist1.clx");
+	}
+	
+	// 상품조회 페이지 호출
+	@RequestMapping(value="/PosProductSearch.do", method = RequestMethod.GET)
+	public UIView posProductSearch(HttpServletRequest req, HttpServletResponse res, DataRequest dataReq) throws Exception {
+		return new UIView("/ui/PosProductSearch.clx");
 	}
 	
 	// 상품관리 페이지 진입시 상품코드 count +1 반환
@@ -242,10 +248,16 @@ public class PosController {
 		return new JSONDataView();
 	}
 	
-	// 거래처관리 페이지 호출
+	// 거래처관리 & 거래처등록 페이지 호출
 	@RequestMapping(value="/PosAccountManagement.do", method = RequestMethod.GET)
 	public UIView posAccountManagement(HttpServletRequest req, HttpServletResponse res, DataRequest dataReq) throws Exception {
 		return new UIView("/ui/PosAccountManagement.clx");
+	}
+	
+	// 거래처조회 페이지 호출
+	@RequestMapping(value="/PosAccountSearch.do", method = RequestMethod.GET)
+	public UIView posAccountSearch(HttpServletRequest req, HttpServletResponse res, DataRequest dataReq) throws Exception {
+		return new UIView("/ui/PosAccountSearch.clx");
 	}
 	
 	// 거래처관리 페이지 진입시 거래처번호 count +1 반환
@@ -306,12 +318,19 @@ public class PosController {
 		return new JSONDataView();
 	}
 	
-	// 회원관리 페이지 호출
+	// 회원관리 & 회원등록 페이지 호출
 	@RequestMapping(value="/PosCust.do", method = RequestMethod.GET)
 	public UIView posCust(HttpServletRequest req, HttpServletResponse res, DataRequest dataReq) throws Exception {
 		return new UIView("/ui/PosCust.clx");
 	}
 	
+	// 회원조회 페이지 호출
+	@RequestMapping(value="/PosCustSearch.do", method = RequestMethod.GET)
+	public UIView posCustSearch(HttpServletRequest req, HttpServletResponse res, DataRequest dataReq) throws Exception {
+		return new UIView("/ui/PosCustSearch.clx");
+	}
+	
+	//회원등록 페이지 진입시 회원번호 count + 1
 	@RequestMapping(value = "/memberPageInit.do", method = RequestMethod.POST)
 	public JSONDataView memberPageInit(DataRequest dataReq, MemberVo memVo) {
 		
@@ -320,7 +339,7 @@ public class PosController {
 		return new JSONDataView();
 	}
 	
-	
+	// 전표 재등록시 페이지 이동과 같이 전체 취소한 물품list 메인 페이지에 set
 	@RequestMapping(value="/reRegisterRecipe.do", method = RequestMethod.GET)
 	public UIView reRegisterRecipe(DataRequest dataReq) throws Exception {
 		

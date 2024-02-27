@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:cl="http://tomatosystem.co.kr/cleopatra" xmlns:std="http://tomatosystem.co.kr/cleopatra/studio" std:sid="html-d3c2cef9" version="1.0.4878">
+  <head std:sid="head-da6d3ba8">
+    <screen std:sid="screen-5e0513bc" id="default" name="default" width="1024px" height="768px"/>
+    <screen std:sid="screen-6257ea44" id="tablet" name="tablet" width="500px" height="667px"/>
+    <screen std:sid="screen-0672665d" id="mobile" name="mobile" width="350px" height="525px"/>
+    <cl:model std:sid="model-0d7ea521">
+      <cl:dataset std:sid="d-set-bbc7b8a2" id="productList">
+        <cl:datacolumnlist>
+          <cl:datacolumn std:sid="d-column-75d46837" name="PROD_CD"/>
+          <cl:datacolumn std:sid="d-column-7364b21c" name="PROD_CLS_CD"/>
+          <cl:datacolumn std:sid="d-column-b5ad4ca8" name="PROD_NM"/>
+          <cl:datacolumn std:sid="d-column-88d1f6e6" name="PROD_ENG_NM"/>
+          <cl:datacolumn std:sid="d-column-bd7fad00" name="ORIG_NAT"/>
+          <cl:datacolumn std:sid="d-column-9c31affe" name="PURC_PR"/>
+          <cl:datacolumn std:sid="d-column-05dd2a77" name="SELL_PR"/>
+          <cl:datacolumn std:sid="d-column-e53c8fdb" name="BAR_CODE"/>
+          <cl:datacolumn std:sid="d-column-3c52385a" name="CLIENT_NM" datatype="string"/>
+          <cl:datacolumn std:sid="d-column-ec81d8b9" name="COLOR"/>
+          <cl:datacolumn std:sid="d-column-a77bd5b3" name="PROD_SIZE"/>
+          <cl:datacolumn std:sid="d-column-61450f88" name="SALE_OR_NOT"/>
+          <cl:datacolumn std:sid="d-column-2e5d3a18" name="SALE_PR"/>
+          <cl:datacolumn std:sid="d-column-2225738e" name="TAXAT_TY"/>
+          <cl:datacolumn std:sid="d-column-064fae9e" name="MEM_POINT"/>
+        </cl:datacolumnlist>
+      </cl:dataset>
+      <cl:dataset std:sid="d-set-44ce1cb2" id="prodClsTbl">
+        <cl:datacolumnlist>
+          <cl:datacolumn std:sid="d-column-0682e7a8" name="PROD_CLS_NM"/>
+          <cl:datacolumn std:sid="d-column-e5acf865" name="PROD_CLS_CD"/>
+          <cl:datacolumn std:sid="d-column-dd1d7fb6" name="REMARKS"/>
+        </cl:datacolumnlist>
+        <cl:datarowlist>
+          <cl:datarow>
+            <cl:datavalue columnname="PROD_CLS_NM"><![CDATA[전체]]></cl:datavalue>
+            <cl:datavalue columnname="PROD_CLS_CD"><![CDATA[0]]></cl:datavalue>
+            <cl:datavalue columnname="REMARKS"><![CDATA[전체]]></cl:datavalue>
+          </cl:datarow>
+          <cl:datarow>
+            <cl:datavalue columnname="PROD_CLS_NM"><![CDATA[가공식품]]></cl:datavalue>
+            <cl:datavalue columnname="PROD_CLS_CD"><![CDATA[001]]></cl:datavalue>
+            <cl:datavalue columnname="REMARKS"><![CDATA[이미 한번 가공된 식품류(라면, 과자, 음료, 통조림 등등)]]></cl:datavalue>
+          </cl:datarow>
+          <cl:datarow>
+            <cl:datavalue columnname="PROD_CLS_NM"><![CDATA[신선식품]]></cl:datavalue>
+            <cl:datavalue columnname="PROD_CLS_CD"><![CDATA[002]]></cl:datavalue>
+            <cl:datavalue columnname="REMARKS"><![CDATA[야채, 과일, 육류, 어류 등등]]></cl:datavalue>
+          </cl:datarow>
+          <cl:datarow>
+            <cl:datavalue columnname="PROD_CLS_NM"><![CDATA[디지털/가전]]></cl:datavalue>
+            <cl:datavalue columnname="PROD_CLS_CD"><![CDATA[003]]></cl:datavalue>
+            <cl:datavalue columnname="REMARKS"><![CDATA[디지털/가전제품류]]></cl:datavalue>
+          </cl:datarow>
+          <cl:datarow>
+            <cl:datavalue columnname="PROD_CLS_NM"><![CDATA[의류]]></cl:datavalue>
+            <cl:datavalue columnname="PROD_CLS_CD"><![CDATA[004]]></cl:datavalue>
+            <cl:datavalue columnname="REMARKS"><![CDATA[상의, 하의, 신발, 모자 등등]]></cl:datavalue>
+          </cl:datarow>
+          <cl:datarow>
+            <cl:datavalue columnname="PROD_CLS_NM"><![CDATA[일상용품]]></cl:datavalue>
+            <cl:datavalue columnname="PROD_CLS_CD"><![CDATA[005]]></cl:datavalue>
+            <cl:datavalue columnname="REMARKS"><![CDATA[세면용품, 청소용품 등등]]></cl:datavalue>
+          </cl:datarow>
+        </cl:datarowlist>
+      </cl:dataset>
+    </cl:model>
+    <cl:appspec/>
+  </head>
+  <body std:sid="body-1a47a2bb">
+    <cl:listener std:sid="listener-acd9c717" name="init" handler="onBodyInit"/>
+    <cl:embeddedapp std:sid="e-app-3dec7bd4" id="ea1" src="PosHeader.clx">
+      <cl:xylayoutdata std:sid="xyl-data-a6ffad9c" top="0px" left="0px" width="1024px" height="80px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+    </cl:embeddedapp>
+    <cl:htmlsnippet std:sid="htmlsnippet-a780ee87" style="border-right-style:solid; border-top-width:1px; color:white; border-right-width:1px; vertical-align:middle; border-left-width:1px; border-top-style:solid; background-color:black; border-radius:25px; border-left-style:solid; border-bottom-width:1px; border-bottom-style:solid; text-align:center;" value="상품 조회 내역">
+      <cl:xylayoutdata std:sid="xyl-data-b7e6540e" top="150px" left="20px" width="120px" height="30px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+    </cl:htmlsnippet>
+    <cl:group std:sid="group-4ffdbf47" style="background-color:#E0E0E0;">
+      <cl:xylayoutdata std:sid="xyl-data-6b0ba370" top="90px" left="20px" width="984px" height="50px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+      <cl:inputbox std:sid="i-box-beec396c" id="PROD_NM" placeholder="상품명" maxlength="11" inputmode="tel" inputfilter="[0-9]">
+        <cl:xylayoutdata std:sid="xyl-data-c4d5f561" top="10px" left="410px" width="200px" height="25px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+      </cl:inputbox>
+      <cl:inputbox std:sid="i-box-9cad5439" id="BAR_CODE" placeholder="바코드 번호" maxlength="20" inputfilter="[0-9]">
+        <cl:xylayoutdata std:sid="xyl-data-841eeaa4" top="10px" left="200px" width="200px" height="25px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+      </cl:inputbox>
+      <cl:button std:sid="button-3cf77bba" id="srcBtn" value="조회">
+        <cl:xylayoutdata std:sid="xyl-data-f6f61948" top="10px" left="905px" width="56px" height="25px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+      </cl:button>
+      <cl:inputbox std:sid="i-box-66523d51" id="CLIENT_NO" placeholder="거래처 명" maxlength="11" inputmode="tel" inputfilter="[0-9]">
+        <cl:xylayoutdata std:sid="xyl-data-24c65f3f" top="10px" left="620px" width="200px" height="25px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+      </cl:inputbox>
+      <cl:combobox comment="판매구분" std:sid="c-box-8128656d" id="prodCls" treeExpandDepth="1" preventinput="true">
+        <cl:listener std:sid="listener-633824c6" name="selection-change" handler="onProdClsSelectionChange"/>
+        <cl:xylayoutdata std:sid="xyl-data-b0d934c1" top="10px" left="10px" width="180px" height="25px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+        <cl:itemset datasetid="prodClsTbl" label="PROD_CLS_NM" value="PROD_CLS_CD" tooltip="REMARKS"/>
+      </cl:combobox>
+      <cl:xylayout std:sid="xylayout-aeed76ff"/>
+    </cl:group>
+    <cl:grid std:sid="grid-e782d2c3" id="grd1" showdeletedrow="false" hscroll="hidden">
+      <cl:xylayoutdata std:sid="xyl-data-5f2b3752" top="190px" left="20px" width="984px" height="558px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+      <cl:gridcolumn std:sid="g-column-e4a160e3" width="58px"/>
+      <cl:gridcolumn std:sid="g-column-c58bebdc" width="149px"/>
+      <cl:gridcolumn std:sid="g-column-f22cd828" width="154px"/>
+      <cl:gridcolumn std:sid="g-column-20d0b592" width="84px"/>
+      <cl:gridcolumn std:sid="g-column-fc60f723" width="70px"/>
+      <cl:gridcolumn std:sid="g-column-3d34c7d1" width="65px"/>
+      <cl:gridcolumn std:sid="g-column-0428837e" width="90px"/>
+      <cl:gridcolumn std:sid="g-column-274ce75b" width="68px"/>
+      <cl:gridcolumn std:sid="g-column-52b204e9" width="62px"/>
+      <cl:gridcolumn std:sid="g-column-f629ac50" width="78px"/>
+      <cl:gridcolumn std:sid="g-column-56f63e59" width="105px"/>
+      <cl:gridheader std:sid="gh-band-49dfba55">
+        <cl:gridrow std:sid="g-row-bfd8ebb7"/>
+        <cl:gridcell std:sid="gh-cell-e8d85dfd" rowindex="0" colindex="0" style="font-size:13px; text-align:center;" text="상품코드"/>
+        <cl:gridcell std:sid="gh-cell-4fd8f77d" rowindex="0" colindex="2" rowspan="1" colspan="1" style="font-size:13px; text-align:center;" text="상품명"/>
+        <cl:gridcell std:sid="gh-cell-05cecf5a" rowindex="0" colindex="3" rowspan="1" colspan="1" style="font-size:13px; text-align:center;" text="원산지"/>
+        <cl:gridcell std:sid="gh-cell-2ef9ee4c" rowindex="0" colindex="4" style="font-size:13px; text-align:center;" text="원가"/>
+        <cl:gridcell std:sid="gh-cell-34f09a85" rowindex="0" colindex="6" rowspan="1" colspan="1" style="font-size:13px; text-align:center;" text="판매가"/>
+        <cl:gridcell std:sid="gh-cell-aa3ff1d8" rowindex="0" colindex="5" rowspan="1" colspan="1" style="font-size:13px; text-align:center;" text="세일가격"/>
+        <cl:gridcell std:sid="gh-cell-14f7e1ef" rowindex="0" colindex="10" rowspan="1" colspan="1" style="font-size:13px; text-align:center;" text="거래처 명"/>
+        <cl:gridcell std:sid="gh-cell-0c6073af" rowindex="0" colindex="1" style="font-size:13px; text-align:center;" text="바코드"/>
+        <cl:gridcell std:sid="gh-cell-427b3e90" rowindex="0" colindex="7" style="font-size:13px; text-align:center;" text="적립금"/>
+        <cl:gridcell std:sid="gh-cell-a11ba3d2" rowindex="0" colindex="9" style="font-size:13px;" text="사이즈"/>
+        <cl:gridcell std:sid="gh-cell-ddab0792" rowindex="0" colindex="8" style="font-size:13px;" text="색상"/>
+      </cl:gridheader>
+      <cl:griddetail std:sid="gd-band-3a7b51d2">
+        <cl:gridrow std:sid="g-row-b34c3a07"/>
+        <cl:gridcell std:sid="gd-cell-10849944" rowindex="0" colindex="0">
+          <cl:output std:sid="output-e6a43381" style="font-size:12px; text-align:center;">
+            <cl:datasetbind property="value" datacontrolid="productList" columnname="PROD_CD" rowindex="0"/>
+            <cl:celldata std:sid="c-data-d9042678"/>
+          </cl:output>
+        </cl:gridcell>
+        <cl:gridcell std:sid="gd-cell-3087e850" rowindex="0" colindex="1">
+          <cl:output std:sid="output-a9c96367" style="font-size:12px; text-align:center;">
+            <cl:datasetbind property="value" datacontrolid="productList" columnname="BAR_CODE" rowindex="0"/>
+            <cl:celldata std:sid="c-data-09e01935"/>
+          </cl:output>
+        </cl:gridcell>
+        <cl:gridcell std:sid="gd-cell-973c5e4c" rowindex="0" colindex="2">
+          <cl:output std:sid="output-3225ff45" style="font-size:12px; text-align:center;">
+            <cl:datasetbind property="value" datacontrolid="productList" columnname="PROD_NM" rowindex="0"/>
+            <cl:celldata std:sid="c-data-a5630854"/>
+          </cl:output>
+        </cl:gridcell>
+        <cl:gridcell std:sid="gd-cell-b1222745" rowindex="0" colindex="3">
+          <cl:output std:sid="output-3398d8d8" style="font-size:12px; text-align:center;">
+            <cl:datasetbind property="value" datacontrolid="productList" columnname="ORIG_NAT" rowindex="0"/>
+            <cl:celldata std:sid="c-data-e7d848fc"/>
+          </cl:output>
+        </cl:gridcell>
+        <cl:gridcell std:sid="gd-cell-e460e4d6" rowindex="0" colindex="4">
+          <cl:output std:sid="output-68d50646" style="font-size:12px; text-align:center;">
+            <cl:datasetbind property="value" datacontrolid="productList" columnname="PURC_PR" rowindex="0"/>
+            <cl:celldata std:sid="c-data-75b440e8"/>
+          </cl:output>
+        </cl:gridcell>
+        <cl:gridcell std:sid="gd-cell-476e9897" rowindex="0" colindex="5">
+          <cl:output std:sid="output-e6fd2358" style="font-size:12px; text-align:center;">
+            <cl:datasetbind property="value" datacontrolid="productList" columnname="SALE_PR" rowindex="0"/>
+            <cl:celldata std:sid="c-data-40ce06c6"/>
+          </cl:output>
+        </cl:gridcell>
+        <cl:gridcell std:sid="gd-cell-72549320" rowindex="0" colindex="6">
+          <cl:output std:sid="output-65efda98" style="font-size:12px; text-align:center;">
+            <cl:datasetbind property="value" datacontrolid="productList" columnname="SELL_PR" rowindex="0"/>
+            <cl:celldata std:sid="c-data-02da9661"/>
+          </cl:output>
+        </cl:gridcell>
+        <cl:gridcell std:sid="gd-cell-5f9f02d1" rowindex="0" colindex="7">
+          <cl:output std:sid="output-2043eff6" style="font-size:12px; text-align:center;">
+            <cl:datasetbind property="value" datacontrolid="productList" columnname="MEM_POINT" rowindex="0"/>
+            <cl:celldata std:sid="c-data-addfe9f7"/>
+          </cl:output>
+        </cl:gridcell>
+        <cl:gridcell std:sid="gd-cell-824dd530" rowindex="0" colindex="8">
+          <cl:output std:sid="output-23c61249" style="font-size:12px; text-align:center;">
+            <cl:datasetbind property="value" datacontrolid="productList" columnname="COLOR" rowindex="0"/>
+            <cl:celldata std:sid="c-data-89543dba"/>
+          </cl:output>
+        </cl:gridcell>
+        <cl:gridcell std:sid="gd-cell-423b8bc2" rowindex="0" colindex="9">
+          <cl:output std:sid="output-eaaddc0a" style="font-size:12px; text-align:center;">
+            <cl:datasetbind property="value" datacontrolid="productList" columnname="PROD_SIZE" rowindex="0"/>
+            <cl:celldata/>
+          </cl:output>
+        </cl:gridcell>
+        <cl:gridcell std:sid="gd-cell-a293a60a" rowindex="0" colindex="10">
+          <cl:output std:sid="output-9c9dd4a0" style="font-size:12px; text-align:center;">
+            <cl:datasetbind property="value" datacontrolid="productList" columnname="CLIENT_NM" rowindex="0"/>
+            <cl:celldata/>
+          </cl:output>
+        </cl:gridcell>
+      </cl:griddetail>
+    </cl:grid>
+    <cl:xylayout std:sid="xylayout-bae8dc7f"/>
+  </body>
+  <std:studiosetting>
+    <std:hruler/>
+    <std:vruler/>
+  </std:studiosetting>
+</html>

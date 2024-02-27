@@ -98,3 +98,51 @@ setInterval(updateDateTime, 1000);
 function onBodyLoad(e){
 	updateDateTime();
 }
+
+/*
+ * 내비게이션 바에서 item-click 이벤트 발생 시 호출.
+ * 아이템 클릭시 발생하는 이벤트.
+ */
+function onNavigationBarItemClick(e){
+	var navigationBar = e.control.value;
+	
+	if(navigationBar === 'POS'){
+		var page = "/POS/PosMain.do";
+		window.location.href = page;
+	
+	}else if(navigationBar === '판매관리'){
+		var page = "/POS/PosSalesManagement.do";
+		window.location.href = page;
+	
+	}else if(navigationBar === '시재금'){
+		var page = "/POS/PosMoney.do";
+		window.location.href = page;
+	
+	}else if(navigationBar === '상품관리' || navigationBar === '상품등록'){
+		var page = "/POS/PosProductRegist1.do";
+		window.location.href = page;
+	
+	}else if(navigationBar === '상품조회'){
+		var page = "/POS/PosProductSearch.do";
+		window.location.href = page;
+	
+	}else if(navigationBar === '거래처관리' || navigationBar === '거래처등록'){
+		var page = "/POS/PosAccountManagement.do";
+		window.location.href = page;
+	
+	}else if(navigationBar === '거래처조회'){
+		var page = "/POS/PosAccountSearch.do";
+		window.location.href = page;
+	
+	}else if(navigationBar === '회원관리' || navigationBar === '회원등록'){
+		var page = "/POS/PosCust.do";
+		window.location.href = page;
+	
+	}else if(navigationBar === '회원조회'){
+		var page = "/POS/PosCustSearch.do";
+		window.location.href = page;
+	}
+	
+	
+	
+}

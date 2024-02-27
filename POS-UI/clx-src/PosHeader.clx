@@ -2,7 +2,82 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:cl="http://tomatosystem.co.kr/cleopatra" xmlns:std="http://tomatosystem.co.kr/cleopatra/studio" std:sid="html-73e0fb9c" version="1.0.4807">
   <head std:sid="head-08de2be0">
     <screen std:sid="screen-ebe95800" id="header1" name="header1" width="1024px" height="80px" customHeight="600" customWidth="800" active="true"/>
-    <cl:model std:sid="model-2ed580bb"/>
+    <cl:model std:sid="model-2ed580bb">
+      <cl:dataset std:sid="d-set-4656d090" id="headerMenu">
+        <cl:datacolumnlist>
+          <cl:datacolumn std:sid="d-column-376a43ab" name="label"/>
+          <cl:datacolumn std:sid="d-column-12b2e382" name="value"/>
+          <cl:datacolumn std:sid="d-column-86334e21" name="parent"/>
+        </cl:datacolumnlist>
+        <cl:datarowlist>
+          <cl:datarow>
+            <cl:datavalue columnname="label"><![CDATA[POS]]></cl:datavalue>
+            <cl:datavalue columnname="value"><![CDATA[POS]]></cl:datavalue>
+            <cl:datavalue columnname="parent"><![CDATA[root]]></cl:datavalue>
+          </cl:datarow>
+          <cl:datarow>
+            <cl:datavalue columnname="label"><![CDATA[판매관리]]></cl:datavalue>
+            <cl:datavalue columnname="value"><![CDATA[판매관리]]></cl:datavalue>
+            <cl:datavalue columnname="parent"><![CDATA[root]]></cl:datavalue>
+          </cl:datarow>
+          <cl:datarow>
+            <cl:datavalue columnname="label"><![CDATA[ 시재금 ]]></cl:datavalue>
+            <cl:datavalue columnname="value"><![CDATA[시재금]]></cl:datavalue>
+            <cl:datavalue columnname="parent"><![CDATA[root]]></cl:datavalue>
+          </cl:datarow>
+          <cl:datarow>
+            <cl:datavalue columnname="label"><![CDATA[상품관리]]></cl:datavalue>
+            <cl:datavalue columnname="value"><![CDATA[상품관리]]></cl:datavalue>
+            <cl:datavalue columnname="parent"><![CDATA[root]]></cl:datavalue>
+          </cl:datarow>
+          <cl:datarow>
+            <cl:datavalue columnname="label"><![CDATA[상품등록]]></cl:datavalue>
+            <cl:datavalue columnname="value"><![CDATA[상품등록]]></cl:datavalue>
+            <cl:datavalue columnname="parent"><![CDATA[상품관리]]></cl:datavalue>
+          </cl:datarow>
+          <cl:datarow>
+            <cl:datavalue columnname="label"><![CDATA[상품조회]]></cl:datavalue>
+            <cl:datavalue columnname="value"><![CDATA[상품조회]]></cl:datavalue>
+            <cl:datavalue columnname="parent"><![CDATA[상품관리]]></cl:datavalue>
+          </cl:datarow>
+          <cl:datarow>
+            <cl:datavalue columnname="label"><![CDATA[거래처관리]]></cl:datavalue>
+            <cl:datavalue columnname="value"><![CDATA[거래처관리]]></cl:datavalue>
+            <cl:datavalue columnname="parent"><![CDATA[root]]></cl:datavalue>
+          </cl:datarow>
+          <cl:datarow>
+            <cl:datavalue columnname="label"><![CDATA[거래처등록]]></cl:datavalue>
+            <cl:datavalue columnname="value"><![CDATA[거래처등록]]></cl:datavalue>
+            <cl:datavalue columnname="parent"><![CDATA[거래처관리]]></cl:datavalue>
+          </cl:datarow>
+          <cl:datarow>
+            <cl:datavalue columnname="label"><![CDATA[거래처조회]]></cl:datavalue>
+            <cl:datavalue columnname="value"><![CDATA[거래처조회]]></cl:datavalue>
+            <cl:datavalue columnname="parent"><![CDATA[거래처관리]]></cl:datavalue>
+          </cl:datarow>
+          <cl:datarow>
+            <cl:datavalue columnname="label"><![CDATA[ 회원관리]]></cl:datavalue>
+            <cl:datavalue columnname="value"><![CDATA[회원관리]]></cl:datavalue>
+            <cl:datavalue columnname="parent"><![CDATA[root]]></cl:datavalue>
+          </cl:datarow>
+          <cl:datarow>
+            <cl:datavalue columnname="label"><![CDATA[ 회원등록]]></cl:datavalue>
+            <cl:datavalue columnname="value"><![CDATA[회원등록]]></cl:datavalue>
+            <cl:datavalue columnname="parent"><![CDATA[회원관리]]></cl:datavalue>
+          </cl:datarow>
+          <cl:datarow>
+            <cl:datavalue columnname="label"><![CDATA[ 회원조회]]></cl:datavalue>
+            <cl:datavalue columnname="value"><![CDATA[회원조회]]></cl:datavalue>
+            <cl:datavalue columnname="parent"><![CDATA[회원관리]]></cl:datavalue>
+          </cl:datarow>
+          <cl:datarow>
+            <cl:datavalue columnname="label"><![CDATA[ 매장관리]]></cl:datavalue>
+            <cl:datavalue columnname="value"><![CDATA[매장관리]]></cl:datavalue>
+            <cl:datavalue columnname="parent"><![CDATA[root]]></cl:datavalue>
+          </cl:datarow>
+        </cl:datarowlist>
+      </cl:dataset>
+    </cl:model>
     <cl:appspec/>
   </head>
   <body std:sid="body-ea9d8314">
@@ -13,7 +88,7 @@
       <cl:group std:sid="group-44ff4c35" style="background-color:#BEBEBE; text-align:center;">
         <std:metadata>
           <std:property key="template-uuid" value="8c6d2567-acc8-4a87-88f5-01d6a354ba6f"/>
-          <std:property key="template-rev" value="1"/>
+          <std:property key="template-rev" value="2"/>
         </std:metadata>
         <cl:xylayoutdata std:sid="xyl-data-e15b0713" top="0px" right="0px" left="0px" height="80px" horizontalAnchor="BOTH" verticalAnchor="TOP"/>
         <cl:output comment="현재시간" std:sid="output-6a8d9478" id="sysDateTime" style="font-size:20px;" readonly="true">
@@ -47,6 +122,11 @@
         <cl:button std:sid="button-8dddc87f" id="storeManage" value="매장관리">
           <cl:xylayoutdata std:sid="xyl-data-88ca99ce" top="21px" left="899px" width="100px" height="38px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
         </cl:button>
+        <cl:navigationbar std:sid="n-bar-e8f5fff4" style="border-radius:none; border-right-style:none; background-color:#BEBEBE; border-left-style:none; font-weight:bolder; border-bottom-style:none; border-top-style:none; text-align:center;" listarrowimage="" baritemwidths="equal">
+          <cl:listener std:sid="listener-6b6f4b35" name="item-click" handler="onNavigationBarItemClick"/>
+          <cl:xylayoutdata std:sid="xyl-data-4e931be2" top="20px" left="242px" width="765px" height="40px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+          <cl:menuitemset datasetid="headerMenu" label="label" value="value" parent="parent"/>
+        </cl:navigationbar>
         <cl:xylayout std:sid="xylayout-6eff429f"/>
       </cl:group>
       <cl:xylayout std:sid="xylayout-fd5c9962"/>
