@@ -12,6 +12,10 @@
         </cl:datacolumnlist>
         <cl:datarowlist>
           <cl:datarow>
+            <cl:datavalue columnname="label"><![CDATA[전체]]></cl:datavalue>
+            <cl:datavalue columnname="value"><![CDATA[0]]></cl:datavalue>
+          </cl:datarow>
+          <cl:datarow>
             <cl:datavalue columnname="label"><![CDATA[현금]]></cl:datavalue>
             <cl:datavalue columnname="value"><![CDATA[1]]></cl:datavalue>
           </cl:datarow>

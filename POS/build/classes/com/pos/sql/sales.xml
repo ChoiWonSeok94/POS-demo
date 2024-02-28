@@ -142,7 +142,9 @@
 		    	</if>
 		WHERE
 			SAL.TRANS_DT||SAL.TRANS_TM BETWEEN #{sDate}||#{sTime} AND #{eDate}||#{eTime}
-		    AND SALPAY.SALES_TY = #{SALES_TY}
+			<if test="SALES_TY != 0 &amp;&amp; SALES_TY != '0'">
+		    	AND SALPAY.SALES_TY = #{SALES_TY}
+			</if>
 		    <if test="BAR_CODE != ''">
 		    	AND SALPROD.PROD_CD = (SELECT DISTINCT
 		                                	SALPROD.PROD_CD
@@ -171,6 +173,7 @@
 			,SALPROD.SALES_AMT
 			,SALPROD.TRANS_TY
 			,SALPROD.TAX_TY
+			,PROD.MEM_POINT
 			,
 			(SELECT
 				SALES_AMT

@@ -129,7 +129,7 @@
         </cl:gridcell>
         <cl:gridcell std:sid="gd-cell-9fce2ec2" rowindex="0" colindex="8" columnname="MEM_POINT">
           <cl:output std:sid="output-b7e783aa" style="text-align:center;">
-            <cl:celldata/>
+            <cl:celldata std:sid="c-data-63bea45d"/>
           </cl:output>
         </cl:gridcell>
       </cl:griddetail>
@@ -243,7 +243,7 @@
     <cl:numbereditor std:sid="n-editor-5145c97f" id="ipb12" style="border-radius:0px 3px 3px 0px; font-size:16px; text-align:right;" spinbutton="false" placeholder=" " displayexp="text + ' 원'">
       <cl:xylayoutdata std:sid="xyl-data-385848be" top="665px" left="735px" width="150px" height="40px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
     </cl:numbereditor>
-    <cl:button std:sid="button-448682ba" id="btnPopUp" class="btn-gray" value="새 창 열기">
+    <cl:button std:sid="button-448682ba" id="btnPopUp" class="btn-gray" visible="false" value="새 창 열기">
       <cl:listener std:sid="listener-e257fbc0" name="click" handler="onBtnPopUpClick"/>
       <cl:xylayoutdata std:sid="xyl-data-8036cb66" top="673px" left="904px" width="1px" height="1px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
     </cl:button>

@@ -11,6 +11,9 @@
     <cl:embeddedapp std:sid="e-app-3dec7bd4" id="ea1" src="PosHeader.clx">
       <cl:xylayoutdata std:sid="xyl-data-d2568405" top="0px" left="0px" width="1024px" height="80px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
     </cl:embeddedapp>
+    <cl:output std:sid="output-a25582bd" style="font-weight:bolder; font-size:20px; text-align:center;" value="구현중">
+      <cl:xylayoutdata std:sid="xyl-data-1885fd1d" top="200px" left="314px" width="396px" height="125px" horizontalAnchor="LEFT" verticalAnchor="TOP"/>
+    </cl:output>
     <cl:xylayout std:sid="xylayout-1e0af0ac"/>
   </body>
   <std:studiosetting>

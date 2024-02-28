@@ -198,7 +198,7 @@ function onButtonClick3(e){
 		var sDate = startDate.substring(0, 8);
 		var sTime = startDate.substring(8, 12) + '00';
 		var eDate = endDate.substring(0, 8);
-		var eTime =endDate.substring(8, 12) + '00';
+		var eTime = endDate.substring(8, 12) + '99';
 		
 		var submission = new cpr.protocols.Submission();
 		submission.action = '/POS/salesSrcBtnClick.do';
@@ -224,6 +224,14 @@ function onButtonClick3(e){
 					var salesTy = jsonObj['recipe'][i]['SALES_TY'];
 					if(salesTy === '1'){
 						salesTy = '현금';
+					}else if(salesTy === '2'){
+						salesTy = '카드';
+					}else if(salesTy === '3'){
+						salesTy = '상품권';
+					}else if(salesTy === '4'){
+						salesTy = '포인트';
+					}else{
+						salesTy = '복합결제';
 					}
 					var salesSerNo = jsonObj['recipe'][i]['SALES_SER_NO'];
 					var salesAmt = jsonObj['recipe'][i]['SALES_AMT'];
@@ -296,6 +304,7 @@ function onGrd1CellClick(e){
 				,"ASELL_PR" : jsonObj['sellItem'][i]['ASELL_PR']
 				,"SALE_PR" : jsonObj['sellItem'][i]['SALE_AMT']
 				,"SALES_AMT" : jsonObj['sellItem'][i]['SALES_AMT']
+				,"POINT" : jsonObj['sellItem'][i]['MEM_POINT'] * jsonObj['sellItem'][i]['QTY']
 			}, false);
 			
 			// 취소구분이 3이면 delete row
@@ -324,13 +333,27 @@ function updateTotalAmt(totalAmt, salesTy){
 	
 	if(salesTy === '현금'){
 		cash.value = totalAmt;
+		giftCard.value = '';
+		card.value = '';
+		memPoint.value = '';
 	}else if(salesTy === '상품권'){
 		giftCard.value = totalAmt;
+		cash.value = '';
+		card.value = '';
+		memPoint.value = '';
 	}else if(salesTy === '카드'){
 		card.value = totalAmt;
+		cash.value = '';
+		giftCard.value = '';
+		memPoint.value = '';
 	}else if(salesTy === '포인트'){
 		memPoint.value = totalAmt;
+		cash.value = '';
+		giftCard.value = '';
+		card.value = '';
 	}
 	
 	total.value = parseInt(cash.value + giftCard.value + card.value + memPoint.value);
+	console.log(parseInt(cash.value + giftCard.value + card.value + memPoint.value));
+//	console.log(parseInt(cash.value) + parseInt(giftCard.value) + parseInt(card.value) + parseInt(memPoint.value));
 }

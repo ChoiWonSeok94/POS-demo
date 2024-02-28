@@ -84,7 +84,7 @@ function onBtnPopUpClick(e){
 		openWindow = window.open("https://edu.tomatosystem.co.kr/sample/main.html?goToAppPage=app/sample/smp/embeddedpage/smpEmbeddedPage_03_W", "_popup", "height=300,left=100,top=100,width=350,location=no,menubar=no,resizable=no,scrollbars=yes,status=yes,titlebar=no,toolbar=no");
 //		openWindow = window.open("/POS/PosMainMemSrc.do", "_popup", "height=300,left=100,top=100,width=350,location=no,menubar=no,resizable=no,scrollbars=yes,status=yes,titlebar=no,toolbar=no");
 	}else{
-		openWindow = window.open("/POS/PosMainMemSrc.do", "_popup", "height=680,left=100,top=100,width=650,location=no,menubar=no,resizable=no,scrollbars=yes,status=yes,titlebar=no,toolbar=no");
+		openWindow = window.open("/POS/PosMainMemSrc.do", "_popup", "height=750,left=100,top=100,width=700,location=no,menubar=no,resizable=no,scrollbars=yes,status=yes,titlebar=no,toolbar=no");
 //		openWindow = window.open("https://edu.tomatosystem.co.kr/sample/main.html?goToAppPage=app/sample/smp/embeddedpage/smpEmbeddedPage_03_W", "_popup", "height=300,left=100,top=100,width=350,location=no,menubar=no,resizable=no,scrollbars=yes,status=yes,titlebar=no,toolbar=no");
 		
 	
@@ -197,6 +197,7 @@ function onButtonClick3(e){
 		var membNm = app.lookup("MEMB_NM");
 		var idNo = app.lookup("ID_NO");
 		var busiNo = app.lookup("BUSI_NO");
+		var memPoint = app.lookup("memPoint");
 	
 	//	// request data 설정
 		submission.setParameters("MOB_PH_NO", mobPhNo.value);
@@ -222,7 +223,7 @@ function onButtonClick3(e){
 				app.lookup("memPoint").value = '';
 				return;
 			}
-			// 받아온 memberInfo 가 2명 이상일때 if 구분 후 팝업 해줘야함.
+			// 받아온 memberInfo 가 2명 이상일때
 			if(jsonObj['memberInfo'].length > 1){
 				console.log('검색한 멤버가 2명이상 jsonObj[memberInfo].length = ' + jsonObj['memberInfo'].length);
 				
@@ -242,10 +243,11 @@ function onButtonClick3(e){
 			memSerNo.readOnly = false;
 			memSerNo.value = jsonObj['memberInfo'][0]['MEMB_SER_NO'];
 			memSerNo.readOnly = true;
-			console.log('MEM_SER_NO = ' + jsonObj['memberInfo'][0]['MEMB_SER_NO']);
 			mobPhNo.value = jsonObj['memberInfo'][0]['MOB_PH_NO'];
-			console.log('MOB_PH_NO = ' + jsonObj['memberInfo'][0]['MOB_PH_NO']);
 			membNm.value = jsonObj['memberInfo'][0]['MEMB_NM'];
+			memPoint.value = jsonObj['memberInfo'][0]['POINT'];
+			console.log('MEM_SER_NO = ' + jsonObj['memberInfo'][0]['MEMB_SER_NO']);
+			console.log('MOB_PH_NO = ' + jsonObj['memberInfo'][0]['MOB_PH_NO']);
 			console.log('MEMB_NM = ' + jsonObj['memberInfo'][0]['MEMB_NM']);
 			
 			if(jsonObj['memberInfo'][0]['EMAIL'] != null){
@@ -317,7 +319,7 @@ function onButtonClick2(e){
 //		submission.async = false;
 		submission.addEventListener("receive", function(e){
 			var jsonObj = JSON.parse(e.control.xhr.responseText);
-			if(jsonObj['memberInfo'].length == 0){
+			if(jsonObj['memberInfo'] !== 'doExist'){
 				alert('회원등록이 완료되었습니다.');
 			}else{
 				alert('이미 등록된 회원입니다.');

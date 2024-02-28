@@ -48,6 +48,20 @@
 				"width": "1024px",
 				"height": "80px"
 			});
+			
+			var output_1 = new cpr.controls.Output();
+			output_1.value = "구현중";
+			output_1.style.css({
+				"font-weight" : "bolder",
+				"font-size" : "20px",
+				"text-align" : "center"
+			});
+			container.addChild(output_1, {
+				"top": "200px",
+				"left": "314px",
+				"width": "396px",
+				"height": "125px"
+			});
 		}
 	});
 	app.title = "PosAccountSearch";

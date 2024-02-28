@@ -16,7 +16,14 @@ public class MemberVo {
 	private String ADDR_2;
 	private String EMAIL;
 	private String SECE_DT;
+	private String POINT;
 	
+	public String getPOINT() {
+		return POINT;
+	}
+	public void setPOINT(String pOINT) {
+		POINT = pOINT;
+	}
 	public String getMEMB_SER_NO() {
 		return MEMB_SER_NO;
 	}
@@ -108,14 +115,14 @@ public class MemberVo {
 		return "MemberVo [MEMB_SER_NO=" + MEMB_SER_NO + ", PERS_COP_TY=" + PERS_COP_TY + ", ID_NO=" + ID_NO
 				+ ", BUSI_NO=" + BUSI_NO + ", MEMB_NM=" + MEMB_NM + ", MEMB_ENG_NM=" + MEMB_ENG_NM + ", BIR_DAY="
 				+ BIR_DAY + ", MOB_PH_NO=" + MOB_PH_NO + ", PH_NO=" + PH_NO + ", POST_NO=" + POST_NO + ", ADDR_1="
-				+ ADDR_1 + ", ADDR_2=" + ADDR_2 + ", EMAIL=" + EMAIL + ", SECE_DT=" + SECE_DT + ", getMEMB_SER_NO()="
-				+ getMEMB_SER_NO() + ", getPERS_COP_TY()=" + getPERS_COP_TY() + ", getID_NO()=" + getID_NO()
-				+ ", getBUSI_NO()=" + getBUSI_NO() + ", getMEMB_NM()=" + getMEMB_NM() + ", getMEMB_ENG_NM()="
-				+ getMEMB_ENG_NM() + ", getBIR_DAY()=" + getBIR_DAY() + ", getMOB_PH_NO()=" + getMOB_PH_NO()
-				+ ", getPH_NO()=" + getPH_NO() + ", getPOST_NO()=" + getPOST_NO() + ", getADDR_1()=" + getADDR_1()
-				+ ", getADDR_2()=" + getADDR_2() + ", getEMAIL()=" + getEMAIL() + ", getSECE_DT()=" + getSECE_DT()
-				+ ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + ", toString()=" + super.toString()
-				+ "]";
+				+ ADDR_1 + ", ADDR_2=" + ADDR_2 + ", EMAIL=" + EMAIL + ", SECE_DT=" + SECE_DT + ", POINT=" + POINT
+				+ ", getPOINT()=" + getPOINT() + ", getMEMB_SER_NO()=" + getMEMB_SER_NO() + ", getPERS_COP_TY()="
+				+ getPERS_COP_TY() + ", getID_NO()=" + getID_NO() + ", getBUSI_NO()=" + getBUSI_NO() + ", getMEMB_NM()="
+				+ getMEMB_NM() + ", getMEMB_ENG_NM()=" + getMEMB_ENG_NM() + ", getBIR_DAY()=" + getBIR_DAY()
+				+ ", getMOB_PH_NO()=" + getMOB_PH_NO() + ", getPH_NO()=" + getPH_NO() + ", getPOST_NO()=" + getPOST_NO()
+				+ ", getADDR_1()=" + getADDR_1() + ", getADDR_2()=" + getADDR_2() + ", getEMAIL()=" + getEMAIL()
+				+ ", getSECE_DT()=" + getSECE_DT() + ", getClass()=" + getClass() + ", hashCode()=" + hashCode()
+				+ ", toString()=" + super.toString() + "]";
 	}
 	
 }

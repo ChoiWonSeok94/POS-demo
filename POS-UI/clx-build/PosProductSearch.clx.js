@@ -33,6 +33,68 @@
 			function onProdClsSelectionChange(e){
 				var prodCls = e.control;
 			//	console.log(app.lookup("prodCls").value);
+			}
+
+			/*
+			 * "조회" 버튼(srcBtn)에서 click 이벤트 발생 시 호출.
+			 * 사용자가 컨트롤을 클릭할 때 발생하는 이벤트.
+			 */
+			function onSrcBtnClick(e){
+				
+				var barCode = app.lookup("BAR_CODE").value;
+				var prodNm = app.lookup("PROD_NM").value;
+				var clientNm = app.lookup("CLIENT_NM").value;
+				var prodClsCd = app.lookup("prodCls").value;
+				
+				
+				if(barCode == '' && prodNm == '' && clientNm == ''){
+					alert('조회조건을 최소 하나 이상 기입해 주세요.');
+					return false;
+				
+				}else{
+					var prodList = app.lookup("productList");
+					prodList.clear();
+					var grd1 = app.lookup("grd1");
+					grd1.redraw();
+					var submission = new cpr.protocols.Submission();
+					submission.action = '/POS/searchProductByOptions.do';
+					submission.responseType = 'javascript';
+					
+					var reqObj = {
+						PROD_CLS_CD : prodClsCd
+						,BAR_CODE : barCode
+						,PROD_NM : prodNm
+						,CLIENT_NM : clientNm
+					}
+					submission.setRequestObject(reqObj);
+					submission.addEventListener("receive", function(e){
+						var jsonObj = JSON.parse(e.control.xhr.responseText);
+						debugger
+						if(jsonObj['productList'].length == 0){
+							alert('조회된 정보가 없습니다.');
+						}else{
+							for(var i=0 ; i < jsonObj['productList'].length ; i++){
+			//					grd1.insertRow(i, true);
+								prodList.insertRowData(i, true, {
+									PROD_CD : jsonObj['productList'][i]['PROD_CD']
+									,PROD_CLS_NM : jsonObj['productList'][i]['PROD_CLS_NM']
+									,BAR_CODE : jsonObj['productList'][i]['BAR_CODE']
+									,PROD_NM : jsonObj['productList'][i]['PROD_NM']
+									,ORIG_NAT : jsonObj['productList'][i]['ORIG_NAT']
+									,PURC_PR : jsonObj['productList'][i]['PURC_PR']
+									,SALE_PR : jsonObj['productList'][i]['SALE_PR']
+									,SELL_PR : jsonObj['productList'][i]['SELL_PR']
+									,MEM_POINT: jsonObj['productList'][i]['MEM_POINT']
+									,COLOR : jsonObj['productList'][i]['COLOR']
+									,PROD_SIZE : jsonObj['productList'][i]['PROD_SIZE']
+									,CLIENT_NM : jsonObj['productList'][i]['CLIENT_NM']
+								});
+							}
+						}
+						
+					});
+					submission.send();
+				}
 			};
 			// End - User Script
 			
@@ -41,7 +103,7 @@
 			dataSet_1.parseData({
 				"columns" : [
 					{"name": "PROD_CD"},
-					{"name": "PROD_CLS_CD"},
+					{"name": "PROD_CLS_NM"},
 					{"name": "PROD_NM"},
 					{"name": "PROD_ENG_NM"},
 					{"name": "ORIG_NAT"},
@@ -141,9 +203,7 @@
 			(function(container){
 				var inputBox_1 = new cpr.controls.InputBox("PROD_NM");
 				inputBox_1.placeholder = "상품명";
-				inputBox_1.maxLength = 11;
-				inputBox_1.inputMode = "tel";
-				inputBox_1.inputFilter = "[0-9]";
+				inputBox_1.maxLength = 20;
 				container.addChild(inputBox_1, {
 					"top": "10px",
 					"left": "410px",
@@ -162,17 +222,18 @@
 				});
 				var button_1 = new cpr.controls.Button("srcBtn");
 				button_1.value = "조회";
+				if(typeof onSrcBtnClick == "function") {
+					button_1.addEventListener("click", onSrcBtnClick);
+				}
 				container.addChild(button_1, {
 					"top": "10px",
 					"left": "905px",
 					"width": "56px",
 					"height": "25px"
 				});
-				var inputBox_3 = new cpr.controls.InputBox("CLIENT_NO");
+				var inputBox_3 = new cpr.controls.InputBox("CLIENT_NM");
 				inputBox_3.placeholder = "거래처 명";
-				inputBox_3.maxLength = 11;
-				inputBox_3.inputMode = "tel";
-				inputBox_3.inputFilter = "[0-9]";
+				inputBox_3.maxLength = 15;
 				container.addChild(inputBox_3, {
 					"top": "10px",
 					"left": "620px",
@@ -207,21 +268,24 @@
 			});
 			
 			var grid_1 = new cpr.controls.Grid("grd1");
+			grid_1.noDataMessage = "-";
 			grid_1.init({
-				"hScroll": "hidden",
+				"dataSet": app.lookup("productList"),
 				"showDeletedRow": false,
+				"defaultSortMode": "single",
 				"columns": [
 					{"width": "58px"},
-					{"width": "149px"},
+					{"width": "100px"},
 					{"width": "154px"},
-					{"width": "84px"},
-					{"width": "70px"},
-					{"width": "65px"},
-					{"width": "90px"},
-					{"width": "68px"},
-					{"width": "62px"},
-					{"width": "78px"},
-					{"width": "105px"}
+					{"width": "225px"},
+					{"width": "119px"},
+					{"width": "81px"},
+					{"width": "71px"},
+					{"width": "99px"},
+					{"width": "77px"},
+					{"width": "96px"},
+					{"width": "117px"},
+					{"width": "201px"}
 				],
 				"header": {
 					"rows": [{"height": "24px"}],
@@ -229,6 +293,9 @@
 						{
 							"constraint": {"rowIndex": 0, "colIndex": 0},
 							"configurator": function(cell){
+								cell.filterable = false;
+								cell.sortable = false;
+								cell.targetColumnName = "PROD_CD";
 								cell.text = "상품코드";
 								cell.style.css({
 									"font-size" : "13px",
@@ -237,9 +304,12 @@
 							}
 						},
 						{
-							"constraint": {"rowIndex": 0, "colIndex": 2, "rowSpan": 1, "colSpan": 1},
+							"constraint": {"rowIndex": 0, "colIndex": 2},
 							"configurator": function(cell){
-								cell.text = "상품명";
+								cell.filterable = false;
+								cell.sortable = false;
+								cell.targetColumnName = "BAR_CODE";
+								cell.text = "바코드";
 								cell.style.css({
 									"font-size" : "13px",
 									"text-align" : "center"
@@ -247,9 +317,12 @@
 							}
 						},
 						{
-							"constraint": {"rowIndex": 0, "colIndex": 3, "rowSpan": 1, "colSpan": 1},
+							"constraint": {"rowIndex": 0, "colIndex": 3},
 							"configurator": function(cell){
-								cell.text = "원산지";
+								cell.filterable = false;
+								cell.sortable = false;
+								cell.targetColumnName = "PROD_NM";
+								cell.text = "상품명";
 								cell.style.css({
 									"font-size" : "13px",
 									"text-align" : "center"
@@ -259,6 +332,22 @@
 						{
 							"constraint": {"rowIndex": 0, "colIndex": 4},
 							"configurator": function(cell){
+								cell.filterable = false;
+								cell.sortable = false;
+								cell.targetColumnName = "ORIG_NAT";
+								cell.text = "원산지";
+								cell.style.css({
+									"font-size" : "13px",
+									"text-align" : "center"
+								});
+							}
+						},
+						{
+							"constraint": {"rowIndex": 0, "colIndex": 5},
+							"configurator": function(cell){
+								cell.filterable = false;
+								cell.sortable = false;
+								cell.targetColumnName = "PURC_PR";
 								cell.text = "원가";
 								cell.style.css({
 									"font-size" : "13px",
@@ -267,39 +356,12 @@
 							}
 						},
 						{
-							"constraint": {"rowIndex": 0, "colIndex": 6, "rowSpan": 1, "colSpan": 1},
+							"constraint": {"rowIndex": 0, "colIndex": 6},
 							"configurator": function(cell){
-								cell.text = "판매가";
-								cell.style.css({
-									"font-size" : "13px",
-									"text-align" : "center"
-								});
-							}
-						},
-						{
-							"constraint": {"rowIndex": 0, "colIndex": 5, "rowSpan": 1, "colSpan": 1},
-							"configurator": function(cell){
-								cell.text = "세일가격";
-								cell.style.css({
-									"font-size" : "13px",
-									"text-align" : "center"
-								});
-							}
-						},
-						{
-							"constraint": {"rowIndex": 0, "colIndex": 10, "rowSpan": 1, "colSpan": 1},
-							"configurator": function(cell){
-								cell.text = "거래처 명";
-								cell.style.css({
-									"font-size" : "13px",
-									"text-align" : "center"
-								});
-							}
-						},
-						{
-							"constraint": {"rowIndex": 0, "colIndex": 1},
-							"configurator": function(cell){
-								cell.text = "바코드";
+								cell.filterable = false;
+								cell.sortable = false;
+								cell.targetColumnName = "SALE_PR";
+								cell.text = "할인가";
 								cell.style.css({
 									"font-size" : "13px",
 									"text-align" : "center"
@@ -309,6 +371,22 @@
 						{
 							"constraint": {"rowIndex": 0, "colIndex": 7},
 							"configurator": function(cell){
+								cell.filterable = false;
+								cell.sortable = false;
+								cell.targetColumnName = "SELL_PR";
+								cell.text = "판매가";
+								cell.style.css({
+									"font-size" : "13px",
+									"text-align" : "center"
+								});
+							}
+						},
+						{
+							"constraint": {"rowIndex": 0, "colIndex": 8},
+							"configurator": function(cell){
+								cell.filterable = false;
+								cell.sortable = false;
+								cell.targetColumnName = "MEM_POINT";
 								cell.text = "적립금";
 								cell.style.css({
 									"font-size" : "13px",
@@ -319,18 +397,49 @@
 						{
 							"constraint": {"rowIndex": 0, "colIndex": 9},
 							"configurator": function(cell){
-								cell.text = "사이즈";
+								cell.filterable = false;
+								cell.sortable = false;
+								cell.targetColumnName = "COLOR";
+								cell.text = "색상";
 								cell.style.css({
-									"font-size" : "13px"
+									"font-size" : "13px",
+									"text-align" : "center"
 								});
 							}
 						},
 						{
-							"constraint": {"rowIndex": 0, "colIndex": 8},
+							"constraint": {"rowIndex": 0, "colIndex": 10},
 							"configurator": function(cell){
-								cell.text = "색상";
+								cell.filterable = false;
+								cell.sortable = false;
+								cell.targetColumnName = "PROD_SIZE";
+								cell.text = "사이즈";
 								cell.style.css({
-									"font-size" : "13px"
+									"font-size" : "13px",
+									"text-align" : "center"
+								});
+							}
+						},
+						{
+							"constraint": {"rowIndex": 0, "colIndex": 11},
+							"configurator": function(cell){
+								cell.filterable = false;
+								cell.sortable = false;
+								cell.targetColumnName = "CLIENT_NM";
+								cell.text = "거래처명";
+								cell.style.css({
+									"font-size" : "13px",
+									"text-align" : "center"
+								});
+							}
+						},
+						{
+							"constraint": {"rowIndex": 0, "colIndex": 1},
+							"configurator": function(cell){
+								cell.text = "상품분류코드";
+								cell.style.css({
+									"font-size" : "13px",
+									"text-align" : "center"
 								});
 							}
 						}
@@ -342,154 +451,196 @@
 						{
 							"constraint": {"rowIndex": 0, "colIndex": 0},
 							"configurator": function(cell){
+								cell.columnName = "PROD_CD";
 								cell.control = (function(){
 									var output_1 = new cpr.controls.Output();
 									output_1.style.css({
 										"font-size" : "12px",
 										"text-align" : "center"
 									});
-									output_1.bind("value").toDataSet(app.lookup("productList"), "PROD_CD", 0);
+									output_1.bind("value").toDataColumn("PROD_CD");
 									return output_1;
-								})();
-							}
-						},
-						{
-							"constraint": {"rowIndex": 0, "colIndex": 1},
-							"configurator": function(cell){
-								cell.control = (function(){
-									var output_2 = new cpr.controls.Output();
-									output_2.style.css({
-										"font-size" : "12px",
-										"text-align" : "center"
-									});
-									output_2.bind("value").toDataSet(app.lookup("productList"), "BAR_CODE", 0);
-									return output_2;
 								})();
 							}
 						},
 						{
 							"constraint": {"rowIndex": 0, "colIndex": 2},
 							"configurator": function(cell){
+								cell.columnName = "BAR_CODE";
 								cell.control = (function(){
-									var output_3 = new cpr.controls.Output();
-									output_3.style.css({
+									var output_2 = new cpr.controls.Output();
+									output_2.style.css({
 										"font-size" : "12px",
 										"text-align" : "center"
 									});
-									output_3.bind("value").toDataSet(app.lookup("productList"), "PROD_NM", 0);
-									return output_3;
+									output_2.bind("value").toDataColumn("BAR_CODE");
+									return output_2;
 								})();
 							}
 						},
 						{
 							"constraint": {"rowIndex": 0, "colIndex": 3},
 							"configurator": function(cell){
+								cell.columnName = "PROD_NM";
 								cell.control = (function(){
-									var output_4 = new cpr.controls.Output();
-									output_4.style.css({
+									var output_3 = new cpr.controls.Output();
+									output_3.style.css({
 										"font-size" : "12px",
 										"text-align" : "center"
 									});
-									output_4.bind("value").toDataSet(app.lookup("productList"), "ORIG_NAT", 0);
-									return output_4;
+									output_3.bind("value").toDataColumn("PROD_NM");
+									return output_3;
 								})();
 							}
 						},
 						{
 							"constraint": {"rowIndex": 0, "colIndex": 4},
 							"configurator": function(cell){
+								cell.columnName = "ORIG_NAT";
 								cell.control = (function(){
-									var output_5 = new cpr.controls.Output();
-									output_5.style.css({
+									var output_4 = new cpr.controls.Output();
+									output_4.style.css({
 										"font-size" : "12px",
 										"text-align" : "center"
 									});
-									output_5.bind("value").toDataSet(app.lookup("productList"), "PURC_PR", 0);
-									return output_5;
+									output_4.bind("value").toDataColumn("ORIG_NAT");
+									return output_4;
 								})();
 							}
 						},
 						{
 							"constraint": {"rowIndex": 0, "colIndex": 5},
 							"configurator": function(cell){
+								cell.columnName = "PURC_PR";
 								cell.control = (function(){
-									var output_6 = new cpr.controls.Output();
-									output_6.style.css({
+									var numberEditor_1 = new cpr.controls.NumberEditor("nbe1");
+									numberEditor_1.readOnly = true;
+									numberEditor_1.spinButton = false;
+									numberEditor_1.format = "s#,###";
+									numberEditor_1.enabledInputMask = false;
+									numberEditor_1.style.css({
 										"font-size" : "12px",
 										"text-align" : "center"
 									});
-									output_6.bind("value").toDataSet(app.lookup("productList"), "SALE_PR", 0);
-									return output_6;
+									numberEditor_1.bind("value").toDataColumn("PURC_PR");
+									return numberEditor_1;
 								})();
 							}
 						},
 						{
 							"constraint": {"rowIndex": 0, "colIndex": 6},
 							"configurator": function(cell){
+								cell.columnName = "SALE_PR";
 								cell.control = (function(){
-									var output_7 = new cpr.controls.Output();
-									output_7.style.css({
+									var numberEditor_2 = new cpr.controls.NumberEditor("nbe2");
+									numberEditor_2.readOnly = true;
+									numberEditor_2.spinButton = false;
+									numberEditor_2.format = "s#,###";
+									numberEditor_2.enabledInputMask = false;
+									numberEditor_2.style.css({
 										"font-size" : "12px",
 										"text-align" : "center"
 									});
-									output_7.bind("value").toDataSet(app.lookup("productList"), "SELL_PR", 0);
-									return output_7;
+									numberEditor_2.bind("value").toDataColumn("SALE_PR");
+									return numberEditor_2;
 								})();
 							}
 						},
 						{
 							"constraint": {"rowIndex": 0, "colIndex": 7},
 							"configurator": function(cell){
+								cell.columnName = "SELL_PR";
 								cell.control = (function(){
-									var output_8 = new cpr.controls.Output();
-									output_8.style.css({
+									var numberEditor_3 = new cpr.controls.NumberEditor("nbe3");
+									numberEditor_3.readOnly = true;
+									numberEditor_3.spinButton = false;
+									numberEditor_3.format = "s#,###";
+									numberEditor_3.enabledInputMask = false;
+									numberEditor_3.style.css({
 										"font-size" : "12px",
 										"text-align" : "center"
 									});
-									output_8.bind("value").toDataSet(app.lookup("productList"), "MEM_POINT", 0);
-									return output_8;
+									numberEditor_3.bind("value").toDataColumn("SELL_PR");
+									return numberEditor_3;
 								})();
 							}
 						},
 						{
 							"constraint": {"rowIndex": 0, "colIndex": 8},
 							"configurator": function(cell){
+								cell.columnName = "MEM_POINT";
 								cell.control = (function(){
-									var output_9 = new cpr.controls.Output();
-									output_9.style.css({
+									var numberEditor_4 = new cpr.controls.NumberEditor("nbe4");
+									numberEditor_4.readOnly = true;
+									numberEditor_4.spinButton = false;
+									numberEditor_4.format = "s#,###";
+									numberEditor_4.enabledInputMask = false;
+									numberEditor_4.style.css({
 										"font-size" : "12px",
 										"text-align" : "center"
 									});
-									output_9.bind("value").toDataSet(app.lookup("productList"), "COLOR", 0);
-									return output_9;
+									numberEditor_4.bind("value").toDataColumn("MEM_POINT");
+									return numberEditor_4;
 								})();
 							}
 						},
 						{
 							"constraint": {"rowIndex": 0, "colIndex": 9},
 							"configurator": function(cell){
+								cell.columnName = "COLOR";
 								cell.control = (function(){
-									var output_10 = new cpr.controls.Output();
-									output_10.style.css({
+									var output_5 = new cpr.controls.Output();
+									output_5.style.css({
 										"font-size" : "12px",
 										"text-align" : "center"
 									});
-									output_10.bind("value").toDataSet(app.lookup("productList"), "PROD_SIZE", 0);
-									return output_10;
+									output_5.bind("value").toDataColumn("COLOR");
+									return output_5;
 								})();
 							}
 						},
 						{
 							"constraint": {"rowIndex": 0, "colIndex": 10},
 							"configurator": function(cell){
+								cell.columnName = "PROD_SIZE";
 								cell.control = (function(){
-									var output_11 = new cpr.controls.Output();
-									output_11.style.css({
+									var output_6 = new cpr.controls.Output();
+									output_6.style.css({
 										"font-size" : "12px",
 										"text-align" : "center"
 									});
-									output_11.bind("value").toDataSet(app.lookup("productList"), "CLIENT_NM", 0);
-									return output_11;
+									output_6.bind("value").toDataColumn("PROD_SIZE");
+									return output_6;
+								})();
+							}
+						},
+						{
+							"constraint": {"rowIndex": 0, "colIndex": 11},
+							"configurator": function(cell){
+								cell.columnName = "CLIENT_NM";
+								cell.control = (function(){
+									var output_7 = new cpr.controls.Output();
+									output_7.style.css({
+										"font-size" : "12px",
+										"text-align" : "center"
+									});
+									output_7.bind("value").toDataColumn("CLIENT_NM");
+									return output_7;
+								})();
+							}
+						},
+						{
+							"constraint": {"rowIndex": 0, "colIndex": 1},
+							"configurator": function(cell){
+								cell.columnName = "PROD_CLS_NM";
+								cell.control = (function(){
+									var output_8 = new cpr.controls.Output();
+									output_8.style.css({
+										"font-size" : "12px",
+										"text-align" : "center"
+									});
+									output_8.bind("value").toDataColumn("PROD_CLS_NM");
+									return output_8;
 								})();
 							}
 						}

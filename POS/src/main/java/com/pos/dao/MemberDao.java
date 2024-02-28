@@ -11,4 +11,5 @@ public interface MemberDao {
 	int totalMemCnt();
 	int memInfoExistCntByIdNo(MemberVo memVo);
 	List<MemberVo> doExistMemberSrcMemSerNoByIdNo(MemberVo memVo);
+	void calculateUpdatePoint(MemberVo memVo);
 }

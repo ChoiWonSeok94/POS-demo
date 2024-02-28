@@ -75,6 +75,7 @@
 				<if test="PERS_COP_TY == 2">
 					,BUSI_NO
 				</if>
+				,POINT
 			)
 			VALUES(
 				#{MEMB_SER_NO}
@@ -88,6 +89,7 @@
 				<if test="PERS_COP_TY == 2">
 					,#{BUSI_NO}
 				</if>
+				,'0'
 			)
 		</when>
 		<otherwise>
@@ -175,4 +177,13 @@
 		FROM
 			MEMB_TBL
 	</select>
+	
+	<update id="calculateUpdatePoint" parameterType="com.pos.Vo.MemberVo">
+		UPDATE
+			MEMB_TBL
+		SET
+			POINT = (POINT + #{POINT})
+		WHERE
+			MEMB_SER_NO = #{MEMB_SER_NO}
+	</update>
 </mapper>

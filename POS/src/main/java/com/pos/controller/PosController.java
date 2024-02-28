@@ -79,7 +79,7 @@ public class PosController {
 		
 		JSONObject jsonObj = dataReq.getRequestObject();
 		// 판매관련 + 현금일시 시재금 TB insert
-		salService.calculateSalInsert(jsonObj, salVo, salPayVo, salProVo, cashVo);
+		salService.calculateSalInsert(jsonObj, salVo, salPayVo, salProVo, cashVo, memVo);
 		
 		return new JSONDataView();
 	}
@@ -109,14 +109,15 @@ public class PosController {
 		int memberExist = memService.memInfoExistCntByIdNo(memVo);
 		// 존재한다면
 		if(memberExist > 0) {
-			List<MemberVo> doExistMemberList = memService.doExistMemberSrcMemSerNoByIdNo(memVo);
-			dataReq.setResponse("memberInfo", doExistMemberList);
+			// 존재하는 멤버 정보 가져오기
+//			List<MemberVo> doExistMemberList = memService.doExistMemberSrcMemSerNoByIdNo(memVo);
+			dataReq.setResponse("memberInfo", "doExist");
 			return new JSONDataView();
 		}else {
 			// 약식 신규가입 후 가입한 회원 정보 받아오기
 			List<MemberVo> lastAddMember = memService.addMember(memVo);
 			
-			dataReq.setResponse("MEMB_SER_NO", lastAddMember);
+			dataReq.setResponse("memberInfo", lastAddMember);
 			return new JSONDataView();
 		}
 	}
@@ -192,6 +193,17 @@ public class PosController {
 	@RequestMapping(value="/PosProductSearch.do", method = RequestMethod.GET)
 	public UIView posProductSearch(HttpServletRequest req, HttpServletResponse res, DataRequest dataReq) throws Exception {
 		return new UIView("/ui/PosProductSearch.clx");
+	}
+	
+	// 상품조회 페이지 상품조회
+	@RequestMapping(value = "/searchProductByOptions.do", method = RequestMethod.POST)
+	public JSONDataView searchProductByOptions(DataRequest dataReq) throws Exception {
+		
+		JSONObject jsonObj = dataReq.getRequestObject();
+		
+		List prodList = prodService.searchProductByOptions(jsonObj);
+		dataReq.setResponse("productList", prodList);
+		return new JSONDataView();
 	}
 	
 	// 상품관리 페이지 진입시 상품코드 count +1 반환

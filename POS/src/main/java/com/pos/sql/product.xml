@@ -82,4 +82,44 @@
 		WHERE
 		    BAR_CODE = #{BAR_CODE}
 	</select>
+	
+	<select id="searchProductByOptions" parameterType="map" resultType="map">
+		SELECT
+			A.PROD_CD
+		    ,C.PROD_CLS_NM AS PROD_CLS_NM
+		    ,A.PROD_NM
+		    ,A.PROD_ENG_NM
+		    ,A.ORIG_NAT
+		    ,A.PURC_PR
+		    ,A.SELL_PR
+		    ,A.BAR_CODE
+		    ,B.CLIENT_NM AS CLIENT_NM
+		    ,A.COLOR
+		    ,A.PROD_SIZE
+		    ,A.SALE_OR_NOT
+		    ,A.SALE_PR
+		    ,A.TAXAT_TY
+		    ,A.MEM_POINT
+		FROM
+		    PROD_TBL A
+		    LEFT OUTER JOIN CLIENT_TBL B ON (A.CLIENT_NO = B.CLIENT_NO)
+		    LEFT OUTER JOIN PROD_CLS_TBL C ON (A.PROD_CLS_CD = C.PROD_CLS_CD)
+		WHERE
+			1=1
+			<if test="PROD_CLS_CD != '0' &amp;&amp; PROD_CLS_CD != 0">
+				AND A.PROD_CLS_CD = #{PROD_CLS_CD}
+			</if>
+			<if test="BAR_CODE != ''">
+				AND A.BAR_CODE LIKE '%'||#{BAR_CODE}||'%'
+			</if>
+			<if test="PROD_NM != ''">
+				AND A.PROD_NM LIKE '%'||#{PROD_NM}||'%'
+			</if>
+			<if test="CLIENT_NM != ''">
+				AND B.CLIENT_NM LIKE '%'||#{CLIENT_NM}||'%'
+			</if>
+		ORDER BY
+			A.PROD_CD
+			,A.PROD_CLS_CD
+	</select>
 </mapper>

@@ -3,17 +3,18 @@ package com.pos.service;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.poi.util.SystemOutLogger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cleopatra.json.JSONArray;
 import com.cleopatra.json.JSONObject;
 import com.pos.Vo.CashVo;
+import com.pos.Vo.MemberVo;
 import com.pos.Vo.SalesPayVo;
 import com.pos.Vo.SalesProdVo;
 import com.pos.Vo.SalesVo;
 import com.pos.dao.CashDao;
+import com.pos.dao.MemberDao;
 import com.pos.dao.SalesDao;
 
 @Service
@@ -25,20 +26,23 @@ public class SalesServiceImpl implements SalesService{
 	@Autowired
 	CashDao cashDao;
 	
+	@Autowired
+	MemberDao memDao;
+	
 	@Override
-	public void calculateSalInsert(JSONObject jsonObj, SalesVo salVo, SalesPayVo salPayVo, SalesProdVo salProVo, CashVo cashVo) {
+	public void calculateSalInsert(JSONObject jsonObj, SalesVo salVo, SalesPayVo salPayVo, SalesProdVo salProVo, CashVo cashVo, MemberVo memVo) {
 		
 		int cnt = 0;
+		int memPoint = 0;
+		String memTy = "";
 		JSONArray jsonArray = jsonObj.getJSONArray("sellItem");
 		for(int i=0 ; i < jsonArray.length() ; i++) {
 			
 			String serNo = i + 1 + ""; // 일련번호
 			salProVo.setSER_NO(serNo);
 			salProVo.setPROD_CD(jsonArray.getJSONObject(i).get("BAR_CODE").toString());
-//			salProVo.setpro(jsonArray.getJSONObject(i).get("PROD_NM"));
 			salProVo.setQTY(jsonArray.getJSONObject(i).get("QTY").toString());
 			salProVo.setSALES_PR(jsonArray.getJSONObject(i).get("SELL_PR").toString());
-//			salProVo.set(jsonArray.getJSONObject(i).get("ASELL_PR").toString());
 			salProVo.setSALE_AMT(jsonArray.getJSONObject(i).get("SALE_PR").toString());
 //			 판매상품에는 SALES_AMT가 한개 물품 * 수량의 합산 금액임.
 			salProVo.setSALES_AMT(jsonArray.getJSONObject(i).get("PROD_TBL_SALES_AMT").toString());
@@ -46,7 +50,7 @@ public class SalesServiceImpl implements SalesService{
 			if(i == 0) {
 				// 최초 한번만 리스트에 담아서 insert
 				salProVo.setTRANS_TY(jsonObj.getString("TRANS_TY"));
-				String memTy = jsonObj.getString("MEMB_TY").toString();
+				memTy = jsonObj.getString("MEMB_TY").toString();
 				if(memTy.equals("1")) {
 					salVo.setMEMB_SER_NO(jsonObj.getString("MEMB_SER_NO"));
 					salVo.setMEMB_TY(jsonObj.getString("MEMB_TY"));
@@ -70,7 +74,16 @@ public class SalesServiceImpl implements SalesService{
 			salProVo.setSALES_SER_NO(salVo.getSALES_SER_NO());
 			// 판매상품 테이블 insert
 			salDao.calculateSalProdInsert(salProVo);
+			memPoint += Integer.parseInt(jsonArray.getJSONObject(i).get("MEM_POINT").toString()) * Integer.parseInt(jsonArray.getJSONObject(i).get("QTY").toString());
 		}
+		
+		// 회원일시 회원 포인트 적립 update
+		if(memTy.equals("1")) {
+			memVo.setMEMB_SER_NO(jsonObj.getString("MEMB_SER_NO"));
+			memVo.setPOINT(Integer.toString(memPoint));
+			memDao.calculateUpdatePoint(memVo);
+		}
+		
 		// 판매구분이 현금("1")일 때 시재금 insert
 		if(jsonObj.getString("TRANS_TY").equals("1")) {
 			cashVo.setTER_SER_NO("1");

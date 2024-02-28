@@ -43,4 +43,9 @@ public class MemberDaoImpl implements MemberDao{
 	public List<MemberVo> doExistMemberSrcMemSerNoByIdNo(MemberVo memVo) {
 		return sqlsession.selectList("Member.doExistMemberSrcMemSerNoByIdNo", memVo);
 	}
+
+	@Override
+	public void calculateUpdatePoint(MemberVo memVo) {
+		sqlsession.update("Member.calculateUpdatePoint", memVo);
+	}
 }
