@@ -186,4 +186,13 @@
 		WHERE
 			MEMB_SER_NO = #{MEMB_SER_NO}
 	</update>
+	
+	<select id="getMemberInfoByMemSerNo" parameterType="String" resultType="map">
+		SELECT
+			*
+		FROM
+			MEMB_TBL
+		WHERE
+			MEMB_SER_NO = #{memSerNo}
+	</select>
 </mapper>

@@ -1,6 +1,7 @@
 package com.pos.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,5 +48,10 @@ public class MemberDaoImpl implements MemberDao{
 	@Override
 	public void calculateUpdatePoint(MemberVo memVo) {
 		sqlsession.update("Member.calculateUpdatePoint", memVo);
+	}
+	
+	@Override
+	public Map<String, String> getMemberInfoByMemSerNo(String memSerNo) {
+		return sqlsession.selectOne("Member.getMemberInfoByMemSerNo", memSerNo);
 	}
 }

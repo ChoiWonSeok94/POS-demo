@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.cleopatra.json.JSONArray;
 import com.cleopatra.json.JSONObject;
 import com.cleopatra.protocol.data.DataRequest;
 import com.cleopatra.protocol.data.DataResponse;
@@ -352,12 +353,22 @@ public class PosController {
 	}
 	
 	// 전표 재등록시 페이지 이동과 같이 전체 취소한 물품list 메인 페이지에 set
-	@RequestMapping(value="/reRegisterRecipe.do", method = RequestMethod.GET)
+	@RequestMapping(value="/reRegisterRecipe.do")
 	public UIView reRegisterRecipe(DataRequest dataReq) throws Exception {
 		
 		JSONObject jsonObj = dataReq.getRequestObject();
-		if(jsonObj.getString("MEM_SER_NO") != null) {
+		// 회원이 아닌경우 MEM_SER_NO = ""
+		if(jsonObj.getString("MEM_SER_NO") != "0") {
+			String memSerNo = jsonObj.getString("MEM_SER_NO");
 			System.out.println(jsonObj.getString("MEM_SER_NO"));
+			// 받아온 회원번호로 회원정보 조회
+			Map<String,String> memInfo = memService.getMemberInfoByMemSerNo(memSerNo);
+		}
+		
+		Map<String, String> sellItemList = new HashMap<>();
+		JSONArray jsonArray = jsonObj.getJSONArray("sellItem");
+		for(int i=0 ; i < jsonArray.length() ; i++) {
+			jsonArray.getJSONObject(i).getString("");
 		}
 		System.out.println(jsonObj);
 		return new UIView("/ui/PosMain.clx");

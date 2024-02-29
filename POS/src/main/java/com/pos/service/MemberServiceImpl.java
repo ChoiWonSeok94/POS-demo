@@ -1,6 +1,7 @@
 package com.pos.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -46,6 +47,11 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public List<MemberVo> doExistMemberSrcMemSerNoByIdNo(MemberVo memVo) {
 		return memDao.doExistMemberSrcMemSerNoByIdNo(memVo);
+	}
+
+	@Override
+	public Map<String, String> getMemberInfoByMemSerNo(String memSerNo) {
+		return memDao.getMemberInfoByMemSerNo(memSerNo);
 	}
 	
 	

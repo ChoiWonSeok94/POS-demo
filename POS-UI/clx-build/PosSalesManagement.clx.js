@@ -138,8 +138,8 @@
 					var submission = new cpr.protocols.Submission();
 					submission.action = "/POS/reRegisterRecipe.do";
 					submission.responseType = "javascript";
-					submission.async = false;
-			//		submission.method = 'get';
+			//		submission.async = false;
+					submission.method = 'get';
 					
 					var objArray = [];
 					for(var i=0 ; i < grd2.getRowCount() ; i++){
@@ -157,7 +157,7 @@
 					}
 					
 					// grd1의 회원번호가 '-'이 아닐 때 => 회원인 경우
-					if(grd1.getCellValue(grd1.getSelectedRowIndex(), "MEM_SER_NO") !== '-'){
+					if(grd1.getCellValue(grd1.getSelectedRowIndex(), "MEM_SER_NO") !== ''){
 						var memNum = grd1.getCellValue(grd1.getSelectedRowIndex(), "MEM_SER_NO");
 						var reqObj = {
 							sellItem : objArray
@@ -173,6 +173,7 @@
 					debugger;
 					submission.send();
 					window.location.href = "/POS/reRegisterRecipe.do";
+					
 					
 				}
 				
