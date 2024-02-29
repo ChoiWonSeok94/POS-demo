@@ -139,6 +139,7 @@
 					submission.action = "/POS/reRegisterRecipe.do";
 					submission.responseType = "javascript";
 			//		submission.async = false;
+			//		location.href
 					submission.method = 'get';
 					
 					var objArray = [];
@@ -172,7 +173,7 @@
 					submission.setRequestObject(reqObj);
 					debugger;
 					submission.send();
-					window.location.href = "/POS/reRegisterRecipe.do";
+					location.href = "/POS/reRegisterRecipe.do";
 					
 					
 				}
